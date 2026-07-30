@@ -7,10 +7,10 @@
 <meta name="description" content="טל אוחנה — מהנדס Full-Stack בכיר. בונה מוצרי SaaS מקצה לקצה: React/Next, Vue, NestJS, PostgreSQL עם RLS, תשלומים, Docker ו-CI/CD. זמין לתפקיד בכיר ולפרויקטים כפרילנסר.">
 <meta name="author" content="Tal Ohana">
 <link rel="canonical" href="https://talohana55.github.io/">
-<link rel="icon" type="image/svg+xml" href="https://talohana55.github.io/favicon.svg">
-<link rel="apple-touch-icon" href="https://talohana55.github.io/photo.png">
-<meta name="theme-color" content="#FCFCFA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101114" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="portrait.jpg">
+<meta name="theme-color" content="#12100E" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#080706" media="(prefers-color-scheme: dark)">
 
 <!-- Open Graph — link previews in WhatsApp / LinkedIn / Facebook / Slack -->
 <meta property="og:type" content="profile">
@@ -19,9 +19,9 @@
 <meta property="og:url" content="https://talohana55.github.io/">
 <meta property="og:title" content="טל אוחנה — מהנדס Full-Stack בכיר">
 <meta property="og:description" content="טל אוחנה — מהנדס Full-Stack בכיר. בונה מוצרי SaaS מקצה לקצה: React/Next, Vue, NestJS, PostgreSQL עם RLS, תשלומים, Docker ו-CI/CD. זמין לתפקיד בכיר ולפרויקטים כפרילנסר.">
-<meta property="og:image" content="https://talohana55.github.io/photo.png">
-<meta property="og:image:width" content="400">
-<meta property="og:image:height" content="400">
+<meta property="og:image" content="https://talohana55.github.io/portrait.jpg">
+<meta property="og:image:width" content="560">
+<meta property="og:image:height" content="560">
 <meta property="og:image:alt" content="טל אוחנה">
 <meta property="profile:first_name" content="Tal">
 <meta property="profile:last_name" content="Ohana">
@@ -30,7 +30,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="טל אוחנה — מהנדס Full-Stack בכיר">
 <meta name="twitter:description" content="טל אוחנה — מהנדס Full-Stack בכיר. בונה מוצרי SaaS מקצה לקצה: React/Next, Vue, NestJS, PostgreSQL עם RLS, תשלומים, Docker ו-CI/CD. זמין לתפקיד בכיר ולפרויקטים כפרילנסר.">
-<meta name="twitter:image" content="https://talohana55.github.io/photo.png">
+<meta name="twitter:image" content="https://talohana55.github.io/portrait.jpg">
 
 <!-- Structured data — helps Google show this as a person/profile result -->
 <script type="application/ld+json">
@@ -43,7 +43,7 @@
   "email": "mailto:taloh13@gmail.com",
   "telephone": "+972544436188",
   "url": "https://talohana55.github.io/",
-  "image": "https://talohana55.github.io/photo.png",
+  "image": "https://talohana55.github.io/portrait.jpg",
   "address": { "@type": "PostalAddress", "addressLocality": "Ofakim", "addressCountry": "IL" },
   "sameAs": [
     "https://github.com/talohana55",
@@ -64,412 +64,474 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#FCFCFA;
-    --ink:#16171A;
-    --body:#4A4D55;
-    --muted:#8A8E97;
-    --line:#E7E6E1;
-    --line-soft:#F0EFEB;
-    --accent:#C2410C;
-    --accent-soft:#FBEDE6;
-    --shift:0px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --paper:#101114;
-      --ink:#F3F2EF;
-      --body:#A9ACB3;
-      --muted:#71757D;
-      --line:#26282D;
-      --line-soft:#1B1D21;
-      --accent:#F97316;
-      --accent-soft:#241710;
-    }
-  }
+/* ══ tokens ══════════════════════════════════════════════════════════
+   Warm stone neutrals — NOT cool grey. The previous pass used #FFFFFF
+   and blue-grey text, which is what made it read flat. Warmth lives in
+   the surface tint; the accent stays deep teal. */
+:root{
+--stone-25:#FDFCFA;--stone-50:#FAF8F5;--stone-100:#F4F1EC;--stone-200:#E9E4DC;
+--stone-300:#D6CFC4;--stone-400:#A8A096;--stone-500:#7A736A;--stone-600:#5E5850;
+--stone-700:#47423C;--stone-800:#302C28;--stone-900:#1C1A17;--stone-950:#12100E;
+--teal-50:#E7F3F0;--teal-100:#C6E4DC;--teal-200:#99D1C4;--teal-300:#63B8A8;
+--teal-400:#359C8B;--teal-500:#1B8173;--teal-600:#0D6A5E;--teal-700:#0A554B;--teal-900:#073731;
 
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    font-family:"Heebo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-    background:var(--paper);
-    color:var(--body);
-    line-height:1.7;
-    font-size:16px;
-    font-weight:400;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    font-feature-settings:"kern" 1;
-  }
-  ::selection{background:var(--accent);color:#fff}
+--paper:var(--stone-50);--card:#FFFFFF;--card-2:var(--stone-100);
+--ink:var(--stone-900);--body:var(--stone-700);--muted:var(--stone-600);--faint:var(--stone-500);
+--line:var(--stone-200);--line-soft:var(--stone-100);--line-strong:var(--stone-300);
+--accent:var(--teal-600);--accent-fg:var(--teal-700);--accent-tint:var(--teal-50);--accent-tint-2:var(--teal-100);
+--solid:var(--stone-900);--solid-hover:var(--stone-800);--on-solid:#fff;
+--band:var(--stone-950);--band-card:rgb(255 255 255/.05);--band-line:rgb(255 255 255/.10);
+--band-ink:#F6F3EF;--band-body:#CFC9C1;--band-faint:#A8A096;--band-accent:var(--teal-300);
+--ring:rgb(27 129 115/.26);
+--wash:radial-gradient(90% 70% at 85% -5%,rgb(27 129 115/.28) 0%,rgb(27 129 115/.07) 42%,transparent 72%),radial-gradient(70% 60% at 8% 105%,rgb(99 184 168/.10) 0%,transparent 60%);
+--grain-op:.05;--grain-blend:overlay;
+--font-body:"Heebo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+--font-display:"Frank Ruhl Libre","Heebo",Georgia,serif;
+--font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+--ease:cubic-bezier(.2,.7,.3,1);--dur-fast:140ms;--dur-base:220ms;--dur-reveal:700ms;
+--r-lg:8px;--r-xl:12px;--r-2xl:16px;--tap:44px;
+--sh-xs:0 1px 2px 0 rgb(28 26 23/.06);
+--sh-sm:0 1px 3px 0 rgb(28 26 23/.10),0 1px 2px -1px rgb(28 26 23/.08);
+--sh-md:0 4px 8px -2px rgb(28 26 23/.08),0 2px 4px -2px rgb(28 26 23/.05);
+--sh-lg:0 12px 16px -4px rgb(28 26 23/.08),0 4px 6px -2px rgb(28 26 23/.03);
+--wide:1120px;
+}
+@media (prefers-color-scheme:dark){:root{
+--paper:#100E0C;--card:#1A1714;--card-2:#221E1A;
+--ink:#F6F3EF;--body:#CFC9C1;--muted:#A8A096;--faint:#8C8479;
+--line:#2C2823;--line-soft:#211D19;--line-strong:#3A352F;
+--accent:var(--teal-300);--accent-fg:var(--teal-300);--accent-tint:#0C231F;--accent-tint-2:#103029;
+--solid:var(--stone-25);--solid-hover:#fff;--on-solid:var(--stone-950);
+--band:#080706;--band-card:rgb(255 255 255/.045);--band-line:rgb(255 255 255/.09);
+--grain-op:.07;--grain-blend:soft-light;
+--sh-xs:0 1px 2px 0 rgb(0 0 0/.5);--sh-sm:0 1px 3px 0 rgb(0 0 0/.55);
+--sh-md:0 4px 8px -2px rgb(0 0 0/.5);--sh-lg:0 12px 16px -4px rgb(0 0 0/.55);
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--paper);color:var(--body);font-size:16px;line-height:1.7;letter-spacing:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-wrap:pretty;overflow-x:hidden}
+::selection{background:var(--teal-600);color:#fff}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;color:var(--ink);letter-spacing:-.03em;line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wide);margin-inline:auto;padding-inline:20px}
+@media (min-width:768px){.wrap{padding-inline:40px}}
+.lat{font-weight:500}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 
-  .wrap{max-width:760px;margin:0 auto;padding:0 28px}
+/* ── reveal (staggered, 1 of the 4 atmospheric moves) ── */
+.rv{opacity:0;transform:translateY(16px);transition:opacity var(--dur-reveal) var(--ease),transform var(--dur-reveal) var(--ease)}
+.rv.in{opacity:1;transform:none}
 
-  a{color:inherit}
+/* ── Untitled UI parts, as real CSS ────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9999px;font-weight:500;white-space:nowrap;padding:2px 10px;font-size:14px;line-height:20px;background:var(--card-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.badge--sm{padding:2px 8px;font-size:12px;line-height:18px}
+.badge--brand{background:var(--accent-tint);color:var(--accent-fg);box-shadow:inset 0 0 0 1px var(--accent-tint-2)}
+.badge--on-band{background:var(--band-card);color:var(--band-body);box-shadow:inset 0 0 0 1px var(--band-line)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.dot--live{animation:pulse 2.6s var(--ease) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ring)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 
-  /* ── reveal on scroll ────────────────────────────────── */
-  .rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
-  .rv.in{opacity:1;transform:none}
+.badge-group{display:inline-flex;align-items:center;gap:9px;padding:5px 14px;border-radius:16px;font-size:14px;white-space:nowrap;text-decoration:none;background:var(--band-card);color:var(--band-body);box-shadow:inset 0 0 0 1px var(--band-line)}
 
-  /* ── header ──────────────────────────────────────────── */
-  header{padding:clamp(56px,11vw,104px) 0 clamp(40px,7vw,64px)}
-  .avail{
-    display:inline-flex;align-items:center;gap:9px;
-    font-size:13px;font-weight:500;color:var(--muted);
-    letter-spacing:.02em;margin-bottom:26px;
-  }
-  .dot{
-    width:7px;height:7px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 0 0 var(--accent);animation:pulse 2.6s ease-out infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}
-    70%{box-shadow:0 0 0 8px transparent}
-    100%{box-shadow:0 0 0 0 transparent}
-  }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--tap);padding:10px 18px;border:0;border-radius:var(--r-lg);font-family:var(--font-body);font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),box-shadow var(--dur-base) var(--ease),transform 80ms var(--ease)}
+.btn:active{transform:scale(.985)}
+.btn svg{width:20px;height:20px;flex-shrink:0}
+.btn--primary{background:var(--accent);color:#fff;box-shadow:var(--sh-xs)}
+.btn--primary:hover{background:var(--teal-700)}
+.btn--ghost-band{background:transparent;color:var(--band-ink);box-shadow:inset 0 0 0 1px var(--band-line)}
+.btn--ghost-band:hover{background:var(--band-card)}
+.btn--secondary{background:var(--card);color:var(--body);box-shadow:inset 0 0 0 1px var(--line-strong),var(--sh-xs)}
+.btn--secondary:hover{background:var(--card-2)}
+.btn--link{padding:0;min-height:0;background:none;color:var(--accent-fg);font-size:14px}
+.btn--link:hover{text-decoration:underline;text-underline-offset:3px}
 
-  .hero{display:flex;align-items:flex-start;gap:clamp(20px,4vw,38px)}
-  .hero-text{flex:1;min-width:0}
-  .photo{
-    width:clamp(76px,13vw,104px);height:clamp(76px,13vw,104px);
-    border-radius:50%;align-self:flex-start;
-    object-fit:cover;flex-shrink:0;margin-top:6px;
-    filter:grayscale(1) contrast(1.04);
-    transition:filter .5s ease;
-    background:var(--line-soft);
-  }
-  .photo:hover{filter:grayscale(0) contrast(1)}
+.feat{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;background:var(--accent-tint);color:var(--accent-fg)}
+.feat--md{width:40px;height:40px}
+.feat--lg{width:48px;height:48px}
+.feat--sq{border-radius:10px}
+.feat--on-band{background:var(--band-card);color:var(--band-accent);box-shadow:inset 0 0 0 1px var(--band-line)}
+.feat svg{width:50%;height:50%}
 
-  h1{
-    font-size:clamp(38px,7.5vw,60px);
-    font-weight:800;line-height:1.02;letter-spacing:-.035em;
-    color:var(--ink);
-  }
-  .role{
-    margin-top:14px;font-size:clamp(16px,2.4vw,19px);
-    font-weight:500;color:var(--ink);letter-spacing:-.01em;
-  }
-  .pitch{
-    margin-top:20px;max-width:56ch;font-size:16px;
-    font-weight:300;color:var(--body);line-height:1.75;
-  }
+.card{background:var(--card);border-radius:var(--r-2xl);box-shadow:inset 0 0 0 1px var(--line),var(--sh-xs);padding:24px;transition:box-shadow var(--dur-base) var(--ease),transform var(--dur-base) var(--ease)}
+.card--pad-lg{padding:28px}
+a.card:hover{box-shadow:inset 0 0 0 1px var(--line-strong),var(--sh-md);transform:translateY(-1px)}
 
-  .meta{
-    margin-top:30px;display:flex;flex-wrap:wrap;
-    align-items:center;gap:6px 0;
-    font-size:14.5px;font-weight:400;
-  }
-  .meta a{
-    color:var(--ink);text-decoration:none;
-    border-bottom:1px solid var(--line);
-    padding-bottom:1px;transition:border-color .2s ease,color .2s ease;
-  }
-  .meta a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-  .meta .sep{color:var(--muted);padding:0 11px;user-select:none}
-  .meta .place{color:var(--muted)}
+.check{display:flex;align-items:flex-start;gap:12px;font-size:15px;font-weight:300;color:var(--body)}
+.check__i{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--accent-tint);color:var(--accent-fg);margin-block-start:2px}
+.check__i svg{width:13px;height:13px}
 
-  /* ── stats ───────────────────────────────────────────── */
-  .stats{
-    display:grid;grid-template-columns:repeat(3,1fr);
-    border-top:1px solid var(--line);
-    padding-top:30px;margin-top:0;gap:24px;
-  }
-  .stat b{
-    display:block;font-size:clamp(21px,3.4vw,27px);font-weight:700;
-    color:var(--ink);letter-spacing:-.03em;line-height:1.2;
-  }
-  .stat span{
-    display:block;margin-top:7px;font-size:13.5px;
-    font-weight:300;color:var(--muted);line-height:1.5;
-  }
+/* ── section furniture ── */
+.sec{padding-block:clamp(52px,7vw,88px)}
+.sec--tint{background:var(--card-2)}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:nowrap;margin-block-end:8px}
+.sec-num{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--accent-fg);font-variant-numeric:tabular-nums;flex-shrink:0}
+.sec-kicker{font-size:13.5px;font-weight:600;color:var(--faint);white-space:nowrap}
+.sec-title{font-size:clamp(26px,3.4vw,36px);margin-block-end:14px}
+.sec-lede{font-size:16.5px;font-weight:300;color:var(--muted);max-width:58ch;margin-block-end:36px}
 
-  /* ── sections ────────────────────────────────────────── */
-  section{padding:clamp(44px,7vw,68px) 0;border-top:1px solid var(--line)}
-  h2{
-    font-size:13.5px;font-weight:600;color:var(--muted);
-    margin-bottom:32px;
-    display:flex;align-items:baseline;gap:12px;
-  }
-  h2 .num{
-    font-size:12px;font-weight:700;color:var(--accent);
-    letter-spacing:.06em;font-variant-numeric:tabular-nums;
-  }
+/* ══ HERO — dark full-bleed band ═══════════════════════════════════ */
+.band{position:relative;background:var(--band);overflow:hidden;isolation:isolate}
+.band__wash{position:absolute;inset:0;background:var(--wash);pointer-events:none;z-index:0}
+.band__grain{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:var(--grain-op);mix-blend-mode:var(--grain-blend);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+.band__inner{position:relative;z-index:2;padding-block:clamp(44px,7vw,76px) clamp(40px,6vw,64px)}
+.hero{display:grid;grid-template-columns:1fr auto;gap:clamp(28px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(40px,6.6vw,68px);line-height:1.02;color:var(--band-ink);margin-block:18px 0}
+.hero__role{margin-block-start:16px;font-size:clamp(17px,2vw,21px);font-weight:500;color:var(--band-ink);letter-spacing:-.01em}
+.hero__pitch{margin-block-start:18px;max-width:54ch;font-size:16.5px;font-weight:300;color:var(--band-body)}
+.hero__cta{margin-block-start:32px;display:flex;flex-wrap:wrap;gap:12px}
+.hero__contact{margin-block-start:24px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;font-size:14.5px}
+.hero__contact a{color:var(--band-body);text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:color var(--dur-fast) var(--ease)}
+.hero__contact a:hover{color:var(--band-accent)}
+.hero__contact svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
+.portrait{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.portrait img{display:block;width:clamp(148px,19vw,224px);height:clamp(148px,19vw,224px);border-radius:50%;object-fit:cover;background:var(--band-card)}
 
-  /* ── why ─────────────────────────────────────────────── */
-  .why{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px}
-  .why b{
-    display:block;color:var(--ink);font-weight:600;
-    font-size:16px;letter-spacing:-.01em;margin-bottom:5px;
-  }
-  .why p{font-size:14.5px;font-weight:300;color:var(--body);line-height:1.65}
+/* metrics inside the band */
+.metrics{margin-block-start:clamp(40px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric{padding:20px;border-radius:var(--r-xl);background:var(--band-card);box-shadow:inset 0 0 0 1px var(--band-line)}
+.metric__v{display:block;font-family:var(--font-display);font-size:clamp(24px,2.6vw,30px);color:var(--band-ink);letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums;margin-block-start:14px;white-space:nowrap}
+.metric__l{display:block;margin-block-start:6px;font-size:13px;font-weight:300;color:var(--band-faint);line-height:1.5}
 
-  /* ── projects ────────────────────────────────────────── */
-  .proj{
-    display:block;text-decoration:none;color:inherit;
-    padding:26px 0;border-bottom:1px solid var(--line-soft);
-    transition:opacity .25s ease;
-  }
-  .proj:first-of-type{padding-top:0}
-  .proj:last-of-type{border-bottom:0;padding-bottom:0}
-  .proj-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  .proj-name{
-    font-size:23px;font-weight:700;color:var(--ink);
-    letter-spacing:-.025em;transition:color .22s ease;
-  }
-  .proj-role{font-size:13px;font-weight:400;color:var(--muted)}
-  .proj-cta{
-    margin-inline-start:auto;font-size:12.5px;font-weight:500;
-    color:var(--accent);opacity:0;transform:translateY(2px);
-    transition:opacity .25s ease,transform .25s ease;white-space:nowrap;
-  }
-  .proj p{margin-top:9px;font-size:14.5px;font-weight:300;line-height:1.7;max-width:64ch}
-  a.proj:hover .proj-name{color:var(--accent)}
-  a.proj:hover .proj-cta{opacity:1;transform:none}
-  a.proj:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:4px}
-  @media (hover:none){a.proj .proj-cta{opacity:1;transform:none}}
+/* ══ capabilities ═════════════════════════════════════════════════ */
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cap h3{font-size:18px;margin-block:16px 8px;letter-spacing:-.02em}
+.cap p{font-size:14.5px;font-weight:300;color:var(--muted);line-height:1.65}
 
-  /* ── stack ───────────────────────────────────────────── */
-  .stack{display:flex;flex-wrap:wrap;gap:8px}
-  .stack span{
-    font-size:13.5px;font-weight:400;color:var(--body);
-    background:var(--line-soft);border-radius:6px;
-    padding:6px 12px;transition:background .2s ease,color .2s ease;
-  }
-  .stack span:hover{background:var(--accent-soft);color:var(--accent)}
+/* ══ projects ═════════════════════════════════════════════════════ */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proj{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
+.proj--wide{grid-column:span 3;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,48px);align-items:start}
+.proj__top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.proj__name{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.025em;transition:color var(--dur-base) var(--ease)}
+.proj--wide .proj__name{font-size:clamp(30px,3.4vw,38px)}
+.proj__desc{font-size:14.5px;font-weight:300;line-height:1.7;color:var(--muted)}
+.proj--wide .proj__desc{font-size:16px}
+.proj__tags{display:flex;flex-wrap:wrap;gap:6px}
+.proj__foot{margin-block-start:auto;padding-block-start:6px;display:flex;align-items:center;gap:8px;color:var(--accent-fg);font-size:14px;font-weight:500;opacity:.55;transition:opacity var(--dur-base) var(--ease)}
+.proj__foot svg{width:16px;height:16px}
+a.proj:hover .proj__name{color:var(--accent-fg)}
+a.proj:hover .proj__foot{opacity:1}
+@media (hover:none){.proj__foot{opacity:1}}
+.proj__specs{display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--r-xl);background:var(--card-2)}
+.proj__specs-h{font-size:12.5px;font-weight:600;color:var(--faint)}
 
-  /* ── qualities ───────────────────────────────────────── */
-  .qual{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
-  .qual li{
-    list-style:none;font-size:14.5px;font-weight:300;
-    position:relative;padding-inline-start:20px;line-height:1.6;
-  }
-  .qual li::before{
-    content:"";position:absolute;inset-inline-start:0;top:11px;
-    width:9px;height:1px;background:var(--accent);
-  }
+/* ══ stack, grouped by layer ══════════════════════════════════════ */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stack__h{display:flex;align-items:center;gap:12px;margin-block-end:18px}
+.stack__h b{font-size:16px;font-weight:600;color:var(--ink);white-space:nowrap}
+.stack__items{display:flex;flex-wrap:wrap;gap:7px}
 
-  /* ── closing ─────────────────────────────────────────── */
-  .close{
-    border-top:1px solid var(--line);
-    padding:clamp(44px,7vw,68px) 0 clamp(56px,9vw,88px);
-  }
-  .close h3{
-    font-size:clamp(24px,4.4vw,34px);font-weight:700;
-    color:var(--ink);letter-spacing:-.03em;line-height:1.25;
-  }
-  .close .sub{margin-top:12px;font-size:15px;font-weight:300;color:var(--body)}
-  .close .badge{
-    display:inline-block;font-size:12.5px;font-weight:500;
-    color:var(--accent);background:var(--accent-soft);
-    padding:3px 10px;border-radius:5px;margin-inline-start:4px;
-  }
-  .close .links{
-    margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 12px;
-  }
-  .close .links a{
-    font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;
-    border:1px solid var(--line);border-radius:8px;padding:11px 20px;
-    transition:border-color .22s ease,color .22s ease,background .22s ease;
-  }
-  .close .links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-  .close .links a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .close .links a.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-  .colophon{
-    margin-top:38px;font-size:12.5px;font-weight:300;color:var(--muted);
-  }
+/* ══ qualities ════════════════════════════════════════════════════ */
+.qual-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px}
 
-  /* ── responsive ──────────────────────────────────────── */
-  @media (max-width:640px){
-    .wrap{padding:0 22px}
-    .hero{flex-direction:row-reverse;align-items:center;gap:18px}
-    .photo{margin-top:0}
-    .stats{grid-template-columns:1fr;gap:20px;padding-top:26px}
-    .stat{display:flex;align-items:baseline;gap:12px}
-    .stat b{font-size:20px}
-    .stat span{margin-top:0}
-    .why,.qual{grid-template-columns:1fr}
-    .proj-cta{margin-inline-start:0;width:100%}
-    .meta{font-size:14px}
-    .close .links a{flex:1;text-align:center}
-  }
+/* ══ faq ══════════════════════════════════════════════════════════ */
+.faq{max-width:800px}
+.faq__i{border-block-start:1px solid var(--line)}
+.faq__q{display:flex;align-items:flex-start;gap:20px;width:100%;padding:22px 0;background:none;border:0;cursor:pointer;text-align:start;font-family:var(--font-body);font-size:17px;font-weight:600;color:var(--ink);transition:color var(--dur-fast) var(--ease)}
+.faq__q:hover{color:var(--accent-fg)}
+.faq__q span{flex:1}
+.faq__g{display:inline-flex;width:24px;height:24px;flex-shrink:0;color:var(--faint);transition:transform 320ms var(--ease),color var(--dur-fast) var(--ease)}
+.faq__g svg{width:24px;height:24px}
+.faq__i[data-open="true"] .faq__g{transform:rotate(45deg);color:var(--accent-fg)}
+.faq__a{padding-block-end:24px;font-size:15.5px;font-weight:300;color:var(--muted);max-width:66ch}
 
-  /* ── accessibility & print ───────────────────────────── */
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .rv{opacity:1;transform:none}
-  }
-  @media print{
-    :root{--paper:#fff;--ink:#000;--body:#333;--muted:#666;--line:#ccc;--line-soft:#eee;--accent:#000}
-    body{font-size:11pt;line-height:1.5}
-    .rv{opacity:1;transform:none}
-    .photo{filter:grayscale(1)}
-    .proj-cta,.colophon{display:none}
-    section,.close{padding:18px 0;break-inside:avoid}
-    header{padding:0 0 18px}
-    .wrap{max-width:100%;padding:0}
-    a{text-decoration:none}
-  }
+/* ══ closing ══════════════════════════════════════════════════════ */
+.close-card{display:grid;grid-template-columns:1fr auto;gap:clamp(24px,4vw,48px);align-items:center;padding:clamp(28px,4vw,44px);border-radius:20px;background:var(--band);position:relative;overflow:hidden;isolation:isolate}
+.close-card h2{font-size:clamp(24px,3.2vw,34px);color:var(--band-ink)}
+.close-card p{margin-block-start:12px;font-size:16px;font-weight:300;color:var(--band-body);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.close-card__cta{display:flex;flex-direction:column;gap:10px;min-width:230px;position:relative;z-index:2}
+.foot{padding-block:32px 44px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;border-block-start:1px solid var(--line);margin-block-start:clamp(52px,7vw,88px);font-size:13px;font-weight:300;color:var(--faint)}
+.foot__mark{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.03em;white-space:nowrap}
+.foot__links{display:flex;gap:18px}
+.foot__links a{text-decoration:none;color:var(--muted)}
+.foot__links a:hover{color:var(--accent-fg)}
+
+/* ══ responsive ═══════════════════════════════════════════════════ */
+@media (max-width:1000px){
+.cap-grid{grid-template-columns:1fr 1fr}
+.metrics{grid-template-columns:1fr 1fr}
+.proj-grid{grid-template-columns:1fr 1fr}
+.proj--wide{grid-column:span 2;grid-template-columns:1fr}
+.stack-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+.hero{grid-template-columns:1fr;gap:26px}
+.portrait{order:-1}
+.portrait img{width:132px;height:132px}
+.hero h1{font-size:clamp(34px,10vw,44px)}
+.cap-grid,.qual-grid,.proj-grid{grid-template-columns:1fr}
+.proj--wide{grid-column:span 1}
+.metrics{grid-template-columns:1fr 1fr;gap:10px}
+.metric{padding:16px}
+.close-card{grid-template-columns:1fr}
+.close-card__cta{min-width:0}
+.hero__cta .btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+*,*::before,*::after{animation:none!important;transition:none!important}
+.rv{opacity:1;transform:none}
+}
+@media print{
+:root{--paper:#fff;--card:#fff;--card-2:#fff;--ink:#000;--body:#222;--muted:#333;--faint:#555;--line:#ccc;--line-strong:#bbb;--accent:#0A554B;--accent-fg:#0A554B;--accent-tint:#fff;--accent-tint-2:#fff;--band:#fff;--band-ink:#000;--band-body:#222;--band-faint:#555;--band-card:#fff;--band-line:#ccc;--sh-xs:none;--sh-sm:none;--sh-md:none;--sh-lg:none}
+body{font-size:10.5pt;line-height:1.5;background:#fff}
+.band__wash,.band__grain,.proj__foot{display:none!important}
+.rv{opacity:1!important;transform:none!important}
+.card,.metric,.proj__specs,.close-card{border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid}
+.sec{padding-block:16px}
+.band__inner{padding-block:0 16px}
+.faq__a{display:block!important}
+a{text-decoration:none}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="avail rv"><span class="dot"></span>זמין להצעות — שכיר או פרילנס</div>
-
-    <div class="hero rv">
-      <div class="hero-text">
+<!-- ══ 00 · HERO BAND ══════════════════════════════════════════════ -->
+<header class="band">
+  <div class="band__wash"></div>
+  <div class="band__grain"></div>
+  <div class="wrap band__inner">
+    <div class="hero">
+      <div class="rv">
+        <span class="badge-group"><span class="dot dot--live" style="color:var(--band-accent)"></span>זמין להצעות — שכיר או פרילנס</span>
         <h1>טל אוחנה</h1>
-        <p class="role">מהנדס Full-Stack בכיר · בונה מוצרי SaaS מקצה לקצה</p>
+        <p class="hero__role">מהנדס <span class="lat">Full-Stack</span> בכיר · בונה מוצרי <span class="lat">SaaS</span> מקצה לקצה</p>
+        <p class="hero__pitch">לא רק כותב מסכים — מקים מוצרים שלמים: פרונט בשני פריימוורקים, בק־אנד ב-<span class="lat">NestJS</span>, <span class="lat">PostgreSQL</span> עם אבטחה ברמת שורה, תשלומים אמיתיים ומיקרו־שירותים עם כל תשתית ה-<span class="lat">CI</span> להרצה בפרודקשן.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="mailto:taloh13@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 5.83l6.9 4.83c.58.4.87.61 1.19.69.28.07.57.07.85 0 .32-.08.61-.28 1.19-.69l6.9-4.83M5.67 16.67h8.66c1.4 0 2.1 0 2.64-.28.47-.24.85-.62 1.09-1.09.27-.53.27-1.23.27-2.63V7.33c0-1.4 0-2.1-.27-2.63a2.5 2.5 0 00-1.1-1.1c-.53-.27-1.23-.27-2.63-.27H5.67c-1.4 0-2.1 0-2.64.27-.46.24-.84.63-1.09 1.1-.27.53-.27 1.23-.27 2.63v5.34c0 1.4 0 2.1.27 2.63.25.47.63.85 1.1 1.1.53.27 1.23.27 2.63.27z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>דבר איתי</a>
+          <a class="btn btn--ghost-band" href="#projects">הפרויקטים שבניתי</a>
+        </div>
+        <div class="hero__contact">
+          <a href="mailto:taloh13@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 5.83l6.9 4.83c.58.4.87.61 1.19.69.28.07.57.07.85 0 .32-.08.61-.28 1.19-.69l6.9-4.83M5.67 16.67h8.66c1.4 0 2.1 0 2.64-.28.47-.24.85-.62 1.09-1.09.27-.53.27-1.23.27-2.63V7.33c0-1.4 0-2.1-.27-2.63a2.5 2.5 0 00-1.1-1.1c-.53-.27-1.23-.27-2.63-.27H5.67c-1.4 0-2.1 0-2.64.27-.46.24-.84.63-1.09 1.1-.27.53-.27 1.23-.27 2.63v5.34c0 1.4 0 2.1.27 2.63.25.47.63.85 1.1 1.1.53.27 1.23.27 2.63.27z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>taloh13@gmail.com</a>
+          <a href="tel:+972544436188"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.02 3.6c-.24-.6-.36-.9-.56-1.09a1.67 1.67 0 00-.7-.4c-.26-.07-.55-.03-1.13.05l-.4.06c-.53.08-.8.12-1.04.24a1.9 1.9 0 00-.75.72c-.15.28-.2.6-.28 1.22a9.4 9.4 0 00.1 3.16 16.6 16.6 0 0012.4 12.4c1.03.2 2.1.24 3.16.1.63-.08.94-.12 1.22-.28.28-.15.55-.43.72-.75.12-.23.16-.5.24-1.04l.06-.4c.08-.58.12-.87.05-1.13a1.67 1.67 0 00-.4-.7c-.19-.2-.49-.32-1.09-.56l-1.6-.64c-.72-.29-1.08-.43-1.42-.4-.3.02-.58.13-.82.31-.27.2-.45.53-.8 1.2-.19.35-.6.5-.97.36a10.4 10.4 0 01-6.06-6.06.83.83 0 01.36-.97c.67-.35 1-.53 1.2-.8a1.67 1.67 0 00.31-.82c.03-.34-.11-.7-.4-1.42l-.64-1.6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>054-443-6188</a>
+          <a href="https://github.com/talohana55" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.67A8.33 8.33 0 004.37 16.1c.42.08.57-.18.57-.4v-1.53c-2.32.5-2.81-1.12-2.81-1.12-.38-.97-.93-1.23-.93-1.23-.76-.52.06-.5.06-.5.84.06 1.28.86 1.28.86.75 1.28 1.96.91 2.44.7.08-.55.3-.92.54-1.13-1.85-.21-3.8-.93-3.8-4.13 0-.91.33-1.66.86-2.24-.09-.21-.37-1.06.08-2.2 0 0 .7-.23 2.29.85a7.9 7.9 0 014.17 0c1.59-1.08 2.28-.85 2.28-.85.46 1.14.17 1.99.09 2.2.53.58.85 1.33.85 2.24 0 3.21-1.95 3.92-3.81 4.12.3.26.57.77.57 1.55v2.3c0 .22.15.49.58.4A8.33 8.33 0 0010 1.67z"/></svg>GitHub</a>
+          <a href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4.65 6.67H1.9v10h2.75v-10zM3.28 2.5a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2zM12.6 6.47c-1.34 0-2.24.73-2.6 1.43h-.05V6.67H7.3v10h2.74v-4.95c0-1.3.25-2.57 1.87-2.57 1.6 0 1.62 1.5 1.62 2.65v4.87h2.74v-5.42c0-2.38-.51-4.78-3.67-4.78z"/></svg>LinkedIn</a>
+        </div>
       </div>
-      <img class="photo" src="photo.png" alt="טל אוחנה" width="400" height="400">
+      <div class="portrait rv">
+        <img src="portrait.jpg" alt="טל אוחנה" width="560" height="560" decoding="async">
+        <span class="badge badge--sm badge--on-band">אופקים · רימוט או היברידי</span>
+      </div>
     </div>
 
-    <p class="pitch rv">אני לא רק כותב מסכים — אני מקים מוצרים שלמים: פרונטים בשני פריימוורקים (Vue ו-React/Next), בק־אנד ב-Node/NestJS, PostgreSQL עם אבטחה ברמת שורה, מנגנוני תשלום אמיתיים, ומיקרו־שירותים עם כל תשתית ה-DevOps וה-CI להרצה בפרודקשן.</p>
-
-    <div class="meta rv">
-      <a href="mailto:taloh13@gmail.com">taloh13@gmail.com</a>
-      <span class="sep">·</span>
-      <a href="tel:+972544436188">054-443-6188</a>
-      <span class="sep">·</span>
-      <a href="https://github.com/talohana55" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">·</span>
-      <a href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <div class="meta rv" style="margin-top:10px">
-      <span class="place">אופקים · זמין למרכז עד הרצליה · רימוט או היברידי</span>
+    <div class="metrics">
+      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 5v5l3.33 1.67M17.5 10a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">5+ שנים</b><span class="metric__l">פיתוח מערכות פרודקשן</span></div>
+      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M14.17 17.5v-1.67a3.33 3.33 0 00-3.34-3.33H5a3.33 3.33 0 00-3.33 3.33v1.67M18.33 17.5v-1.67a3.33 3.33 0 00-2.5-3.22M12.92 2.61a3.33 3.33 0 010 6.45M11.25 5.83a3.33 3.33 0 11-6.67 0 3.33 3.33 0 016.67 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">30+ עסקים</b><span class="metric__l">נעזרים במערכת שהובלתי</span></div>
+      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.83 1.67L2.94 11.13c-.31.37-.46.56-.47.72a.42.42 0 00.16.35c.12.1.37.1.86.1h6.68l-.83 6.06 7.89-9.46c.31-.37.46-.56.47-.72a.42.42 0 00-.16-.35c-.12-.1-.37-.1-.86-.1H10l.83-6.06z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">750+</b><span class="metric__l">הזמנות ביום במערכת <span class="lat">KDS</span></span></div>
+      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 12.5v-5M15 8.33a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM5 16.67a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM5 7.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM15 8.33c0 4.17-10 1.67-10 5.84" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">11 שערי <span class="lat">CI</span></b><span class="metric__l">לפני שקוד נכנס לפרודקשן</span></div>
     </div>
   </div>
 </header>
 
+<!-- ══ 01 · CAPABILITIES ═══════════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">01</span><span class="sec-kicker">למה אני</span></div>
+    <h2 class="sec-title rv">מה שקונים כשלוקחים אותי</h2>
+    <p class="sec-lede rv">ארבעה דברים שאפשר לבדוק, לא ארבעה שמות תואר.</p>
+    <div class="cap-grid">
+      <div class="card cap rv">
+        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 10s2.5-5.83 8.33-5.83S18.33 10 18.33 10s-2.5 5.83-8.33 5.83S1.67 10 1.67 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
+        <h3>אחריות מקצה לקצה</h3>
+        <p>לוקח רעיון או דרישה עסקית והופך אותו למוצר עובד בפרודקשן — לבד או כמוביל.</p>
+      </div>
+      <div class="card cap rv">
+        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18.33s6.67-3.33 6.67-8.33V4.58L10 2.08 3.33 4.58V10c0 5 6.67 8.33 6.67 8.33z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.58l1.67 1.67 3.33-3.33" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>עומק טכני אמיתי</h3>
+        <p>ריבוי־דיירים, אבטחת מידע, תשלומים, תשתית ו-<span class="lat">CI</span>. לא באזוורדים — ניסיון מהשטח.</p>
+      </div>
+      <div class="card cap rv">
+        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.5 5.83h15M2.5 10h15M2.5 14.17h9.17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <h3>ראש מוצרי</h3>
+        <p>חושב על המשתמש ועל העסק, לא רק על הקוד — ומתעדף לפי ערך, לא לפי מה שכיף לבנות.</p>
+      </div>
+      <div class="card cap rv">
+        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.83 1.67L2.94 11.13c-.31.37-.46.56-.47.72a.42.42 0 00.16.35c.12.1.37.1.86.1h6.68l-.83 6.06 7.89-9.46c.31-.37.46-.56.47-.72a.42.42 0 00-.16-.35c-.12-.1-.37-.1-.86-.1H10l.83-6.06z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>גמיש ומהיר</h3>
+        <p>שני פריימוורקים בפרונט, בק־אנד ותשתית — נכנס מהר לכל קונטקסט קיים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 · PROJECTS ═══════════════════════════════════════════════ -->
+<section class="sec sec--tint" id="projects">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">02</span><span class="sec-kicker">פרויקטים נבחרים</span></div>
+    <h2 class="sec-title rv">מערכות שרצות עכשיו</h2>
+    <p class="sec-lede rv">מערכות שעלו לאוויר ורצות — לא תרגילים, ולא פרויקטים שנעצרו באמצע.</p>
+    <div class="proj-grid">
+
+      <a class="card card--pad-lg proj proj--wide rv" href="https://github.com/talohana55/joey-case-study" target="_blank" rel="noopener">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="proj__top">
+            <span class="proj__name">Joey</span>
+            <span class="badge badge--brand badge--sm">מפתח יחיד</span>
+            <span class="badge badge--sm">מוצר <span class="lat">SaaS</span> מלא</span>
+          </div>
+          <p class="proj__desc">פלטפורמת הזמנות <span class="lat">QR</span> רב־דיירת למסעדות — מהתפריט בטלפון של הסועד ועד הסליקה ולוח המטבח. בניתי אותה מאפס, לבד, כולל התשתית שהיא רצה עליה.</p>
+          <div class="proj__tags">
+            <span class="badge badge--sm">Next.js 16</span><span class="badge badge--sm">React 19</span><span class="badge badge--sm">NestJS</span><span class="badge badge--sm">PostgreSQL</span><span class="badge badge--sm">Docker</span>
+          </div>
+          <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="proj__specs">
+          <span class="proj__specs-h">מה בפועל יש בה</span>
+          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">NestJS</span> ב-34 מודולים, בק־אנד מודולרי</span></div>
+          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">PostgreSQL</span> עם <span class="lat">RLS</span> — הפרדת דיירים ברמת השורה</span></div>
+          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">audit hash-chain</span> — יומן שינויים שלא ניתן לזיוף</span></div>
+          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>סליקה ב-<span class="lat">Cardcom</span>, תקן <span class="lat">PCI SAQ-A</span></span></div>
+          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>11 שערי <span class="lat">CI</span> ו-<span class="lat">Docker</span> בפרודקשן</span></div>
+        </div>
+      </a>
+
+      <a class="card proj rv" href="https://github.com/talohana55/bono-case-study" target="_blank" rel="noopener">
+        <div class="proj__top"><span class="proj__name">Bono</span><span class="badge badge--brand badge--sm">מוביל פיתוח</span></div>
+        <p class="proj__desc">פלטפורמת ניהול לידים שמשרתת 30+ עסקים. הובלתי את המעבר מ-<span class="lat">V1</span> ל-<span class="lat">V2</span>: דשבורדים בקנה מידה, אינטגרציות ל-<span class="lat">Facebook</span>, <span class="lat">WordPress</span> ו-<span class="lat">SMS</span>.</p>
+        <div class="proj__tags"><span class="badge badge--sm">Vue 3</span><span class="badge badge--sm">TypeScript</span><span class="badge badge--sm">Pinia</span><span class="badge badge--sm">MongoDB</span><span class="badge badge--sm">AWS</span></div>
+        <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>
+
+      <a class="card proj rv" href="https://github.com/talohana55/adgo-case-study" target="_blank" rel="noopener">
+        <div class="proj__top"><span class="proj__name">AdGo</span><span class="badge badge--brand badge--sm">בעלים · ארכיטקט</span></div>
+        <p class="proj__desc"><span class="lat">Ad-tech</span> פוגש <span class="lat">IoT</span>: מיקרו־שירותים מונחי־אירועים, מכשירי <span class="lat">GPS</span> שמדברים פרוטוקול בינארי, ושני פרונטים שמציגים הכל בזמן אמת.</p>
+        <div class="proj__tags"><span class="badge badge--sm">React</span><span class="badge badge--sm">Prisma</span><span class="badge badge--sm">PostgreSQL</span><span class="badge badge--sm">SSE</span><span class="badge badge--sm">Teltonika</span></div>
+        <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </a>
+
+      <div class="card proj rv">
+        <div class="proj__top"><span class="proj__name">ועוד</span><span class="badge badge--sm">שלושה</span></div>
+        <p class="proj__desc"><b style="font-weight:600;color:var(--ink)">Focus</b> — אתר צמיחה בינ״ל ב-<span class="lat">React 19 + Storyblok</span>. <b style="font-weight:600;color:var(--ink)">ParkPrice</b> — <span class="lat">POC</span> לתמחור חניה דינמי עם <span class="lat">property-based testing</span>. <b style="font-weight:600;color:var(--ink)">KDS</b> — מערכת מטבח שמריצה 750+ הזמנות ביום.</p>
+        <div class="proj__tags"><span class="badge badge--sm">Storyblok</span><span class="badge badge--sm">Drizzle</span><span class="badge badge--sm">Vitest</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 · STACK ══════════════════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">03</span><span class="sec-kicker">הסטאק שלי</span></div>
+    <h2 class="sec-title rv">שלוש שכבות, לא רשימה אחת</h2>
+    <p class="sec-lede rv">אני עובד לרוחב כל השכבה — וזה מה שאומר <span class="lat">end-to-end</span> בפועל.</p>
+    <div class="stack-grid">
+      <div class="card rv">
+        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M14.17 15l4.16-5-4.16-5M5.83 5L1.67 10l4.16 5M12.08 2.5L7.92 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>פרונט־אנד</b></div>
+        <div class="stack__items"><span class="badge">TypeScript</span><span class="badge">React 19 / Next.js</span><span class="badge">Vue 3</span><span class="badge">React Native</span><span class="badge">Tailwind</span></div>
+      </div>
+      <div class="card rv">
+        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><ellipse cx="10" cy="5" rx="6.67" ry="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M16.67 10c0 1.38-2.99 2.5-6.67 2.5S3.33 11.38 3.33 10M3.33 5v10c0 1.38 2.99 2.5 6.67 2.5s6.67-1.12 6.67-2.5V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><b>בק־אנד ונתונים</b></div>
+        <div class="stack__items"><span class="badge">Node.js</span><span class="badge">NestJS</span><span class="badge">Express</span><span class="badge">PostgreSQL (RLS)</span><span class="badge">Prisma / Drizzle</span><span class="badge">MongoDB</span><span class="badge">Redis</span><span class="badge">REST + OpenAPI</span></div>
+      </div>
+      <div class="card rv">
+        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.5 7.5h15M2.5 12.5h15M4.17 3.33h11.66c.92 0 1.67.75 1.67 1.67v10c0 .92-.75 1.67-1.67 1.67H4.17c-.92 0-1.67-.75-1.67-1.67V5c0-.92.75-1.67 1.67-1.67z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>תשתית ו-<span class="lat">CI</span></b></div>
+        <div class="stack__items"><span class="badge">Docker</span><span class="badge">AWS / Hetzner</span><span class="badge">GitLab / GitHub CI/CD</span><span class="badge">מיקרו־שירותים / SSE</span><span class="badge">Playwright / Vitest</span><span class="badge">Cardcom</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 · QUALITIES ══════════════════════════════════════════════ -->
+<section class="sec sec--tint">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">04</span><span class="sec-kicker">איך זה לעבוד איתי</span></div>
+    <h2 class="sec-title rv">מה שלא כתוב בקוד</h2>
+    <div class="qual-grid" style="margin-block-start:20px">
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>אחריות ואונרשיפ — סוגר משימות עד הסוף, גם כשזה לא נעים</span></div>
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>תקשורת ישירה ושקופה מול לקוחות וצוות</span></div>
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>נכנס מהר לתחומים חדשים — <span class="lat">IoT</span>, סליקה, <span class="lat">ad-tech</span></span></div>
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>חשיבה ארכיטקטונית לצד תשומת לב לפרטים</span></div>
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>עבודה עצמאית וגם הובלת פיתוח מול צוות</span></div>
+      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>מוכוונות מוצר ותוצאה עסקית, לא רק פיצ׳רים</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 05 · FAQ ════════════════════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">05</span><span class="sec-kicker">שאלות שנשאלות</span></div>
+    <h2 class="sec-title rv">התשובות המשעממות, מראש</h2>
+    <p class="sec-lede rv">כדי שלא נבזבז שיחת היכרות על לוגיסטיקה.</p>
+    <div class="faq">
+      <div class="faq__i rv" data-open="true">
+        <button class="faq__q" type="button" aria-expanded="true"><span>שכיר או פרילנס?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
+        <div class="faq__a">שניהם. אני מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span> כשכיר, ובמקביל לוקח פרויקטים כפרילנסר — יש לי עוסק מורשה, כך שחשבונית זה לא סיפור.</div>
+      </div>
+      <div class="faq__i rv">
+        <button class="faq__q" type="button" aria-expanded="false"><span>איפה אתה יושב, ומה עם משרד?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
+        <div class="faq__a">גר באופקים. מגיע למרכז עד הרצליה, ומעדיף רימוט או היברידי. לפגישות חשובות אני בא — לסטנדאפ יומי פחות הגיוני שאעשה ארבע שעות נסיעה.</div>
+      </div>
+      <div class="faq__i rv">
+        <button class="faq__q" type="button" aria-expanded="false"><span>אתה באמת עושה גם בק־אנד וגם תשתית?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
+        <div class="faq__a">כן, וזה ניתן לבדיקה. ב-<span class="lat">Joey</span> כתבתי את הפרונט, את 34 המודולים בבק, את סכמת ה-<span class="lat">PostgreSQL</span> עם ה-<span class="lat">RLS</span>, את אינטגרציית הסליקה ואת 11 שערי ה-<span class="lat">CI</span>. ה-<span class="lat">case study</span> מפרט מה נשבר בדרך.</div>
+      </div>
+      <div class="faq__i rv">
+        <button class="faq__q" type="button" aria-expanded="false"><span>למה שאאמין למספרים בעמוד הזה?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
+        <div class="faq__a">אל תאמין — תבדוק. לכל פרויקט יש <span class="lat">case study</span> פומבי ב-<span class="lat">GitHub</span> עם החלטות ארכיטקטורה, מה עבד ומה לא. אם משהו לא מסתדר, תשאל אותי בשיחה.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSING ═════════════════════════════════════════════════════ -->
 <div class="wrap">
-  <div class="stats rv">
-    <div class="stat"><b>5+ שנים</b><span>פיתוח מערכות פרודקשן</span></div>
-    <div class="stat"><b>30+ עסקים</b><span>נעזרים במערכת שהובלתי</span></div>
-    <div class="stat"><b>End-to-End</b><span>מארכיטקטורה ועד דיפלוי ותחזוקה</span></div>
-  </div>
-</div>
-
-<section>
-  <div class="wrap">
-    <h2 class="rv"><span class="num">01</span>למה אני</h2>
-    <div class="why">
-      <div class="rv"><b>אחריות מקצה לקצה</b><p>לוקח רעיון או דרישה עסקית והופך אותו למוצר עובד בפרודקשן — לבד או כמוביל.</p></div>
-      <div class="rv"><b>עומק טכני אמיתי</b><p>ריבוי־דיירים, אבטחת מידע, תשלומים, תשתית ו-CI. לא באזוורדים — ניסיון מהשטח.</p></div>
-      <div class="rv"><b>ראש מוצרי</b><p>חושב על המשתמש ועל העסק, לא רק על הקוד — ומתעדף לפי ערך.</p></div>
-      <div class="rv"><b>גמיש ומהיר</b><p>שני פריימוורקים בפרונט, בק־אנד ותשתית — נכנס מהר לכל קונטקסט.</p></div>
+  <div class="close-card rv">
+    <div class="band__wash"></div>
+    <div class="band__grain"></div>
+    <div style="position:relative;z-index:2">
+      <h2>נדבר על מה שאתם צריכים לבנות</h2>
+      <p>מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span><span class="badge badge--sm badge--on-band">עוסק מורשה</span></p>
+    </div>
+    <div class="close-card__cta">
+      <a class="btn btn--primary" href="mailto:taloh13@gmail.com">שלח מייל</a>
+      <a class="btn btn--ghost-band" href="tel:+972544436188">054-443-6188</a>
     </div>
   </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2 class="rv"><span class="num">02</span>פרויקטים נבחרים</h2>
-
-    <a class="proj rv" href="https://github.com/talohana55/joey-case-study" target="_blank" rel="noopener">
-      <div class="proj-head">
-        <span class="proj-name">Joey</span>
-        <span class="proj-role">מפתח יחיד · מוצר SaaS מלא</span>
-        <span class="proj-cta">קרא את ה-case study ↗</span>
-      </div>
-      <p>פלטפורמת הזמנות QR רב־דיירת. Next.js 16 / React 19 בפרונט, NestJS (34 מודולים) בבק, PostgreSQL עם RLS ו-audit hash-chain, תשלומים (Cardcom, PCI SAQ-A), Docker ו-11 שערי CI.</p>
-    </a>
-
-    <a class="proj rv" href="https://github.com/talohana55/bono-case-study" target="_blank" rel="noopener">
-      <div class="proj-head">
-        <span class="proj-name">Bono</span>
-        <span class="proj-role">מוביל פיתוח · הובלת V1→V2</span>
-        <span class="proj-cta">קרא את ה-case study ↗</span>
-      </div>
-      <p>פלטפורמת ניהול לידים המשרתת 30+ עסקים. Vue 3 + TypeScript, Pinia, דשבורדים בקנה מידה, Node + MongoDB + AWS, CI/CD ב-GitLab ואינטגרציות (Facebook/WordPress/SMS).</p>
-    </a>
-
-    <a class="proj rv" href="https://github.com/talohana55/adgo-case-study" target="_blank" rel="noopener">
-      <div class="proj-head">
-        <span class="proj-name">AdGo</span>
-        <span class="proj-role">בעלים · ארכיטקט הפלטפורמה</span>
-        <span class="proj-cta">קרא את ה-case study ↗</span>
-      </div>
-      <p>Ad-tech + IoT: מיקרו־שירותים מונחי־אירועים ושני פרונטים ב-React, מכשירי GPS (Teltonika) בפרוטוקול בינארי, Prisma + PostgreSQL, realtime ב-SSE, Docker בפרודקשן.</p>
-    </a>
-
-    <div class="proj rv">
-      <div class="proj-head">
-        <span class="proj-name">ועוד</span>
-        <span class="proj-role">Focus · ParkPrice · KDS</span>
-      </div>
-      <p>אתר צמיחה בינ״ל (React 19 + Storyblok), POC לתמחור חניה דינמי (Drizzle + property-based testing), ומערכת KDS למסעדות עם 750+ הזמנות ביום.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2 class="rv"><span class="num">03</span>הסטאק שלי</h2>
-    <div class="stack rv">
-      <span>TypeScript</span><span>React 19 / Next.js</span><span>Vue 3</span><span>React Native</span>
-      <span>Node.js</span><span>NestJS</span><span>Express</span><span>PostgreSQL (RLS)</span>
-      <span>Prisma / Drizzle</span><span>MongoDB</span><span>Redis</span><span>REST + OpenAPI</span>
-      <span>מיקרו־שירותים / SSE</span><span>Cardcom</span><span>Docker</span><span>AWS / Hetzner</span>
-      <span>GitLab / GitHub CI/CD</span><span>Tailwind</span><span>Playwright / Vitest</span>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2 class="rv"><span class="num">04</span>יכולות אישיות</h2>
-    <ul class="qual">
-      <li class="rv">אחריות ואונרשיפ — סוגר משימות עד הסוף</li>
-      <li class="rv">תקשורת ישירה ושקופה מול לקוחות וצוות</li>
-      <li class="rv">יכולת ללמוד מהר ולהיכנס לתחומים חדשים</li>
-      <li class="rv">חשיבה ארכיטקטונית לצד תשומת לב לפרטים</li>
-      <li class="rv">עבודה עצמאית וגם הובלת פיתוח</li>
-      <li class="rv">מוכוונות מוצר ותוצאה עסקית</li>
-    </ul>
-  </div>
-</section>
-
-<div class="close">
-  <div class="wrap">
-    <h3 class="rv">מחפש תפקיד Senior Frontend / Full-Stack</h3>
-    <p class="sub rv">זמין כשכיר או כפרילנסר<span class="badge">עוסק מורשה</span></p>
-    <div class="links rv">
-      <a class="primary" href="mailto:taloh13@gmail.com">שלח מייל</a>
-      <a href="tel:+972544436188">054-443-6188</a>
+  <div class="foot">
+    <span class="foot__mark">טל אוחנה</span>
+    <div class="foot__links">
+      <a href="https://github.com/talohana55" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:taloh13@gmail.com">מייל</a>
     </div>
-    <p class="colophon rv">© טל אוחנה · נבנה כעמוד סטטי יחיד, ללא תלויות</p>
+    <span>© טל אוחנה · עמוד סטטי יחיד, ללא תלויות</span>
   </div>
 </div>
 
 <script>
-  (function(){
-    var items = document.querySelectorAll('.rv');
-    if (!('IntersectionObserver' in window) ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      items.forEach(function(el){ el.classList.add('in'); });
-      return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    for (var i=0;i<items.length;i++) items[i].classList.add('in');
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
         if (!e.isIntersecting) return;
-        var el = e.target;
-        var group = el.parentElement ? [].slice.call(el.parentElement.children).filter(function(c){
-          return c.classList.contains('rv');
-        }) : [];
-        var i = Math.max(0, group.indexOf(el));
-        el.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+        var el = e.target, sibs = el.parentElement ? [].filter.call(el.parentElement.children, function(c){return c.classList.contains('rv');}) : [];
+        el.style.transitionDelay = Math.min(Math.max(0, sibs.indexOf(el)) * 70, 280) + 'ms';
         el.classList.add('in');
         io.unobserve(el);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    items.forEach(function(el){ io.observe(el); });
-  })();
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    for (var j=0;j<items.length;j++) io.observe(items[j]);
+  }
+  document.querySelectorAll('.faq__q').forEach(function(b){
+    var item = b.closest('.faq__i'), a = item.querySelector('.faq__a');
+    if (item.dataset.open !== 'true') a.style.display = 'none';
+    b.addEventListener('click', function(){
+      var open = item.dataset.open === 'true';
+      item.dataset.open = open ? 'false' : 'true';
+      b.setAttribute('aria-expanded', open ? 'false' : 'true');
+      a.style.display = open ? 'none' : 'block';
+    });
+  });
+})();
 </script>
-
 </body>
 </html>
