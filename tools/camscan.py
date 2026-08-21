@@ -497,6 +497,18 @@ def deep_probe(ip):
     return host
 
 
+def local_ip():
+    """Own LAN address. Works offline - connect() on UDP only picks a route."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    except OSError:
+        return None
+    finally:
+        s.close()
+
+
 def main():
     ap = argparse.ArgumentParser(description="read-only IP camera recon")
     ap.add_argument("targets", nargs="*", help="IPs to deep-probe (skips the sweep)")
@@ -504,9 +516,22 @@ def main():
     ap.add_argument("--listen", type=int, default=0, help="passive capture seconds (0=skip)")
     ap.add_argument("--json", default="camscan-report.json")
     ap.add_argument("--no-sweep", action="store_true")
+    ap.add_argument("--auto", action="store_true",
+                    help="derive the subnet from this device's own IP "
+                         "(use when joined to a camera's own AP)")
     args = ap.parse_args()
 
     print("camscan - READ ONLY. no logins, no config writes, no resets.\n")
+
+    mine = local_ip()
+    print("[*] this device: %s" % (mine or "unknown - local network access may be blocked"))
+    if args.auto:
+        if not mine:
+            print("    --auto failed: cannot determine own IP")
+            return
+        args.net = str(ipaddress.ip_interface(mine + "/24").network)
+        print("    --auto -> sweeping %s, gateway is probably %s"
+              % (args.net, mine.rsplit(".", 1)[0] + ".1"))
     report = {"net": args.net, "hosts": [], "broadcast": {}, "passive": []}
 
     if args.listen:
