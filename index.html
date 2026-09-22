@@ -9,8 +9,8 @@
 <link rel="canonical" href="https://talohana55.github.io/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="portrait.jpg">
-<meta name="theme-color" content="#12100E" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#080706" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F4F2ED" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15171B" media="(prefers-color-scheme: dark)">
 
 <!-- Open Graph — link previews in WhatsApp / LinkedIn / Facebook / Slack -->
 <meta property="og:type" content="profile">
@@ -62,475 +62,474 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 -->
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ══ tokens ══════════════════════════════════════════════════════════
-   Warm stone neutrals — NOT cool grey. The previous pass used #FFFFFF
-   and blue-grey text, which is what made it read flat. Warmth lives in
-   the surface tint; the accent stays deep teal. */
+/* ══ tokens ═══════════════════════════════════════════════════════════
+   Direction: "the cross-section" — the page is a section drawing of a
+   production system. Vellum paper, graphite ink, one red cut-line.
+   Plex Sans Hebrew + Plex Mono: one family, one baseline for he + en. */
 :root{
---stone-25:#FDFCFA;--stone-50:#FAF8F5;--stone-100:#F4F1EC;--stone-200:#E9E4DC;
---stone-300:#D6CFC4;--stone-400:#A8A096;--stone-500:#7A736A;--stone-600:#5E5850;
---stone-700:#47423C;--stone-800:#302C28;--stone-900:#1C1A17;--stone-950:#12100E;
---teal-50:#E7F3F0;--teal-100:#C6E4DC;--teal-200:#99D1C4;--teal-300:#63B8A8;
---teal-400:#359C8B;--teal-500:#1B8173;--teal-600:#0D6A5E;--teal-700:#0A554B;--teal-900:#073731;
-
---paper:var(--stone-50);--card:#FFFFFF;--card-2:var(--stone-100);
---ink:var(--stone-900);--body:var(--stone-700);--muted:var(--stone-600);--faint:var(--stone-500);
---line:var(--stone-200);--line-soft:var(--stone-100);--line-strong:var(--stone-300);
---accent:var(--teal-600);--accent-fg:var(--teal-700);--accent-tint:var(--teal-50);--accent-tint-2:var(--teal-100);
---solid:var(--stone-900);--solid-hover:var(--stone-800);--on-solid:#fff;
---band:var(--stone-950);--band-card:rgb(255 255 255/.05);--band-line:rgb(255 255 255/.10);
---band-ink:#F6F3EF;--band-body:#CFC9C1;--band-faint:#A8A096;--band-accent:var(--teal-300);
---ring:rgb(27 129 115/.26);
---wash:radial-gradient(90% 70% at 85% -5%,rgb(27 129 115/.28) 0%,rgb(27 129 115/.07) 42%,transparent 72%),radial-gradient(70% 60% at 8% 105%,rgb(99 184 168/.10) 0%,transparent 60%);
---grain-op:.05;--grain-blend:overlay;
---font-body:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
---font-display:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
---font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
---ease:cubic-bezier(.2,.7,.3,1);--dur-fast:140ms;--dur-base:220ms;--dur-reveal:700ms;
---r-lg:8px;--r-xl:12px;--r-2xl:16px;--tap:44px;
---sh-xs:0 1px 2px 0 rgb(28 26 23/.06);
---sh-sm:0 1px 3px 0 rgb(28 26 23/.10),0 1px 2px -1px rgb(28 26 23/.08);
---sh-md:0 4px 8px -2px rgb(28 26 23/.08),0 2px 4px -2px rgb(28 26 23/.05);
---sh-lg:0 12px 16px -4px rgb(28 26 23/.08),0 4px 6px -2px rgb(28 26 23/.03);
---wide:1120px;
+--bg:#F4F2ED;--surface:#FBFAF7;--ink:#1B1D21;--body:#3F434A;--mid:#6B6F76;
+--rule:#C4C1B8;--soft:#DDD9D0;--cut:#D14A22;--ok:#1E6F4F;--ok-bg:#E6F1EC;
+--band:#1B1D21;--band-ink:#F4F2ED;--band-mid:#A9ACB2;--lit:#1B1D21;--lit-ink:#F4F2ED;--lit-mid:#A9ACB2;
+--sans:"IBM Plex Sans Hebrew",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+--mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+--ease:cubic-bezier(.2,.7,.3,1);--ease-emph:cubic-bezier(.2,0,0,1);
+--fast:140ms;--base:220ms;--dur:900ms;--stagger:80ms;
+--gap:40px;--slab:64px;--wide:1328px;--pad:20px;--tap:44px;
+--p:0; /* M1 progress, 0 = solid block, 1 = exploded. Set by JS on desktop. */
 }
 @media (prefers-color-scheme:dark){:root{
---paper:#100E0C;--card:#1A1714;--card-2:#221E1A;
---ink:#F6F3EF;--body:#CFC9C1;--muted:#A8A096;--faint:#8C8479;
---line:#2C2823;--line-soft:#211D19;--line-strong:#3A352F;
---accent:var(--teal-300);--accent-fg:var(--teal-300);--accent-tint:#0C231F;--accent-tint-2:#103029;
---solid:var(--stone-25);--solid-hover:#fff;--on-solid:var(--stone-950);
---band:#080706;--band-card:rgb(255 255 255/.045);--band-line:rgb(255 255 255/.09);
---grain-op:.07;--grain-blend:soft-light;
---sh-xs:0 1px 2px 0 rgb(0 0 0/.5);--sh-sm:0 1px 3px 0 rgb(0 0 0/.55);
---sh-md:0 4px 8px -2px rgb(0 0 0/.5);--sh-lg:0 12px 16px -4px rgb(0 0 0/.55);
+--bg:#15171B;--surface:#1C1F24;--ink:#ECEAE4;--body:#C9C7C1;--mid:#9A9DA3;
+--rule:#34373E;--soft:#262930;--cut:#E8623A;--ok:#4FA57E;--ok-bg:#16302A;
+--band:#ECEAE4;--band-ink:#15171B;--band-mid:#5F6268;--lit:#ECEAE4;--lit-ink:#15171B;--lit-mid:#5F6268;
 }}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{font-family:var(--font-body);background:var(--paper);color:var(--body);font-size:16px;line-height:1.7;letter-spacing:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-wrap:pretty;overflow-x:hidden}
-::selection{background:var(--teal-600);color:#fff}
-h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;color:var(--ink);letter-spacing:-.03em;line-height:1.15}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.wrap{max-width:var(--wide);margin-inline:auto;padding-inline:20px}
-@media (min-width:768px){.wrap{padding-inline:40px}}
-.lat{font-weight:500}
-.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--body);font-size:16px;line-height:1.7;letter-spacing:0;-webkit-font-smoothing:antialiased;text-wrap:pretty;overflow-x:hidden}
+::selection{background:var(--cut);color:#fff}
+h1,h2,h3{color:var(--ink);font-weight:700;line-height:1.2;letter-spacing:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cut);outline-offset:3px}
+svg{display:inline-block;flex-shrink:0}
+.m{font-family:var(--mono);direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.lat{direction:ltr;unicode-bidi:isolate}
+.wrap{max-width:var(--wide);margin-inline:auto;padding-inline:var(--pad)}
+@media(min-width:768px){:root{--pad:40px}}
+@media(min-width:1200px){:root{--pad:56px}}
+.kick{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--cut);direction:ltr;unicode-bidi:isolate}
+.sub{font-size:13px;color:var(--mid);font-weight:500}
+.sec{padding-block-start:clamp(40px,6vw,64px)}
+.sec-head{display:flex;flex-direction:column;gap:6px;margin-block-end:14px}
+.sec-head .row{display:flex;align-items:baseline;gap:12px}
+.sec-head h2{font-size:clamp(26px,3vw,32px)}
+.lede{font-size:16px;color:var(--mid);max-width:60ch}
 
-/* ── reveal (staggered, 1 of the 4 atmospheric moves) ── */
-.rv{opacity:0;transform:translateY(16px);transition:opacity var(--dur-reveal) var(--ease),transform var(--dur-reveal) var(--ease)}
-.rv.in{opacity:1;transform:none}
-
-/* ── Untitled UI parts, as real CSS ────────────────────────────────── */
-.badge{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9999px;font-weight:500;white-space:nowrap;padding:2px 10px;font-size:14px;line-height:20px;background:var(--card-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
-.badge--sm{padding:2px 8px;font-size:12px;line-height:18px}
-.badge--brand{background:var(--accent-tint);color:var(--accent-fg);box-shadow:inset 0 0 0 1px var(--accent-tint-2)}
-.badge--on-band{background:var(--band-card);color:var(--band-body);box-shadow:inset 0 0 0 1px var(--band-line)}
-.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
-.dot--live{animation:pulse 2.6s var(--ease) infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ring)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
-
-.badge-group{display:inline-flex;align-items:center;gap:9px;padding:5px 14px;border-radius:16px;font-size:14px;white-space:nowrap;text-decoration:none;background:var(--band-card);color:var(--band-body);box-shadow:inset 0 0 0 1px var(--band-line)}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--tap);padding:10px 18px;border:0;border-radius:var(--r-lg);font-family:var(--font-body);font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),box-shadow var(--dur-base) var(--ease),transform 80ms var(--ease)}
+/* ── primitives (Button / Badge only; composition is the page's) ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--tap);padding:10px 18px;border:0;border-radius:3px;font:inherit;font-size:15px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background var(--fast) var(--ease),color var(--fast) var(--ease),transform 80ms var(--ease)}
 .btn:active{transform:scale(.985)}
-.btn svg{width:20px;height:20px;flex-shrink:0}
-.btn--primary{background:var(--accent);color:#fff;box-shadow:var(--sh-xs)}
-.btn--primary:hover{background:var(--teal-700)}
-.btn--ghost-band{background:transparent;color:var(--band-ink);box-shadow:inset 0 0 0 1px var(--band-line)}
-.btn--ghost-band:hover{background:var(--band-card)}
-.btn--secondary{background:var(--card);color:var(--body);box-shadow:inset 0 0 0 1px var(--line-strong),var(--sh-xs)}
-.btn--secondary:hover{background:var(--card-2)}
-.btn--link{padding:0;min-height:0;background:none;color:var(--accent-fg);font-size:14px}
-.btn--link:hover{text-decoration:underline;text-underline-offset:3px}
+.btn svg{width:18px;height:18px}
+.btn--primary{background:var(--ink);color:var(--bg)}
+.btn--primary:hover{background:var(--cut);color:#fff}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule);font-weight:500}
+.btn--ghost:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.btn--icon{width:var(--tap);padding:0}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border-radius:3px;background:var(--ok-bg);color:var(--ok);font-size:13px;font-weight:500;white-space:nowrap}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink);position:relative;padding-block-end:2px}
+.link::after{content:"";position:absolute;inset-inline:0;bottom:0;height:1.5px;background:var(--cut);transform-origin:right;transform:scaleX(1);transition:transform var(--fast) var(--ease)}
+.link:hover::after{transform:scaleX(.6)}
+.link svg{width:14px;height:14px;transition:transform var(--fast) var(--ease)}
+.link:hover svg{transform:translate(-2px,-2px)}
 
-.feat{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;background:var(--accent-tint);color:var(--accent-fg)}
-.feat--md{width:40px;height:40px}
-.feat--lg{width:48px;height:48px}
-.feat--sq{border-radius:10px}
-.feat--on-band{background:var(--band-card);color:var(--band-accent);box-shadow:inset 0 0 0 1px var(--band-line)}
-.feat svg{width:50%;height:50%}
+/* ── top bar ── */
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-block-end:1px solid var(--rule)}
+.top .wrap{height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top__id{display:flex;align-items:baseline;gap:12px;min-width:0}
+.top__id b{font-size:17px;color:var(--ink)}
+.top__id span{display:none}
+.top__act{display:flex;align-items:center;gap:8px}
+.top__act .badge,.top__txt,.top__soc{display:none}
+.top__act .btn--ghost{font-size:13px;min-height:36px;padding:0 12px}
+@media(min-width:768px){.top .wrap{height:60px}.top__id span{display:inline}.top__act .btn--icon{display:none}.top__txt{display:inline-flex}}
+@media(min-width:1100px){.top__act .badge{display:inline-flex}.top__soc{display:flex;gap:4px}.top__soc a{font-size:13px;color:var(--mid);padding:0 6px}.top__soc a:hover{color:var(--ink)}}
 
-.card{background:var(--card);border-radius:var(--r-2xl);box-shadow:inset 0 0 0 1px var(--line),var(--sh-xs);padding:24px;transition:box-shadow var(--dur-base) var(--ease),transform var(--dur-base) var(--ease)}
-.card--pad-lg{padding:28px}
-a.card:hover{box-shadow:inset 0 0 0 1px var(--line-strong),var(--sh-md);transform:translateY(-1px)}
+/* ── hero ── */
+.hero .wrap{padding-block:28px 24px;position:relative;display:grid;gap:32px;align-items:end}
+.hero .wrap::before{content:"";position:absolute;inset-inline-start:var(--pad);top:28px;bottom:24px;width:1.5px;background:var(--cut)}
+.hero__txt{display:flex;flex-direction:column;gap:14px;padding-inline-start:18px}
+.hero h1{font-size:clamp(36px,5.2vw,60px);line-height:1.08;max-width:16ch}
+.hero p{font-size:clamp(15px,1.3vw,18px);max-width:56ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:10px;margin-block-start:4px}
+.hero__badge{display:inline-flex}
+.block{display:none;flex-direction:column;align-items:flex-start;gap:10px}
+.block span:first-child{font-family:var(--mono);font-size:11px;color:var(--mid);direction:ltr}
+.block div{width:300px;height:40px;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:13px;font-weight:600;margin-block-start:-1.5px}
+.block div:first-of-type{margin-block-start:0;background:var(--lit);color:var(--lit-ink)}
+.block div i{font-family:var(--mono);font-style:normal;font-size:10px;font-weight:400;color:var(--mid);direction:ltr}
+.block div:first-of-type i{color:var(--lit-mid)}
+@media(min-width:1024px){.hero .wrap{grid-template-columns:minmax(0,1fr) 420px;gap:48px;padding-block:56px 40px}.hero .wrap::before{top:56px;bottom:40px}.hero__txt{padding-inline-start:28px;gap:18px}.hero__badge{display:none}.block{display:flex}}
 
-.check{display:flex;align-items:flex-start;gap:12px;font-size:15px;font-weight:300;color:var(--body)}
-.check__i{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--accent-tint);color:var(--accent-fg);margin-block-start:2px}
-.check__i svg{width:13px;height:13px}
+/* ── numbers strip ── */
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-block-start:1.5px solid var(--ink);border-block-end:1px solid var(--rule)}
+.nums div{padding:12px 10px;display:flex;flex-direction:column}
+.nums div:not(:nth-child(3n+1)){border-inline-start:1px solid var(--soft)}
+.nums div:nth-child(n+4){border-block-start:1px solid var(--soft)}
+.nums b{font-family:var(--mono);font-weight:500;font-size:26px;color:var(--ink);line-height:1.1;direction:ltr;unicode-bidi:isolate}
+.nums span{font-size:12px}
+.nums i{display:none;font-family:var(--mono);font-style:normal;font-size:10px;color:var(--mid);direction:ltr}
+@media(min-width:768px){.nums{grid-template-columns:repeat(6,minmax(0,1fr))}.nums div{padding:18px 16px 16px;gap:2px}.nums div:not(:nth-child(3n+1)),.nums div:not(:first-child){border-inline-start:1px solid var(--soft)}.nums div:nth-child(n+4){border-block-start:0}.nums b{font-size:34px}.nums span{font-size:13px}.nums i{display:block}}
 
-/* ── section furniture ── */
-.sec{padding-block:clamp(52px,7vw,88px)}
-.sec--tint{background:var(--card-2)}
-.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:nowrap;margin-block-end:8px}
-.sec-num{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--accent-fg);font-variant-numeric:tabular-nums;flex-shrink:0}
-.sec-kicker{font-size:13.5px;font-weight:600;color:var(--faint);white-space:nowrap}
-.sec-title{font-size:clamp(26px,3.4vw,36px);margin-block-end:14px}
-.sec-lede{font-size:16.5px;font-weight:300;color:var(--muted);max-width:58ch;margin-block-end:36px}
+/* ── the section: sticky figure + chapters ── */
+.cut .wrap{display:grid;gap:28px;align-items:start;padding-block-start:28px}
+@media(min-width:1024px){.cut .wrap{grid-template-columns:480px minmax(0,1fr);gap:72px;padding-block-start:48px}}
+.figwrap{display:flex;flex-direction:column;gap:14px}
+@media(min-width:1024px){.figwrap{position:sticky;top:84px}}
+.fig{position:relative;display:flex;flex-direction:column;gap:var(--gap);padding-inline-start:28px}
+.fig::before{content:"";position:absolute;inset-inline-start:6px;top:0;bottom:0;width:1.5px;background:var(--cut)}
+.fig::after,.fig>i{content:"";position:absolute;inset-inline-start:1px;width:10px;height:10px;border:1.5px solid var(--cut);border-radius:50%;background:var(--bg)}
+.fig::after{top:-5px}.fig>i{bottom:-5px}
+.layer{position:relative;height:var(--slab);border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;
+  --speed:calc(1 + .45 * var(--i) / 3);
+  --pi:clamp(0,(var(--p) - var(--i) * .08) / .76 * var(--speed),1);
+  transform:translateY(calc(-1 * var(--gap) * var(--i) * (1 - var(--pi))));
+  transition:background var(--base) var(--ease),color var(--base) var(--ease);will-change:transform}
+.layer:nth-child(1){--i:0}.layer:nth-child(2){--i:1}.layer:nth-child(3){--i:2}.layer:nth-child(4){--i:3}
+.layer::before{content:"";position:absolute;inset-inline-start:50%;top:calc(-1 * var(--gap) - 1.5px);height:var(--gap);width:1.5px;background:var(--ink);transform-origin:bottom;transform:scaleY(var(--pi))}
+.layer:first-child::before{display:none}
+.layer__t{display:flex;align-items:baseline;gap:10px;font-size:15px;font-weight:600;white-space:nowrap}
+.layer__t i{font-family:var(--mono);font-style:normal;font-size:11px;font-weight:400;color:var(--mid);direction:ltr}
+.layer__v{font-family:var(--mono);font-size:9px;max-width:52%;color:var(--mid);direction:ltr;unicode-bidi:isolate;text-align:right;opacity:clamp(0,(var(--pi) - .6) / .4,1);transform:translateX(calc((1 - var(--pi)) * -8px))}
+.layer__p{white-space:nowrap;position:absolute;inset-inline-start:calc(50% + 10px);top:calc(-1 * var(--gap) / 2);transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--mid);direction:ltr;opacity:clamp(0,(var(--pi) - .6) / .4,1)}
+.layer.lit{background:var(--lit);color:var(--lit-ink)}
+.layer.lit .layer__t i,.layer.lit .layer__v{color:var(--lit-mid)}
+.fig.eased .layer{transition:transform var(--dur) var(--ease) calc(var(--i) * var(--stagger)),background var(--base) var(--ease),color var(--base) var(--ease)}
+.fig.eased .layer::before,.fig.eased .layer__v{transition:transform var(--dur) var(--ease) calc(var(--i) * var(--stagger) + 200ms),opacity var(--dur) var(--ease) calc(var(--i) * var(--stagger) + 300ms)}
+.fig__legend{display:flex;justify-content:space-between;padding-inline-start:28px;font-family:var(--mono);font-size:10px;color:var(--mid);direction:ltr}
+@media(min-width:1024px){.layer{height:72px}.layer__t{font-size:16px}.layer__v{font-size:11px;max-width:none}}
 
-/* ══ HERO — dark full-bleed band ═══════════════════════════════════ */
-.band{position:relative;background:var(--band);overflow:hidden;isolation:isolate}
-.band__wash{position:absolute;inset:0;background:var(--wash);pointer-events:none;z-index:0}
-.band__grain{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:var(--grain-op);mix-blend-mode:var(--grain-blend);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
-.band__inner{position:relative;z-index:2;padding-block:clamp(44px,7vw,76px) clamp(40px,6vw,64px)}
-.hero{display:grid;grid-template-columns:1fr auto;gap:clamp(28px,5vw,64px);align-items:center}
-.hero h1{font-size:clamp(40px,6.6vw,68px);line-height:1.02;color:var(--band-ink);margin-block:18px 0}
-.hero__role{margin-block-start:16px;font-size:clamp(17px,2vw,21px);font-weight:500;color:var(--band-ink);letter-spacing:-.01em}
-.hero__pitch{margin-block-start:18px;max-width:54ch;font-size:16.5px;font-weight:300;color:var(--band-body)}
-.hero__cta{margin-block-start:32px;display:flex;flex-wrap:wrap;gap:12px}
-.hero__contact{margin-block-start:24px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;font-size:14.5px}
-.hero__contact a{color:var(--band-body);text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:color var(--dur-fast) var(--ease)}
-.hero__contact a:hover{color:var(--band-accent)}
-.hero__contact svg{width:16px;height:16px;opacity:.7;flex-shrink:0}
-.portrait{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:14px}
-.portrait img{display:block;width:clamp(148px,19vw,224px);height:clamp(148px,19vw,224px);border-radius:50%;object-fit:cover;background:var(--band-card)}
+.chapters{display:flex;flex-direction:column}
+.ch{padding-block:28px;border-block-start:1.5px solid var(--ink);display:flex;flex-direction:column;gap:14px}
+.ch__chips{display:flex;gap:6px;direction:ltr}
+.ch__chips span{flex:1;height:28px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;border:1.5px solid var(--ink);color:var(--mid)}
+.ch__chips span.on{background:var(--lit);color:var(--lit-ink)}
+.ch__h{display:flex;align-items:baseline;gap:12px}
+.ch__h h2{font-size:clamp(24px,2.4vw,30px)}
+.ch__h .en{margin-inline-start:auto;font-family:var(--mono);font-size:11px;color:var(--mid);direction:ltr}
+.ch__lead{font-size:clamp(15px,1.2vw,17px);max-width:62ch}
+.plain{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.65;color:var(--mid);max-width:62ch}
+.plain::before{content:"";flex-shrink:0;width:18px;height:1.5px;background:var(--cut);margin-block-start:11px}
+.ev{display:flex;flex-direction:column;margin-block-start:6px}
+.ev a{display:flex;flex-direction:column;gap:4px;padding:12px 0;border-block-start:1px solid var(--soft);transition:color var(--fast) var(--ease)}
+.ev a:hover .ev__n{color:var(--cut)}
+.ev__h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.ev__h>span{display:flex;gap:8px;align-items:baseline}
+.ev__n{font-size:15px;font-weight:600;color:var(--ink);direction:ltr;unicode-bidi:isolate}
+.ev__r{font-size:12px;color:var(--mid)}
+.ev__l{font-size:14px;line-height:1.55}
+.ev__tag{font-family:var(--mono);font-size:11px;color:var(--mid);direction:ltr;unicode-bidi:isolate}
+.ev svg{width:14px;height:14px;color:var(--cut)}
+.ev a>svg{display:none}
+@media(min-width:1024px){.ch{padding-block:40px}.ch__chips{display:none}.ev a{display:grid;grid-template-columns:150px minmax(0,1fr) 220px 20px;gap:16px;align-items:center}.ev__h{flex-direction:column;align-items:flex-start;gap:2px}.ev__h>span{flex-direction:column;gap:2px;align-items:flex-start}.ev__h svg{display:none}.ev__tag{order:3}.ev a>svg{display:block;order:4}}
 
-/* metrics inside the band */
-.metrics{margin-block-start:clamp(40px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.metric{padding:20px;border-radius:var(--r-xl);background:var(--band-card);box-shadow:inset 0 0 0 1px var(--band-line)}
-.metric__v{display:block;font-family:var(--font-display);font-size:clamp(24px,2.6vw,30px);color:var(--band-ink);letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums;margin-block-start:14px;white-space:nowrap}
-.metric__l{display:block;margin-block-start:6px;font-size:13px;font-weight:300;color:var(--band-faint);line-height:1.5}
+/* ── systems ── */
+.sys{display:grid;gap:0}
+@media(min-width:1024px){.sys{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0 56px}}
+.proj{display:flex;flex-direction:column;gap:10px;padding-block:22px;border-block-start:1px solid var(--rule)}
+.proj__h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.proj__h h3{font-size:clamp(22px,2vw,26px);direction:ltr;unicode-bidi:isolate}
+.proj__h .sub{font-size:13px}
+.dots{margin-inline-start:auto;font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:2px;direction:ltr}
+.proj p{font-size:15px;max-width:70ch}
+.proj__tags{font-family:var(--mono);font-size:11px;color:var(--mid);direction:ltr;unicode-bidi:isolate}
+.inside{display:flex;flex-direction:column;gap:8px;margin-block-start:6px}
+.inside>span{font-family:var(--mono);font-size:11px;color:var(--mid);direction:ltr}
+.inside ul{list-style:none;display:grid;gap:6px 24px}
+.inside li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.6}
+.inside li::before{content:"";flex-shrink:0;width:6px;height:6px;margin-block-start:8px;background:var(--cut)}
+@media(min-width:768px){.inside ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.more{padding-block-start:18px;border-block-start:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+.more b{font-size:14px;color:var(--ink)}
+.more span{font-size:13px;line-height:1.65}
 
-/* ══ capabilities ═════════════════════════════════════════════════ */
-.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.cap h3{font-size:18px;margin-block:16px 8px;letter-spacing:-.02em}
-.cap p{font-size:14.5px;font-weight:300;color:var(--muted);line-height:1.65}
+/* ── not in code + faq ── */
+.two{display:grid;gap:40px;align-items:start}
+@media(min-width:1024px){.two{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:56px}}
+.notcode{list-style:none;display:flex;flex-direction:column}
+.notcode li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.65;padding:8px 0;border-block-start:1px solid var(--soft)}
+.notcode li i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--mid);width:18px;flex-shrink:0;margin-block-start:4px;direction:ltr}
+.faq{display:grid;gap:0 40px}
+@media(min-width:768px){.faq{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.faq div{display:flex;flex-direction:column;gap:6px;padding:14px 0;border-block-start:1px solid var(--soft)}
+.faq h3{font-size:16px;font-weight:600}
+.faq p{font-size:14px}
 
-/* ══ projects ═════════════════════════════════════════════════════ */
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.proj{display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit}
-.proj--wide{grid-column:span 3;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,48px);align-items:start}
-.proj__top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.proj__name{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.025em;transition:color var(--dur-base) var(--ease)}
-.proj--wide .proj__name{font-size:clamp(30px,3.4vw,38px)}
-.proj__desc{font-size:14.5px;font-weight:300;line-height:1.7;color:var(--muted)}
-.proj--wide .proj__desc{font-size:16px}
-.proj__tags{display:flex;flex-wrap:wrap;gap:6px}
-.proj__foot{margin-block-start:auto;padding-block-start:6px;display:flex;align-items:center;gap:8px;color:var(--accent-fg);font-size:14px;font-weight:500;opacity:.55;transition:opacity var(--dur-base) var(--ease)}
-.proj__foot svg{width:16px;height:16px}
-a.proj:hover .proj__name{color:var(--accent-fg)}
-a.proj:hover .proj__foot{opacity:1}
-@media (hover:none){.proj__foot{opacity:1}}
-.proj__specs{display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--r-xl);background:var(--card-2)}
-.proj__specs-h{font-size:12.5px;font-weight:600;color:var(--faint)}
+/* ── contact band + footer ── */
+.band{position:relative;background:var(--band);color:var(--band-ink);padding:28px 20px;display:flex;flex-direction:column;gap:20px}
+.band::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:4px;background:var(--cut)}
+.band h2{color:var(--band-ink);font-size:clamp(24px,2.4vw,30px)}
+.band .sub{color:var(--band-mid);font-size:14px;font-weight:400}
+.band__cta{display:flex;gap:10px;flex-wrap:wrap}
+.band .btn--primary{background:var(--band-ink);color:var(--band)}
+.band .btn--primary:hover{background:var(--cut);color:#fff}
+.band .btn--ghost{color:var(--band-ink);box-shadow:inset 0 0 0 1px var(--band-mid)}
+.band .btn--ghost:hover{box-shadow:inset 0 0 0 1px var(--band-ink)}
+@media(min-width:768px){.band{padding:40px 48px;flex-direction:row;align-items:center;justify-content:space-between}}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:18px 0 28px;font-size:12px;color:var(--mid)}
+.foot span{display:flex;gap:16px}
+.foot a:hover{color:var(--ink)}
+.end{padding-block-start:clamp(40px,6vw,56px)}
 
-/* ══ stack, grouped by layer ══════════════════════════════════════ */
-.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.stack__h{display:flex;align-items:center;gap:12px;margin-block-end:18px}
-.stack__h b{font-size:16px;font-weight:600;color:var(--ink);white-space:nowrap}
-.stack__items{display:flex;flex-wrap:wrap;gap:7px}
-
-/* ══ qualities ════════════════════════════════════════════════════ */
-.qual-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px}
-
-/* ══ faq ══════════════════════════════════════════════════════════ */
-.faq{max-width:800px}
-.faq__i{border-block-start:1px solid var(--line)}
-.faq__q{display:flex;align-items:flex-start;gap:20px;width:100%;padding:22px 0;background:none;border:0;cursor:pointer;text-align:start;font-family:var(--font-body);font-size:17px;font-weight:600;color:var(--ink);transition:color var(--dur-fast) var(--ease)}
-.faq__q:hover{color:var(--accent-fg)}
-.faq__q span{flex:1}
-.faq__g{display:inline-flex;width:24px;height:24px;flex-shrink:0;color:var(--faint);transition:transform 320ms var(--ease),color var(--dur-fast) var(--ease)}
-.faq__g svg{width:24px;height:24px}
-.faq__i[data-open="true"] .faq__g{transform:rotate(45deg);color:var(--accent-fg)}
-.faq__a{padding-block-end:24px;font-size:15.5px;font-weight:300;color:var(--muted);max-width:66ch}
-
-/* ══ closing ══════════════════════════════════════════════════════ */
-.close-card{display:grid;grid-template-columns:1fr auto;gap:clamp(24px,4vw,48px);align-items:center;padding:clamp(28px,4vw,44px);border-radius:20px;background:var(--band);position:relative;overflow:hidden;isolation:isolate}
-.close-card h2{font-size:clamp(24px,3.2vw,34px);color:var(--band-ink)}
-.close-card p{margin-block-start:12px;font-size:16px;font-weight:300;color:var(--band-body);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.close-card__cta{display:flex;flex-direction:column;gap:10px;min-width:230px;position:relative;z-index:2}
-.foot{padding-block:32px 44px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;border-block-start:1px solid var(--line);margin-block-start:clamp(52px,7vw,88px);font-size:13px;font-weight:300;color:var(--faint)}
-.foot__mark{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.03em;white-space:nowrap}
-.foot__links{display:flex;gap:18px}
-.foot__links a{text-decoration:none;color:var(--muted)}
-.foot__links a:hover{color:var(--accent-fg)}
-
-/* ══ responsive ═══════════════════════════════════════════════════ */
-@media (max-width:1000px){
-.cap-grid{grid-template-columns:1fr 1fr}
-.metrics{grid-template-columns:1fr 1fr}
-.proj-grid{grid-template-columns:1fr 1fr}
-.proj--wide{grid-column:span 2;grid-template-columns:1fr}
-.stack-grid{grid-template-columns:1fr}
-}
-@media (max-width:720px){
-.hero{grid-template-columns:1fr;gap:26px}
-.portrait{order:-1}
-.portrait img{width:132px;height:132px}
-.hero h1{font-size:clamp(34px,10vw,44px)}
-.cap-grid,.qual-grid,.proj-grid{grid-template-columns:1fr}
-.proj--wide{grid-column:span 1}
-.metrics{grid-template-columns:1fr 1fr;gap:10px}
-.metric{padding:16px}
-.close-card{grid-template-columns:1fr}
-.close-card__cta{min-width:0}
-.hero__cta .btn{flex:1}
-}
+/* ── motion policy ── */
 @media (prefers-reduced-motion:reduce){
-*,*::before,*::after{animation:none!important;transition:none!important}
-.rv{opacity:1;transform:none}
+  :root{--p:1}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
 }
 @media print{
-:root{--paper:#fff;--card:#fff;--card-2:#fff;--ink:#000;--body:#222;--muted:#333;--faint:#555;--line:#ccc;--line-strong:#bbb;--accent:#0A554B;--accent-fg:#0A554B;--accent-tint:#fff;--accent-tint-2:#fff;--band:#fff;--band-ink:#000;--band-body:#222;--band-faint:#555;--band-card:#fff;--band-line:#ccc;--sh-xs:none;--sh-sm:none;--sh-md:none;--sh-lg:none}
-body{font-size:10.5pt;line-height:1.5;background:#fff}
-.band__wash,.band__grain,.proj__foot{display:none!important}
-.rv{opacity:1!important;transform:none!important}
-.card,.metric,.proj__specs,.close-card{border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid}
-.sec{padding-block:16px}
-.band__inner{padding-block:0 16px}
-.faq__a{display:block!important}
-a{text-decoration:none}
+  html{--p:1!important}
+  :root{--bg:#fff;--surface:#fff;--ink:#000;--body:#111;--mid:#444;--rule:#999;--soft:#ccc;--band:#fff;--band-ink:#000;--band-mid:#444;--lit:#000;--lit-ink:#fff;--lit-mid:#ccc}
+  .top{position:static}.top__act .badge,.top__txt{display:inline-flex}.top__soc{display:none}
+  .figwrap{position:static}.block,.hero__cta,.hero__badge,.top__act .btn--icon{display:none}
+  .cut .wrap{grid-template-columns:1fr}.ch,.proj,.faq div{break-inside:avoid}
+  .band::before{display:none}.band{border:1px solid #000}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:10px;color:#444}
+  .ev a::after,.link::after{content:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ 00 · HERO BAND ══════════════════════════════════════════════ -->
-<header class="band">
-  <div class="band__wash"></div>
-  <div class="band__grain"></div>
-  <div class="wrap band__inner">
-    <div class="hero">
-      <div class="rv">
-        <span class="badge-group"><span class="dot dot--live" style="color:var(--band-accent)"></span>זמין להצעות — שכיר או פרילנס</span>
-        <h1>טל אוחנה</h1>
-        <p class="hero__role">מהנדס <span class="lat">Full-Stack</span> בכיר · בונה מוצרי <span class="lat">SaaS</span> מקצה לקצה</p>
-        <p class="hero__pitch">לא רק כותב מסכים — מקים מוצרים שלמים: פרונט בשני פריימוורקים, בק־אנד ב-<span class="lat">NestJS</span>, <span class="lat">PostgreSQL</span> עם אבטחה ברמת שורה, תשלומים אמיתיים ומיקרו־שירותים עם כל תשתית ה-<span class="lat">CI</span> להרצה בפרודקשן.</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="mailto:taloh13@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 5.83l6.9 4.83c.58.4.87.61 1.19.69.28.07.57.07.85 0 .32-.08.61-.28 1.19-.69l6.9-4.83M5.67 16.67h8.66c1.4 0 2.1 0 2.64-.28.47-.24.85-.62 1.09-1.09.27-.53.27-1.23.27-2.63V7.33c0-1.4 0-2.1-.27-2.63a2.5 2.5 0 00-1.1-1.1c-.53-.27-1.23-.27-2.63-.27H5.67c-1.4 0-2.1 0-2.64.27-.46.24-.84.63-1.09 1.1-.27.53-.27 1.23-.27 2.63v5.34c0 1.4 0 2.1.27 2.63.25.47.63.85 1.1 1.1.53.27 1.23.27 2.63.27z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>דבר איתי</a>
-          <a class="btn btn--ghost-band" href="#projects">הפרויקטים שבניתי</a>
-        </div>
-        <div class="hero__contact">
-          <a href="mailto:taloh13@gmail.com"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 5.83l6.9 4.83c.58.4.87.61 1.19.69.28.07.57.07.85 0 .32-.08.61-.28 1.19-.69l6.9-4.83M5.67 16.67h8.66c1.4 0 2.1 0 2.64-.28.47-.24.85-.62 1.09-1.09.27-.53.27-1.23.27-2.63V7.33c0-1.4 0-2.1-.27-2.63a2.5 2.5 0 00-1.1-1.1c-.53-.27-1.23-.27-2.63-.27H5.67c-1.4 0-2.1 0-2.64.27-.46.24-.84.63-1.09 1.1-.27.53-.27 1.23-.27 2.63v5.34c0 1.4 0 2.1.27 2.63.25.47.63.85 1.1 1.1.53.27 1.23.27 2.63.27z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>taloh13@gmail.com</a>
-          <a href="tel:+972544436188"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.02 3.6c-.24-.6-.36-.9-.56-1.09a1.67 1.67 0 00-.7-.4c-.26-.07-.55-.03-1.13.05l-.4.06c-.53.08-.8.12-1.04.24a1.9 1.9 0 00-.75.72c-.15.28-.2.6-.28 1.22a9.4 9.4 0 00.1 3.16 16.6 16.6 0 0012.4 12.4c1.03.2 2.1.24 3.16.1.63-.08.94-.12 1.22-.28.28-.15.55-.43.72-.75.12-.23.16-.5.24-1.04l.06-.4c.08-.58.12-.87.05-1.13a1.67 1.67 0 00-.4-.7c-.19-.2-.49-.32-1.09-.56l-1.6-.64c-.72-.29-1.08-.43-1.42-.4-.3.02-.58.13-.82.31-.27.2-.45.53-.8 1.2-.19.35-.6.5-.97.36a10.4 10.4 0 01-6.06-6.06.83.83 0 01.36-.97c.67-.35 1-.53 1.2-.8a1.67 1.67 0 00.31-.82c.03-.34-.11-.7-.4-1.42l-.64-1.6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>054-443-6188</a>
-          <a href="https://github.com/talohana55" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.67A8.33 8.33 0 004.37 16.1c.42.08.57-.18.57-.4v-1.53c-2.32.5-2.81-1.12-2.81-1.12-.38-.97-.93-1.23-.93-1.23-.76-.52.06-.5.06-.5.84.06 1.28.86 1.28.86.75 1.28 1.96.91 2.44.7.08-.55.3-.92.54-1.13-1.85-.21-3.8-.93-3.8-4.13 0-.91.33-1.66.86-2.24-.09-.21-.37-1.06.08-2.2 0 0 .7-.23 2.29.85a7.9 7.9 0 014.17 0c1.59-1.08 2.28-.85 2.28-.85.46 1.14.17 1.99.09 2.2.53.58.85 1.33.85 2.24 0 3.21-1.95 3.92-3.81 4.12.3.26.57.77.57 1.55v2.3c0 .22.15.49.58.4A8.33 8.33 0 0010 1.67z"/></svg>GitHub</a>
-          <a href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4.65 6.67H1.9v10h2.75v-10zM3.28 2.5a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2zM12.6 6.47c-1.34 0-2.24.73-2.6 1.43h-.05V6.67H7.3v10h2.74v-4.95c0-1.3.25-2.57 1.87-2.57 1.6 0 1.62 1.5 1.62 2.65v4.87h2.74v-5.42c0-2.38-.51-4.78-3.67-4.78z"/></svg>LinkedIn</a>
-        </div>
-      </div>
-      <div class="portrait rv">
-        <img src="portrait.jpg" alt="טל אוחנה" width="560" height="560" decoding="async">
-        <span class="badge badge--sm badge--on-band">אופקים · רימוט או היברידי</span>
-      </div>
-    </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17"/><path d="M8 7h9v9"/></symbol>
+</svg>
 
-    <div class="metrics">
-      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 5v5l3.33 1.67M17.5 10a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">5+ שנים</b><span class="metric__l">פיתוח מערכות פרודקשן</span></div>
-      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M14.17 17.5v-1.67a3.33 3.33 0 00-3.34-3.33H5a3.33 3.33 0 00-3.33 3.33v1.67M18.33 17.5v-1.67a3.33 3.33 0 00-2.5-3.22M12.92 2.61a3.33 3.33 0 010 6.45M11.25 5.83a3.33 3.33 0 11-6.67 0 3.33 3.33 0 016.67 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">30+ עסקים</b><span class="metric__l">נעזרים במערכת שהובלתי</span></div>
-      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.83 1.67L2.94 11.13c-.31.37-.46.56-.47.72a.42.42 0 00.16.35c.12.1.37.1.86.1h6.68l-.83 6.06 7.89-9.46c.31-.37.46-.56.47-.72a.42.42 0 00-.16-.35c-.12-.1-.37-.1-.86-.1H10l.83-6.06z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">750+</b><span class="metric__l">הזמנות ביום במערכת <span class="lat">KDS</span></span></div>
-      <div class="metric rv"><span class="feat feat--md feat--on-band"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 12.5v-5M15 8.33a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM5 16.67a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM5 7.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM15 8.33c0 4.17-10 1.67-10 5.84" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b class="metric__v">11 שערי <span class="lat">CI</span></b><span class="metric__l">לפני שקוד נכנס לפרודקשן</span></div>
+<header class="top">
+  <div class="wrap">
+    <div class="top__id"><b>טל אוחנה</b><span class="sub">Senior Full-Stack Engineer</span></div>
+    <div class="top__act">
+      <span class="badge">זמין להצעות — שכיר או פרילנס</span>
+      <a class="btn btn--ghost top__txt lat" href="mailto:taloh13@gmail.com"><svg><use href="#i-mail"/></svg>taloh13@gmail.com</a>
+      <a class="btn btn--ghost top__txt lat" href="tel:+972544436188"><svg><use href="#i-phone"/></svg>054-443-6188</a>
+      <a class="btn btn--ghost btn--icon" href="mailto:taloh13@gmail.com" aria-label="שלח מייל"><svg><use href="#i-mail"/></svg></a>
+      <a class="btn btn--ghost btn--icon" href="tel:+972544436188" aria-label="התקשר"><svg><use href="#i-phone"/></svg></a>
+      <nav class="top__soc" aria-label="פרופילים"><a class="lat" href="https://github.com/talohana55" rel="me">GitHub</a><a class="lat" href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" rel="me">LinkedIn</a></nav>
     </div>
   </div>
 </header>
 
-<!-- ══ 01 · CAPABILITIES ═══════════════════════════════════════════ -->
-<section class="sec">
+<main>
+<section class="hero">
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">01</span><span class="sec-kicker">למה אני</span></div>
-    <h2 class="sec-title rv">מה שקונים כשלוקחים אותי</h2>
-    <p class="sec-lede rv">ארבעה דברים שאפשר לבדוק, לא ארבעה שמות תואר.</p>
-    <div class="cap-grid">
-      <div class="card cap rv">
-        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M1.67 10s2.5-5.83 8.33-5.83S18.33 10 18.33 10s-2.5 5.83-8.33 5.83S1.67 10 1.67 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
-        <h3>אחריות מקצה לקצה</h3>
-        <p>לוקח רעיון או דרישה עסקית והופך אותו למוצר עובד בפרודקשן — לבד או כמוביל.</p>
+    <div class="hero__txt">
+      <span class="badge hero__badge">זמין להצעות — שכיר או פרילנס</span>
+      <span class="kick">SECTION A–A · 4 LAYERS · 1:1</span>
+      <h1>מערכות פרודקשן, לא פורטפוליו.</h1>
+      <p>לא רק כותב מסכים — מקים מוצרים שלמים: פרונט בשני פריימוורקים, בק־אנד ב־<span class="lat">NestJS</span>, <span class="lat">PostgreSQL</span> עם אבטחה ברמת שורה, תשלומים אמיתיים ומיקרו־שירותים עם כל תשתית ה־<span class="lat">CI</span> להרצה בפרודקשן.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="mailto:taloh13@gmail.com"><svg><use href="#i-mail"/></svg>דבר איתי</a>
+        <a class="btn btn--ghost" href="#systems">המערכות שבניתי<svg><use href="#i-arrow"/></svg></a>
       </div>
-      <div class="card cap rv">
-        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18.33s6.67-3.33 6.67-8.33V4.58L10 2.08 3.33 4.58V10c0 5 6.67 8.33 6.67 8.33z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.58l1.67 1.67 3.33-3.33" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <h3>עומק טכני אמיתי</h3>
-        <p>ריבוי־דיירים, אבטחת מידע, תשלומים, תשתית ו-<span class="lat">CI</span>. לא באזוורדים — ניסיון מהשטח.</p>
-      </div>
-      <div class="card cap rv">
-        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.5 5.83h15M2.5 10h15M2.5 14.17h9.17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-        <h3>ראש מוצרי</h3>
-        <p>חושב על המשתמש ועל העסק, לא רק על הקוד — ומתעדף לפי ערך, לא לפי מה שכיף לבנות.</p>
-      </div>
-      <div class="card cap rv">
-        <span class="feat feat--lg"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10.83 1.67L2.94 11.13c-.31.37-.46.56-.47.72a.42.42 0 00.16.35c.12.1.37.1.86.1h6.68l-.83 6.06 7.89-9.46c.31-.37.46-.56.47-.72a.42.42 0 00-.16-.35c-.12-.1-.37-.1-.86-.1H10l.83-6.06z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <h3>גמיש ומהיר</h3>
-        <p>שני פריימוורקים בפרונט, בק־אנד ותשתית — נכנס מהר לכל קונטקסט קיים.</p>
-      </div>
+    </div>
+    <div class="block" aria-hidden="true">
+      <span>THE SOLID BLOCK · scroll to explode</span>
+      <div>לקוח<i>01</i></div><div>API ותשלומים<i>02</i></div><div>נתונים ואבטחה<i>03</i></div><div>תשתית ו־CI<i>04</i></div>
     </div>
   </div>
 </section>
 
-<!-- ══ 02 · PROJECTS ═══════════════════════════════════════════════ -->
-<section class="sec sec--tint" id="projects">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">02</span><span class="sec-kicker">פרויקטים נבחרים</span></div>
-    <h2 class="sec-title rv">מערכות שרצות עכשיו</h2>
-    <p class="sec-lede rv">מערכות שעלו לאוויר ורצות — לא תרגילים, ולא פרויקטים שנעצרו באמצע.</p>
-    <div class="proj-grid">
-
-      <a class="card card--pad-lg proj proj--wide rv" href="https://github.com/talohana55/joey-case-study" target="_blank" rel="noopener">
-        <div style="display:flex;flex-direction:column;gap:14px">
-          <div class="proj__top">
-            <span class="proj__name">Joey</span>
-            <span class="badge badge--brand badge--sm">מפתח יחיד</span>
-            <span class="badge badge--sm">מוצר <span class="lat">SaaS</span> מלא</span>
-          </div>
-          <p class="proj__desc">פלטפורמת הזמנות <span class="lat">QR</span> רב־דיירת למסעדות — מהתפריט בטלפון של הסועד ועד הסליקה ולוח המטבח. בניתי אותה מאפס, לבד, כולל התשתית שהיא רצה עליה.</p>
-          <div class="proj__tags">
-            <span class="badge badge--sm">Next.js 16</span><span class="badge badge--sm">React 19</span><span class="badge badge--sm">NestJS</span><span class="badge badge--sm">PostgreSQL</span><span class="badge badge--sm">Docker</span>
-          </div>
-          <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-        <div class="proj__specs">
-          <span class="proj__specs-h">מה בפועל יש בה</span>
-          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">NestJS</span> ב-34 מודולים, בק־אנד מודולרי</span></div>
-          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">PostgreSQL</span> עם <span class="lat">RLS</span> — הפרדת דיירים ברמת השורה</span></div>
-          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="lat">audit hash-chain</span> — יומן שינויים שלא ניתן לזיוף</span></div>
-          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>סליקה ב-<span class="lat">Cardcom</span>, תקן <span class="lat">PCI SAQ-A</span></span></div>
-          <div class="check"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>11 שערי <span class="lat">CI</span> ו-<span class="lat">Docker</span> בפרודקשן</span></div>
-        </div>
-      </a>
-
-      <a class="card proj rv" href="https://github.com/talohana55/bono-case-study" target="_blank" rel="noopener">
-        <div class="proj__top"><span class="proj__name">Bono</span><span class="badge badge--brand badge--sm">מוביל פיתוח</span></div>
-        <p class="proj__desc">פלטפורמת ניהול לידים שמשרתת 30+ עסקים. הובלתי את המעבר מ-<span class="lat">V1</span> ל-<span class="lat">V2</span>: דשבורדים בקנה מידה, אינטגרציות ל-<span class="lat">Facebook</span>, <span class="lat">WordPress</span> ו-<span class="lat">SMS</span>.</p>
-        <div class="proj__tags"><span class="badge badge--sm">Vue 3</span><span class="badge badge--sm">TypeScript</span><span class="badge badge--sm">Pinia</span><span class="badge badge--sm">MongoDB</span><span class="badge badge--sm">AWS</span></div>
-        <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </a>
-
-      <a class="card proj rv" href="https://github.com/talohana55/adgo-case-study" target="_blank" rel="noopener">
-        <div class="proj__top"><span class="proj__name">AdGo</span><span class="badge badge--brand badge--sm">בעלים · ארכיטקט</span></div>
-        <p class="proj__desc"><span class="lat">Ad-tech</span> פוגש <span class="lat">IoT</span>: מיקרו־שירותים מונחי־אירועים, מכשירי <span class="lat">GPS</span> שמדברים פרוטוקול בינארי, ושני פרונטים שמציגים הכל בזמן אמת.</p>
-        <div class="proj__tags"><span class="badge badge--sm">React</span><span class="badge badge--sm">Prisma</span><span class="badge badge--sm">PostgreSQL</span><span class="badge badge--sm">SSE</span><span class="badge badge--sm">Teltonika</span></div>
-        <div class="proj__foot">קרא את ה-<span class="lat">case study</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:scaleX(-1)"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </a>
-
-      <div class="card proj rv">
-        <div class="proj__top"><span class="proj__name">ועוד</span><span class="badge badge--sm">שלושה</span></div>
-        <p class="proj__desc"><b style="font-weight:600;color:var(--ink)">Focus</b> — אתר צמיחה בינ״ל ב-<span class="lat">React 19 + Storyblok</span>. <b style="font-weight:600;color:var(--ink)">ParkPrice</b> — <span class="lat">POC</span> לתמחור חניה דינמי עם <span class="lat">property-based testing</span>. <b style="font-weight:600;color:var(--ink)">KDS</b> — מערכת מטבח שמריצה 750+ הזמנות ביום.</p>
-        <div class="proj__tags"><span class="badge badge--sm">Storyblok</span><span class="badge badge--sm">Drizzle</span><span class="badge badge--sm">Vitest</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══ 03 · STACK ══════════════════════════════════════════════════ -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">03</span><span class="sec-kicker">הסטאק שלי</span></div>
-    <h2 class="sec-title rv">שלוש שכבות, לא רשימה אחת</h2>
-    <p class="sec-lede rv">אני עובד לרוחב כל השכבה — וזה מה שאומר <span class="lat">end-to-end</span> בפועל.</p>
-    <div class="stack-grid">
-      <div class="card rv">
-        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M14.17 15l4.16-5-4.16-5M5.83 5L1.67 10l4.16 5M12.08 2.5L7.92 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>פרונט־אנד</b></div>
-        <div class="stack__items"><span class="badge">TypeScript</span><span class="badge">React 19 / Next.js</span><span class="badge">Vue 3</span><span class="badge">React Native</span><span class="badge">Tailwind</span></div>
-      </div>
-      <div class="card rv">
-        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><ellipse cx="10" cy="5" rx="6.67" ry="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M16.67 10c0 1.38-2.99 2.5-6.67 2.5S3.33 11.38 3.33 10M3.33 5v10c0 1.38 2.99 2.5 6.67 2.5s6.67-1.12 6.67-2.5V5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><b>בק־אנד ונתונים</b></div>
-        <div class="stack__items"><span class="badge">Node.js</span><span class="badge">NestJS</span><span class="badge">Express</span><span class="badge">PostgreSQL (RLS)</span><span class="badge">Prisma / Drizzle</span><span class="badge">MongoDB</span><span class="badge">Redis</span><span class="badge">REST + OpenAPI</span></div>
-      </div>
-      <div class="card rv">
-        <div class="stack__h"><span class="feat feat--md feat--sq"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2.5 7.5h15M2.5 12.5h15M4.17 3.33h11.66c.92 0 1.67.75 1.67 1.67v10c0 .92-.75 1.67-1.67 1.67H4.17c-.92 0-1.67-.75-1.67-1.67V5c0-.92.75-1.67 1.67-1.67z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>תשתית ו-<span class="lat">CI</span></b></div>
-        <div class="stack__items"><span class="badge">Docker</span><span class="badge">AWS / Hetzner</span><span class="badge">GitLab / GitHub CI/CD</span><span class="badge">מיקרו־שירותים / SSE</span><span class="badge">Playwright / Vitest</span><span class="badge">Cardcom</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ 04 · QUALITIES ══════════════════════════════════════════════ -->
-<section class="sec sec--tint">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">04</span><span class="sec-kicker">איך זה לעבוד איתי</span></div>
-    <h2 class="sec-title rv">מה שלא כתוב בקוד</h2>
-    <div class="qual-grid" style="margin-block-start:20px">
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>אחריות ואונרשיפ — סוגר משימות עד הסוף, גם כשזה לא נעים</span></div>
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>תקשורת ישירה ושקופה מול לקוחות וצוות</span></div>
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>נכנס מהר לתחומים חדשים — <span class="lat">IoT</span>, סליקה, <span class="lat">ad-tech</span></span></div>
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>חשיבה ארכיטקטונית לצד תשומת לב לפרטים</span></div>
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>עבודה עצמאית וגם הובלת פיתוח מול צוות</span></div>
-      <div class="check rv"><span class="check__i"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M11.67 3.5L5.25 9.92 2.33 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>מוכוונות מוצר ותוצאה עסקית, לא רק פיצ׳רים</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ 05 · FAQ ════════════════════════════════════════════════════ -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">05</span><span class="sec-kicker">שאלות שנשאלות</span></div>
-    <h2 class="sec-title rv">התשובות המשעממות, מראש</h2>
-    <p class="sec-lede rv">כדי שלא נבזבז שיחת היכרות על לוגיסטיקה.</p>
-    <div class="faq">
-      <div class="faq__i rv" data-open="true">
-        <button class="faq__q" type="button" aria-expanded="true"><span>שכיר או פרילנס?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
-        <div class="faq__a">שניהם. אני מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span> כשכיר, ובמקביל לוקח פרויקטים כפרילנסר — יש לי עוסק מורשה, כך שחשבונית זה לא סיפור.</div>
-      </div>
-      <div class="faq__i rv">
-        <button class="faq__q" type="button" aria-expanded="false"><span>איפה אתה יושב, ומה עם משרד?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
-        <div class="faq__a">גר באופקים. מגיע למרכז עד הרצליה, ומעדיף רימוט או היברידי. לפגישות חשובות אני בא — לסטנדאפ יומי פחות הגיוני שאעשה ארבע שעות נסיעה.</div>
-      </div>
-      <div class="faq__i rv">
-        <button class="faq__q" type="button" aria-expanded="false"><span>אתה באמת עושה גם בק־אנד וגם תשתית?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
-        <div class="faq__a">כן, וזה ניתן לבדיקה. ב-<span class="lat">Joey</span> כתבתי את הפרונט, את 34 המודולים בבק, את סכמת ה-<span class="lat">PostgreSQL</span> עם ה-<span class="lat">RLS</span>, את אינטגרציית הסליקה ואת 11 שערי ה-<span class="lat">CI</span>. ה-<span class="lat">case study</span> מפרט מה נשבר בדרך.</div>
-      </div>
-      <div class="faq__i rv">
-        <button class="faq__q" type="button" aria-expanded="false"><span>למה שאאמין למספרים בעמוד הזה?</span><span class="faq__g"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
-        <div class="faq__a">אל תאמין — תבדוק. לכל פרויקט יש <span class="lat">case study</span> פומבי ב-<span class="lat">GitHub</span> עם החלטות ארכיטקטורה, מה עבד ומה לא. אם משהו לא מסתדר, תשאל אותי בשיחה.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CLOSING ═════════════════════════════════════════════════════ -->
 <div class="wrap">
-  <div class="close-card rv">
-    <div class="band__wash"></div>
-    <div class="band__grain"></div>
-    <div style="position:relative;z-index:2">
-      <h2>נדבר על מה שאתם צריכים לבנות</h2>
-      <p>מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span><span class="badge badge--sm badge--on-band">עוסק מורשה</span></p>
-    </div>
-    <div class="close-card__cta">
-      <a class="btn btn--primary" href="mailto:taloh13@gmail.com">שלח מייל</a>
-      <a class="btn btn--ghost-band" href="tel:+972544436188">054-443-6188</a>
-    </div>
-  </div>
-  <div class="foot">
-    <span class="foot__mark">טל אוחנה</span>
-    <div class="foot__links">
-      <a href="https://github.com/talohana55" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:taloh13@gmail.com">מייל</a>
-    </div>
-    <span>© טל אוחנה · עמוד סטטי יחיד, ללא תלויות</span>
+  <div class="nums" role="list">
+    <div role="listitem"><b>34</b><span>מודולים <span class="lat">NestJS</span></span><i>Joey / api</i></div>
+    <div role="listitem"><b>49</b><span>טבלאות עם <span class="lat">RLS</span></span><i>Joey / db</i></div>
+    <div role="listitem"><b>11</b><span>שערי <span class="lat">CI</span></span><i>Joey / infra</i></div>
+    <div role="listitem"><b>30+</b><span>עסקים על מערכת אחת</span><i>Bono</i></div>
+    <div role="listitem"><b>750+</b><span>הזמנות ביום</span><i>KDS</i></div>
+    <div role="listitem"><b>5+</b><span>שנות פרודקשן</span><i>2021 →</i></div>
   </div>
 </div>
 
+<section class="cut" id="section">
+  <div class="wrap">
+    <div class="figwrap">
+      <span class="kick" style="color:var(--mid);font-weight:400">FIG. 1 · SECTION A–A</span>
+      <div class="fig" id="fig" aria-label="ארבע שכבות המערכת: לקוח, API ותשלומים, נתונים ואבטחה, תשתית ו־CI">
+        <div class="layer lit"><span class="layer__t"><i>01</i>לקוח</span><span class="layer__v">Next.js 16 · React 19 · Vue 3</span></div>
+        <div class="layer"><span class="layer__p">Joey · Bono · AdGo · Focus</span><span class="layer__t"><i>02</i>API ותשלומים</span><span class="layer__v">NestJS · 34 modules · Cardcom PCI SAQ-A</span></div>
+        <div class="layer"><span class="layer__p">Joey · AdGo</span><span class="layer__t"><i>03</i>נתונים ואבטחה</span><span class="layer__v">PostgreSQL · RLS ×49 · 64 migrations</span></div>
+        <div class="layer"><span class="layer__p">Joey · Bono</span><span class="layer__t"><i>04</i>תשתית ו־CI</span><span class="layer__v">Docker · 11 CI gates · AWS / Hetzner</span></div>
+        <i></i>
+      </div>
+      <div class="fig__legend"><span>● = touches this layer</span><span>Joey ●●●● · Bono ●●●○ · AdGo ●●○●</span></div>
+    </div>
+
+    <div class="chapters">
+      <section class="ch" data-i="0">
+        <div class="ch__chips" aria-hidden="true"><span class="on">01</span><span>02</span><span>03</span><span>04</span></div>
+        <div class="ch__h"><span class="kick">01</span><h2>לקוח</h2><span class="en">CLIENT</span></div>
+        <p class="ch__lead">שני פריימוורקים בפרונט — <span class="lat">React/Next</span> ב־Joey וב־AdGo, <span class="lat">Vue 3</span> ב־Bono. תפריט בטלפון של הסועד, לוח מטבח, דשבורדים בקנה מידה.</p>
+        <p class="plain">בעברית פשוטה: המסכים שהלקוחות שלך רואים ונוגעים בהם.</p>
+        <div class="ev">
+          <a href="https://github.com/talohana55/joey-case-study"><span class="ev__h"><span><span class="ev__n">Joey</span><span class="ev__r">מפתח יחיד</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">תפריט QR בטלפון של הסועד ולוח מטבח בזמן אמת</span><span class="ev__tag">Next.js 16 · React 19</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55/bono-case-study"><span class="ev__h"><span><span class="ev__n">Bono</span><span class="ev__r">מוביל פיתוח</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">דשבורדים בקנה מידה ל־30+ עסקים</span><span class="ev__tag">Vue 3 · TypeScript · Pinia</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55"><span class="ev__h"><span><span class="ev__n">Focus</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">אתר צמיחה בינ״ל</span><span class="ev__tag">React 19 · Storyblok</span><svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </section>
+
+      <section class="ch" data-i="1">
+        <div class="ch__chips" aria-hidden="true"><span>01</span><span class="on">02</span><span>03</span><span>04</span></div>
+        <div class="ch__h"><span class="kick">02</span><h2>API ותשלומים</h2><span class="en">API · PAYMENTS</span></div>
+        <p class="ch__lead"><span class="lat">NestJS</span> ב־34 מודולים, בק־אנד מודולרי. סליקה ב־<span class="lat">Cardcom</span>, תקן <span class="lat">PCI SAQ-A</span>. כסף אמיתי עובר בה.</p>
+        <p class="plain">בעברית פשוטה: המנוע שמקבל הזמנות ומעביר תשלומים, בלי שהכרטיס של הלקוח נוגע בשרת.</p>
+        <div class="ev">
+          <a href="https://github.com/talohana55/joey-case-study"><span class="ev__h"><span><span class="ev__n">Joey</span><span class="ev__r">מפתח יחיד</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">34 מודולים, סליקה אמיתית, <span class="lat">PCI SAQ-A</span></span><span class="ev__tag">NestJS · 34 modules · Cardcom</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55/adgo-case-study"><span class="ev__h"><span><span class="ev__n">AdGo</span><span class="ev__r">בעלים · ארכיטקט</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">מיקרו־שירותים מונחי־אירועים, פרוטוקול <span class="lat">GPS</span> בינארי</span><span class="ev__tag">microservices · SSE</span><svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </section>
+
+      <section class="ch" data-i="2">
+        <div class="ch__chips" aria-hidden="true"><span>01</span><span>02</span><span class="on">03</span><span>04</span></div>
+        <div class="ch__h"><span class="kick">03</span><h2>נתונים ואבטחה</h2><span class="en">DATA · TRUST</span></div>
+        <p class="ch__lead"><span class="lat">PostgreSQL</span> עם <span class="lat">RLS</span> — הפרדת דיירים ברמת השורה על 49 טבלאות. 64 מיגרציות. <span class="lat">audit hash-chain</span> — יומן שינויים שלא ניתן לזיוף.</p>
+        <p class="plain">בעברית פשוטה: כל עסק רואה רק את הנתונים שלו, וכל שינוי נרשם באופן שאי אפשר למחוק בשקט.</p>
+        <div class="ev">
+          <a href="https://github.com/talohana55/joey-case-study"><span class="ev__h"><span><span class="ev__n">Joey</span><span class="ev__r">מפתח יחיד</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">ריבוי־דיירים ברמת השורה, יומן חתום</span><span class="ev__tag">PostgreSQL · RLS ×49 · hash-chain</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55/bono-case-study"><span class="ev__h"><span><span class="ev__n">Bono</span><span class="ev__r">מוביל פיתוח</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">30+ עסקים על מסד אחד, מעבר <span class="lat">V1 → V2</span></span><span class="ev__tag">MongoDB · AWS</span><svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </section>
+
+      <section class="ch" data-i="3">
+        <div class="ch__chips" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span class="on">04</span></div>
+        <div class="ch__h"><span class="kick">04</span><h2>תשתית ו־CI</h2><span class="en">INFRA · CI</span></div>
+        <p class="ch__lead">11 שערי <span class="lat">CI</span> לפני שקוד נכנס לפרודקשן. <span class="lat">Docker</span>, מיקרו־שירותים, <span class="lat">AWS / Hetzner</span>. 750+ הזמנות ביום.</p>
+        <p class="plain">בעברית פשוטה: מה שמונע מבאג להגיע ללקוחות, ומה שמחזיק את המערכת באוויר ביום עמוס.</p>
+        <div class="ev">
+          <a href="https://github.com/talohana55/joey-case-study"><span class="ev__h"><span><span class="ev__n">Joey</span><span class="ev__r">מפתח יחיד</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">11 שערים אוטומטיים לפני כל דיפלוי</span><span class="ev__tag">Docker · 11 CI gates</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55"><span class="ev__h"><span><span class="ev__n">KDS</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">מערכת מטבח שמריצה 750+ הזמנות ביום</span><span class="ev__tag">SSE · 750+ / day</span><svg><use href="#i-arrow"/></svg></a>
+          <a href="https://github.com/talohana55/adgo-case-study"><span class="ev__h"><span><span class="ev__n">AdGo</span><span class="ev__r">בעלים</span></span><svg><use href="#i-arrow"/></svg></span><span class="ev__l">מכשירי <span class="lat">GPS</span>, אירועים, שני פרונטים בזמן אמת</span><span class="ev__tag">Teltonika · Prisma</span><svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="systems">
+  <div class="wrap">
+    <div class="sec-head"><div class="row"><span class="kick">02</span><span class="sub">פרויקטים נבחרים</span></div><h2>שלוש מערכות שנבנו על החתך הזה</h2></div>
+    <p class="lede">מערכות שעלו לאוויר ורצות — לא תרגילים, ולא פרויקטים שנעצרו באמצע.</p>
+    <div class="sys" style="margin-block-start:22px">
+      <div>
+        <article class="proj">
+          <div class="proj__h"><h3>Joey</h3><span class="sub">מפתח יחיד · מוצר SaaS מלא</span><span class="dots" title="שכבות: לקוח · API · נתונים · תשתית">●●●●</span></div>
+          <p>פלטפורמת הזמנות <span class="lat">QR</span> רב־דיירת למסעדות — מהתפריט בטלפון של הסועד ועד הסליקה ולוח המטבח. בניתי אותה מאפס, לבד, כולל התשתית שהיא רצה עליה.</p>
+          <span class="proj__tags">Next.js 16 · React 19 · NestJS · PostgreSQL · Docker</span>
+          <div class="inside"><span>WHAT IS ACTUALLY INSIDE</span>
+            <ul>
+              <li><span class="lat">NestJS</span> ב־34 מודולים, בק־אנד מודולרי</li>
+              <li><span class="lat">PostgreSQL</span> עם <span class="lat">RLS</span> — הפרדת דיירים ברמת השורה</li>
+              <li><span class="lat">audit hash-chain</span> — יומן שינויים שלא ניתן לזיוף</li>
+              <li>סליקה ב־<span class="lat">Cardcom</span>, תקן <span class="lat">PCI SAQ-A</span></li>
+              <li>11 שערי <span class="lat">CI</span> ו־<span class="lat">Docker</span> בפרודקשן</li>
+            </ul>
+          </div>
+          <a class="link" href="https://github.com/talohana55/joey-case-study">קרא את ה־case study<svg><use href="#i-arrow"/></svg></a>
+        </article>
+      </div>
+      <div>
+        <article class="proj">
+          <div class="proj__h"><h3>Bono</h3><span class="sub">מוביל פיתוח</span><span class="dots" title="שכבות: לקוח · API · נתונים">●●●○</span></div>
+          <p>פלטפורמת ניהול לידים שמשרתת 30+ עסקים. הובלתי את המעבר מ־<span class="lat">V1</span> ל־<span class="lat">V2</span>: דשבורדים בקנה מידה, אינטגרציות ל־<span class="lat">Facebook</span>, <span class="lat">WordPress</span> ו־<span class="lat">SMS</span>.</p>
+          <span class="proj__tags">Vue 3 · TypeScript · Pinia · MongoDB · AWS</span>
+          <a class="link" href="https://github.com/talohana55/bono-case-study">קרא את ה־case study<svg><use href="#i-arrow"/></svg></a>
+        </article>
+        <article class="proj">
+          <div class="proj__h"><h3>AdGo</h3><span class="sub">בעלים · ארכיטקט</span><span class="dots" title="שכבות: לקוח · API · תשתית">●●○●</span></div>
+          <p><span class="lat">Ad-tech</span> פוגש <span class="lat">IoT</span>: מיקרו־שירותים מונחי־אירועים, מכשירי <span class="lat">GPS</span> שמדברים פרוטוקול בינארי, ושני פרונטים שמציגים הכל בזמן אמת.</p>
+          <span class="proj__tags">React · Prisma · PostgreSQL · SSE · Teltonika</span>
+          <a class="link" href="https://github.com/talohana55/adgo-case-study">קרא את ה־case study<svg><use href="#i-arrow"/></svg></a>
+        </article>
+        <div class="more"><b>ועוד שלושה</b><span><span class="lat">Focus</span> — אתר צמיחה בינ״ל ב־<span class="lat">React 19 + Storyblok</span>. <span class="lat">ParkPrice</span> — <span class="lat">POC</span> לתמחור חניה דינמי עם <span class="lat">property-based testing</span>. <span class="lat">KDS</span> — מערכת מטבח שמריצה 750+ הזמנות ביום.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap two">
+    <div>
+      <div class="sec-head"><div class="row"><span class="kick">03</span><span class="sub">איך זה לעבוד איתי</span></div><h2>מה שלא כתוב בקוד</h2></div>
+      <ul class="notcode">
+        <li><i>01</i>אחריות ואונרשיפ — סוגר משימות עד הסוף, גם כשזה לא נעים</li>
+        <li><i>02</i>תקשורת ישירה ושקופה מול לקוחות וצוות</li>
+        <li><i>03</i>נכנס מהר לתחומים חדשים — <span class="lat">IoT</span>, סליקה, <span class="lat">ad-tech</span></li>
+        <li><i>04</i>חשיבה ארכיטקטונית לצד תשומת לב לפרטים</li>
+        <li><i>05</i>עבודה עצמאית וגם הובלת פיתוח מול צוות</li>
+        <li><i>06</i>מוכוונות מוצר ותוצאה עסקית, לא רק פיצ׳רים</li>
+      </ul>
+    </div>
+    <div>
+      <div class="sec-head"><div class="row"><span class="kick">04</span><span class="sub">שאלות שנשאלות</span></div><h2>התשובות המשעממות, מראש</h2></div>
+      <div class="faq">
+        <div><h3>שכיר או פרילנס?</h3><p>שניהם. אני מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span> כשכיר, ובמקביל לוקח פרויקטים כפרילנסר — יש לי עוסק מורשה, כך שחשבונית זה לא סיפור.</p></div>
+        <div><h3>איפה אתה יושב, ומה עם משרד?</h3><p>גר באופקים. מגיע למרכז עד הרצליה, ומעדיף רימוט או היברידי. לפגישות חשובות אני בא — לסטנדאפ יומי פחות הגיוני שאעשה ארבע שעות נסיעה.</p></div>
+        <div><h3>אתה באמת עושה גם בק־אנד וגם תשתית?</h3><p>כן, וזה ניתן לבדיקה. ב־Joey כתבתי את הפרונט, את 34 המודולים בבק, את סכמת ה־<span class="lat">PostgreSQL</span> עם ה־<span class="lat">RLS</span>, את אינטגרציית הסליקה ואת 11 שערי ה־<span class="lat">CI</span>. ה־case study מפרט מה נשבר בדרך.</p></div>
+        <div><h3>למה שאאמין למספרים בעמוד הזה?</h3><p>אל תאמין — תבדוק. לכל פרויקט יש case study פומבי ב־<span class="lat">GitHub</span> עם החלטות ארכיטקטורה, מה עבד ומה לא. אם משהו לא מסתדר, תשאל אותי בשיחה.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="end" id="contact">
+  <div class="wrap">
+    <div class="band">
+      <div><h2>נדבר על מה שאתם צריכים לבנות</h2><p class="sub">מחפש תפקיד <span class="lat">Senior Frontend / Full-Stack</span> · עוסק מורשה · אופקים, רימוט או היברידי</p></div>
+      <div class="band__cta">
+        <a class="btn btn--primary" href="mailto:taloh13@gmail.com"><svg><use href="#i-mail"/></svg>שלח מייל</a>
+        <a class="btn btn--ghost lat" href="tel:+972544436188"><svg><use href="#i-phone"/></svg>054-443-6188</a>
+      </div>
+    </div>
+    <footer class="foot">
+      <span>© טל אוחנה · עמוד סטטי יחיד, ללא תלויות</span>
+      <span><a class="lat" href="https://github.com/talohana55" rel="me">GitHub</a><a class="lat" href="https://www.linkedin.com/in/tal-ohana-a01abb1b4/" rel="me">LinkedIn</a><a href="mailto:taloh13@gmail.com">מייל</a></span>
+    </footer>
+  </div>
+</section>
+</main>
+
 <script>
-(function(){
+(function () {
+  var root = document.documentElement, fig = document.getElementById('fig');
+  if (!fig) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = document.querySelectorAll('.rv');
-  if (reduce || !('IntersectionObserver' in window)) {
-    for (var i=0;i<items.length;i++) items[i].classList.add('in');
-  } else {
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (!e.isIntersecting) return;
-        var el = e.target, sibs = el.parentElement ? [].filter.call(el.parentElement.children, function(c){return c.classList.contains('rv');}) : [];
-        el.style.transitionDelay = Math.min(Math.max(0, sibs.indexOf(el)) * 70, 280) + 'ms';
-        el.classList.add('in');
-        io.unobserve(el);
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
-    for (var j=0;j<items.length;j++) io.observe(items[j]);
+  var layers = fig.querySelectorAll('.layer');
+  var chapters = document.querySelectorAll('.ch');
+
+  // M3 — light the layer whose chapter is being read (desktop and mobile alike).
+  function lit(i) { for (var k = 0; k < layers.length; k++) layers[k].classList.toggle('lit', k === i); }
+  if ('IntersectionObserver' in window) {
+    var io3 = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) lit(+e.target.dataset.i); });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    for (var c = 0; c < chapters.length; c++) io3.observe(chapters[c]);
   }
-  document.querySelectorAll('.faq__q').forEach(function(b){
-    var item = b.closest('.faq__i'), a = item.querySelector('.faq__a');
-    if (item.dataset.open !== 'true') a.style.display = 'none';
-    b.addEventListener('click', function(){
-      var open = item.dataset.open === 'true';
-      item.dataset.open = open ? 'false' : 'true';
-      b.setAttribute('aria-expanded', open ? 'false' : 'true');
-      a.style.display = open ? 'none' : 'block';
-    });
-  });
+
+  if (reduce) { root.style.setProperty('--p', 1); return; }
+
+  // M1 + M2 — the exploded section.
+  var desktop = matchMedia('(min-width: 1024px)');
+  var sec = document.getElementById('section'), ticking = false;
+  function scrub() {
+    ticking = false;
+    var r = sec.getBoundingClientRect(), vh = innerHeight;
+    var p = (vh * 0.7 - r.top) / (vh * 0.5);           // starts when the section top hits 70% of the viewport, done at 20%
+    root.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(4));
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(scrub); } }
+  function armDesktop() {
+    fig.classList.remove('eased');
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    scrub();
+  }
+  function armMobile() {
+    // no scrub, no parallax: explode once with eased, staggered transitions when the figure is seen.
+    removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll);
+    fig.classList.add('eased');
+    root.style.setProperty('--p', 0);
+    if (!('IntersectionObserver' in window)) { root.style.setProperty('--p', 1); return; }
+    var io1 = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { root.style.setProperty('--p', 1); io1.disconnect(); } });
+    }, { threshold: 0.4 });
+    io1.observe(fig);
+  }
+  function arm() { desktop.matches ? armDesktop() : armMobile(); }
+  arm();
+  if (desktop.addEventListener) desktop.addEventListener('change', arm);
 })();
 </script>
 </body>
