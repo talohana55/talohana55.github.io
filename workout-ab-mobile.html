@@ -467,6 +467,8 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
+    <p class="foot-note">גרסה: 2026.10.03.2 · סדר לפי תחנות</p>
+    <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
   <!-- ==================== WORKOUT ==================== -->
@@ -645,6 +647,22 @@ PLAN.footAnkle = {
   ]
 };
 var WORKOUTS = Object.keys(PLAN);
+/* Presentation order only: original n values remain stable storage keys. */
+PLAN.A.sections = [
+  {id:"press", label:"לחיצת רגליים", ids:[1]},
+  {id:"bench", label:"ספסל ודאמבלים", ids:[2,3,4,5]},
+  {id:"machines", label:"מכשירי רגליים", ids:[6,8,9]},
+  {id:"cables", label:"כבלים", ids:[7,10]},
+  {id:"mat", label:"מזרן", ids:[11]}
+];
+PLAN.B.sections = [
+  {id:"hip", label:"עמדת Hip Thrust", ids:[1]},
+  {id:"bench", label:"דאמבלים, ספסל וסטפ יציב", ids:[3,4,8]},
+  {id:"cables", label:"משיכות וכבלים", ids:[2,5,6,7,10]},
+  {id:"machine", label:"מכשיר מקרבים", ids:[9]},
+  {id:"carry", label:"דאמבל ומסלול הליכה", ids:[11]},
+  {id:"mat", label:"מזרן", ids:[12]}
+];
 var WARMUP_MIN_S = 300, WARMUP_MAX_S = 420; /* "5–7 דק׳" from the document */
 
 /* ======================= storage (fail-safe) ======================= */
@@ -790,7 +808,7 @@ function renderNotes(){
 /* ======================= workout screen ======================= */
 var current = null;
 
-function cardHTML(w,x){
+function cardHTML(w,x,position){
   var arr = setsOf(w,x), done = isDone(w,x);
   var boxes = "";
   for(var i=0;i<x.max;i++){
@@ -827,7 +845,7 @@ function cardHTML(w,x){
 
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
     + '<div class="c-head">'
-    +   '<div class="num" aria-hidden="true">'+x.n+'</div>'
+    +   '<div class="num" aria-hidden="true">'+(position || x.n)+'</div>'
     +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
     +     (x.he ? '<p class="ex-he"><bdi>'+esc(x.he)+'</bdi></p>' : '') + '</div>'
     +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
@@ -879,11 +897,13 @@ function renderWorkout(w){
   $("#wk-sub").setAttribute("dir", P.subtitle ? "ltr" : "rtl");
   var html = P.warmup ? warmupHTML(w) : '';
   if(P.sections){
-    html += '<p class="workout-intro">'+esc(P.note)+'<br>ציוד: '+esc(P.equipment)+'</p>';
+    if(P.equipment) html += '<p class="workout-intro">'+esc(P.note)+'<br>ציוד: '+esc(P.equipment)+'</p>';
+    var position = 0;
     P.sections.forEach(function(section){
       var id = 'section-'+w+'-'+section.id;
-      html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi class="ltr">'+esc(section.label)+'</bdi><small>'+esc(section.he)+'</small></h2>';
-      P.ex.forEach(function(x){ if(x.section === section.id) html += cardHTML(w,x); });
+      html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi>'+esc(section.label)+'</bdi>'+(section.he ? '<small>'+esc(section.he)+'</small>' : '')+'</h2>';
+      var exercises = section.ids ? section.ids.map(function(n){ return P.ex.filter(function(x){ return x.n === n; })[0]; }) : P.ex.filter(function(x){ return x.section === section.id; });
+      exercises.forEach(function(x){ position++; html += cardHTML(w,x,position); });
       html += '</section>';
     });
   } else {
@@ -928,6 +948,10 @@ $$('[data-goto]').forEach(function(b){
   });
 });
 $("#btn-back").addEventListener("click", goHome);
+$("#btn-update").addEventListener("click", function(){
+  /* Reload the same origin/path so local progress stays in this app. */
+  window.location.replace(window.location.pathname + '?refresh=' + Date.now());
+});
 
 /* ======================= set / warmup toggles ======================= */
 $("#wk-list").addEventListener("change", function(e){
