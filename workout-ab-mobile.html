@@ -208,6 +208,17 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   overflow-wrap:anywhere;word-break:break-word;
 }
 .ex-he{margin:2px 0 0;font-size:.86rem;color:var(--muted-2)}
+.exercise-cue{margin:12px 0 0;color:var(--muted);font-size:.92rem;line-height:1.6}
+.exercise-details{margin-top:10px;border-top:1px solid var(--line-soft)}
+.exercise-details summary{min-height:48px;display:flex;align-items:center;cursor:pointer;color:var(--accent);font-size:.9rem}
+.exercise-details summary::before{content:"+";margin-inline-end:8px}
+.exercise-details[open] summary::before{content:"−"}
+.exercise-details p{margin:0 0 12px;line-height:1.7;unicode-bidi:plaintext}
+.workout-section{display:grid;gap:14px;min-width:0}
+.section-heading{margin:12px 2px 0;font-size:1.05rem;color:var(--accent);overflow-wrap:anywhere}
+.section-heading small{display:block;margin-top:3px;color:var(--muted-2);font-size:.8rem;font-weight:400}
+.workout-intro{margin:0 2px;color:var(--muted);line-height:1.7}
+.wk-title .s{overflow-wrap:anywhere}
 .done-mark{
   flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
   background:var(--accent);color:var(--accent-ink);opacity:0;transform:scale(.6);
@@ -237,7 +248,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .sets-row .lbl{font-size:.7rem;letter-spacing:.07em;color:var(--muted-2);font-weight:700;margin-bottom:8px;display:block}
 .sets{display:flex;gap:10px;flex-wrap:wrap}
 .set{position:relative}
-.set input{position:absolute;opacity:0;width:100%;height:100%;inset:0;margin:0;cursor:pointer}
+.set input{position:absolute;z-index:1;opacity:0;width:100%;height:100%;inset:0;margin:0;cursor:pointer}
 .set label{
   display:grid;place-items:center;width:56px;height:var(--tap);
   border-radius:var(--r-md);background:var(--surface-2);border:1.5px solid var(--line);
@@ -434,12 +445,18 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
         <span class="meta" id="meta-B"></span>
         <span class="barwrap"><span class="bar"><i id="home-bar-B"></i></span></span>
       </button>
+      <button class="pick-btn" type="button" data-goto="footAnkle">
+        <span class="row1"><span class="name"><bdi class="ltr">Foot &amp; Ankle</bdi></span></span>
+        <span class="ex-he">כפות רגליים וקרסוליים</span>
+        <span class="meta" id="meta-footAnkle"></span>
+        <span class="barwrap"><span class="bar"><i id="home-bar-footAnkle"></i></span></span>
+      </button>
     </nav>
 
     <details class="notes">
       <summary>הערות על קישורי הווידאו</summary>
       <div class="body">
-        <p>כל התרגילים, הסטים, החזרות וזמני המנוחה הועתקו מהמסמך כמות שהם. שונו רק קישורי הדגמה שהצביעו על <strong>דף תוצאות חיפוש</strong> ביוטיוב במקום על סרטון מסוים:</p>
+        <p>באימוני A/B, כל התרגילים, הסטים, החזרות וזמני המנוחה הועתקו מהמסמך כמות שהם. שונו רק קישורי הדגמה שהצביעו על <strong>דף תוצאות חיפוש</strong> ביוטיוב במקום על סרטון מסוים:</p>
         <ul id="notes-list"></ul>
         <p id="notes-mismatch"></p>
       </div>
@@ -600,26 +617,58 @@ var PLAN = {
     ]
   }
 };
+/* Supplement supplied separately; A/B above remain the original DOCX data.
+   Exercise IDs are stable within each workout; section order is explicit. */
+PLAN.footAnkle = {
+  label: "Foot & Ankle",
+  subtitle: "10–15 min • Foot Strength • Ankle Stability",
+  note: "אימון קצר לחיזוק כף הרגל, הקרסול ושיווי המשקל",
+  durationLabel: "יעד: 10–15 דק׳",
+  summary: "יעד משך: 10–15 דקות. משך הביצוע בפועל תלוי בקצב ובמנוחות.",
+  equipment: "גומיית התנגדות וכרית איזון מלאה באוויר",
+  sections: [
+    {id:"activation", label:"Activation", he:"הפעלה"},
+    {id:"strength", label:"Strength", he:"חיזוק"},
+    {id:"control", label:"Ankle Control", he:"שליטה בקרסול"},
+    {id:"balance", label:"Balance & Proprioception", he:"שיווי משקל ותחושת מנח הגוף"}
+  ],
+  ex: [
+    {n:1, section:"activation", name:"Short Foot / Doming", he:"קיצור כף הרגל / הרמת הקשת", sets:"3×20–30 שנ׳", doseLabel:"סטים × זמן", min:3, max:3, rest:"20–30 שנ׳", rs:20, re:30, vid:"m1lkcg8p-48", title:"Short Foot Exercise", cue:"להרים את הקשת בעדינות, בלי לכווץ את האצבעות.", instructions:"יש לשמור את העקב, בסיס הבוהן ובסיס הזרת על הרצפה ולנסות להרים את הקשת בעדינות מבלי לכווץ את האצבעות."},
+    {n:2, section:"activation", name:"Toe Yoga", he:"שליטת אצבעות כף הרגל", sets:"2×10 לכל מצב", min:2, max:2, vid:"QVZpBSVV9js", title:"How to Do a Toe Yoga Exercise: A Guide from Physical Therapists", cue:"בוהן למעלה ואצבעות למטה — ואז להפך.", instructions:"להרים את הבוהן הגדולה כאשר יתר האצבעות נשארות ברצפה, ולאחר מכן להפוך: הבוהן ברצפה ושאר האצבעות עולות."},
+    {n:3, section:"strength", name:"Single-Leg Calf Raise", he:"עליית תאומים על רגל אחת", sets:"3×10–15", min:3, max:3, vid:"hXB5YxfeoDo", title:"Single leg calf raise exercise", cue:"עלייה לגובה מלא וירידה איטית, עם קרסול יציב.", instructions:"לבצע עלייה מבוקרת לגובה מלא על קצות האצבעות ולרדת לאט. לשמור על קרסול יציב ולא לתת לו לקרוס פנימה או החוצה."},
+    {n:4, section:"strength", name:"Bent-Knee Soleus Raise", he:"עליית עקב עם ברך כפופה – Soleus", sets:"3×15–20", min:3, max:3, vid:"C3tLEvqrW4E", title:"Bent Knee Calf Raise - Soleus", cue:"לשמור על הברך כפופה לאורך כל התנועה.", instructions:"לשמור את הברך כפופה לאורך התרגיל ולבצע עלייה וירידה של העקב בשליטה."},
+    {n:5, section:"strength", name:"Tibialis Raise", he:"הרמת כף הרגל / Tibialis Raise", sets:"3×15–25", min:3, max:3, vid:"VzIcGAgBiaM", title:"Tibialis Wall Raises (Exercise Demo)", cue:"עקבים על הרצפה, קדמת כפות הרגליים עולה לכיוון השוק.", instructions:"להישען על קיר כאשר העקבים נשארים על הרצפה ולהרים את קדמת כפות הרגליים לכיוון השוק."},
+    {n:6, section:"control", name:"Resistance Band Ankle Inversion", he:"סיבוב הקרסול פנימה עם גומייה", sets:"3×12–15", min:3, max:3, vid:"50YDq8_OA_w", title:"Ankle Inversion with Resistive Band - Ask Doctor Jo", cue:"למשוך פנימה כנגד הגומייה, בלי להזיז משמעותית את הברך.", instructions:"למשוך את כף הרגל פנימה כנגד התנגדות הגומייה ללא תנועה משמעותית של הברך. המטרה היא בין היתר חיזוק Tibialis Posterior."},
+    {n:7, section:"control", name:"Resistance Band Ankle Eversion", he:"סיבוב הקרסול החוצה עם גומייה", sets:"3×12–15", min:3, max:3, vid:"K_iDi5roZSE", title:"Ankle eversion band", cue:"להניע החוצה כנגד הגומייה, לאט ובשליטה.", instructions:"להניע את כף הרגל החוצה כנגד הגומייה בצורה איטית ומבוקרת. המטרה היא חיזוק שרירי ה־Peroneals ושיפור היציבות הלטרלית של הקרסול."},
+    {n:8, section:"balance", name:"Single-Leg Balance on Balance Pad", he:"עמידה על רגל אחת על כרית שיווי משקל", sets:"3×30–45 שנ׳ לכל רגל", doseLabel:"סטים × זמן", min:3, max:3, vid:"wz0McIEtGXg", title:"Single Leg Balance on Foam Pad", cue:"ברך מעט כפופה, קשת פעילה ואגן יציב.", instructions:"לעמוד יחף על הכרית על רגל אחת. הברך צריכה להיות מעט כפופה ולא נעולה. לשמור על קשת פעילה, ברך בקו עם כף הרגל, אגן יציב וכמה שפחות מגע עם הרצפה באמצעות הרגל השנייה.", equipment:"Balance Pad / כרית איזון מלאה באוויר"},
+    {n:9, section:"balance", name:"Single-Leg Balance + Reach", he:"עמידה על הכרית עם Reach", sets:"2×5 לכל כיוון", min:2, max:2, vid:"MPCMwDxE7kI", title:"Clock Exercise on Foam Pad", cue:"נגיעות בחמישה כיוונים וחזרה למרכז אחרי כל נגיעה.", instructions:"לעמוד על רגל אחת על כרית האיזון. עם הרגל השנייה לבצע נגיעות מבוקרות לכיוונים: קדימה, אלכסון קדמי, צד, אלכסון אחורי ואחורה. לחזור למרכז לאחר כל נגיעה."}
+  ]
+};
+var WORKOUTS = Object.keys(PLAN);
 var WARMUP_MIN_S = 300, WARMUP_MAX_S = 420; /* "5–7 דק׳" from the document */
 
 /* ======================= storage (fail-safe) ======================= */
-var KEY = "workoutAB.v1";
+var KEY = "workoutAB.v2", LEGACY_KEY = "workoutAB.v1";
 var memStore = null;
 var storeOK = (function(){
   try { var k="__t"+Date.now(); localStorage.setItem(k,"1"); localStorage.removeItem(k); return true; }
   catch(e){ return false; }
 })();
 function blankSide(){ return { warmup:false, sets:{}, last:null }; }
-function blankState(){ return { A:blankSide(), B:blankSide() }; }
+function blankState(){
+  var s = {};
+  WORKOUTS.forEach(function(w){ s[w] = blankSide(); });
+  return s;
+}
 function loadState(){
   if(!storeOK) return memStore || (memStore = blankState());
   try{
-    var raw = localStorage.getItem(KEY);
+    var raw = localStorage.getItem(KEY) || localStorage.getItem(LEGACY_KEY);
     if(!raw) return blankState();
     var p = JSON.parse(raw);
     if(!p || typeof p!=="object") return blankState();
     var s = blankState();
-    ["A","B"].forEach(function(w){
+    WORKOUTS.forEach(function(w){
       if(p[w] && typeof p[w]==="object"){
         s[w].warmup = !!p[w].warmup;
         s[w].last   = typeof p[w].last==="string" ? p[w].last : null;
@@ -639,9 +688,10 @@ function loadState(){
 function saveState(){
   if(!storeOK){ memStore = state; return; }
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }
-  catch(e){ memStore = state; }
+  catch(e){ storeOK = false; memStore = state; }
 }
 var state = loadState();
+saveState(); /* Persist the migrated copy; leave v1 untouched for rollback. */
 function setsOf(w,x){
   var a = state[w].sets[x.n];
   if(Object.prototype.toString.call(a)!=="[object Array]" || a.length!==x.max){
@@ -666,13 +716,14 @@ function isDone(w,x){
   return c >= x.min;
 }
 function progress(w){
-  var total = PLAN[w].ex.length + 1, done = state[w].warmup ? 1 : 0;
+  var total = PLAN[w].ex.length + (PLAN[w].warmup ? 1 : 0);
+  var done = PLAN[w].warmup && state[w].warmup ? 1 : 0;
   PLAN[w].ex.forEach(function(x){ if(isDone(w,x)) done++; });
   return { done:done, total:total, pct: Math.round(done/total*100) };
 }
 function restRange(w){
-  var lo = WARMUP_MIN_S, hi = WARMUP_MAX_S;
-  PLAN[w].ex.forEach(function(x){ lo += x.min * x.rs; hi += x.max * x.re; });
+  var lo = PLAN[w].warmup ? WARMUP_MIN_S : 0, hi = PLAN[w].warmup ? WARMUP_MAX_S : 0;
+  PLAN[w].ex.forEach(function(x){ lo += x.min * (x.rs || 0); hi += x.max * (x.re || 0); });
   return { lo:Math.round(lo/60), hi:Math.round(hi/60) };
 }
 function toast(msg){
@@ -699,11 +750,11 @@ var ICON = {
 
 /* ======================= home screen ======================= */
 function renderHome(){
-  ["A","B"].forEach(function(w){
+  WORKOUTS.forEach(function(w){
     var p = progress(w), r = restRange(w), n = PLAN[w].ex.length;
     var meta = $("#meta-"+w);
-    var bits = '<span class="chip">' + n + ' תרגילים + חימום</span>' +
-               '<span class="chip">≈ ' + r.lo + '–' + r.hi + ' דק׳</span>';
+    var bits = '<span class="chip">' + n + ' תרגילים' + (PLAN[w].warmup ? ' + חימום' : '') + '</span>' +
+               '<span class="chip"><bdi>' + esc(PLAN[w].durationLabel || ('≈ ' + r.lo + '–' + r.hi + ' דק׳')) + '</bdi></span>';
     if(p.done > 0 && p.done < p.total) bits += '<span class="chip on">בתהליך · ' + p.pct + '%</span>';
     else if(p.done === p.total)        bits += '<span class="chip on">הושלם ✓</span>';
     meta.innerHTML = bits;
@@ -712,11 +763,11 @@ function renderHome(){
       b.setAttribute("aria-label", PLAN[w].label + " — " + n + " תרגילים, הושלמו " + p.done + " מתוך " + p.total);
     });
   });
-  var la = state.A.last ? fmtDate(state.A.last) : null;
-  var lb = state.B.last ? fmtDate(state.B.last) : null;
   var parts = [];
-  if(la) parts.push("אימון A אחרון: " + la);
-  if(lb) parts.push("אימון B אחרון: " + lb);
+  WORKOUTS.forEach(function(w){
+    var last = state[w].last ? fmtDate(state[w].last) : null;
+    if(last) parts.push(PLAN[w].label + " — אימון אחרון: " + last);
+  });
   if(!storeOK) parts.push("שמירה מקומית חסומה בדפדפן — ההתקדמות תישמר עד סגירת הדף.");
   $("#last-line").textContent = parts.join(" · ");
 }
@@ -777,19 +828,23 @@ function cardHTML(w,x){
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
     + '<div class="c-head">'
     +   '<div class="num" aria-hidden="true">'+x.n+'</div>'
-    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3></div>'
+    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
+    +     (x.he ? '<p class="ex-he"><bdi>'+esc(x.he)+'</bdi></p>' : '') + '</div>'
     +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
     + '</div>'
     + '<div class="specs">'
-    +   '<div class="spec reps"><span class="k">סטים × חזרות</span><span class="v"><bdi>'+esc(x.sets)+'</bdi></span></div>'
-    +   '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi>'+esc(x.rest)+'</bdi></span></div>'
+    +   '<div class="spec reps"><span class="k">'+esc(x.doseLabel || 'סטים × חזרות')+'</span><span class="v"><bdi>'+esc(x.sets)+'</bdi></span></div>'
+    +   '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi>'+esc(x.rest || 'לא צוין')+'</bdi></span></div>'
     + '</div>'
     + uncertain
+    + (x.cue ? '<p class="exercise-cue">'+esc(x.cue)+'</p>' : '')
+    + (x.instructions ? '<details class="exercise-details"><summary>דגשים לביצוע</summary><p>'+esc(x.instructions)+'</p>'
+      + (x.equipment ? '<p>ציוד: <bdi>'+esc(x.equipment)+'</bdi></p>' : '') + '</details>' : '')
     + '<div class="sets-row"><span class="lbl">סימון סטים</span><div class="sets">'+boxes+'</div></div>'
     + media
-    + '<div class="actions">'
+    + (typeof x.rs === 'number' ? '<div class="actions">'
     +   '<button class="btn wide" type="button" data-timer="'+x.n+'">'+ICON.clock+'טיימר מנוחה · <bdi>'+esc(x.rest)+'</bdi></button>'
-    + '</div>'
+    + '</div>' : '')
     + '</article>';
 }
 
@@ -819,11 +874,23 @@ function renderWorkout(w){
   current = w;
   var P = PLAN[w], r = restRange(w);
   $("#wk-h").textContent = P.label;
-  $("#wk-sub").textContent = P.ex.length + " תרגילים + חימום · " + P.note;
-  var html = warmupHTML(w);
-  P.ex.forEach(function(x){ html += cardHTML(w,x); });
+  $("#wk-h").setAttribute("dir", "auto");
+  $("#wk-sub").textContent = P.subtitle || (P.ex.length + " תרגילים + חימום · " + P.note);
+  $("#wk-sub").setAttribute("dir", P.subtitle ? "ltr" : "rtl");
+  var html = P.warmup ? warmupHTML(w) : '';
+  if(P.sections){
+    html += '<p class="workout-intro">'+esc(P.note)+'<br>ציוד: '+esc(P.equipment)+'</p>';
+    P.sections.forEach(function(section){
+      var id = 'section-'+w+'-'+section.id;
+      html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi class="ltr">'+esc(section.label)+'</bdi><small>'+esc(section.he)+'</small></h2>';
+      P.ex.forEach(function(x){ if(x.section === section.id) html += cardHTML(w,x); });
+      html += '</section>';
+    });
+  } else {
+    P.ex.forEach(function(x){ html += cardHTML(w,x); });
+  }
   $("#wk-list").innerHTML = html;
-  $("#wk-summary").innerHTML = 'חימום + זמני המנוחה שבמסמך: <b>≈ ' + r.lo + '–' + r.hi + ' דק׳</b>' +
+  $("#wk-summary").innerHTML = P.summary ? esc(P.summary) : 'חימום + זמני המנוחה שבמסמך: <b>≈ ' + r.lo + '–' + r.hi + ' דק׳</b>' +
     ' <span style="opacity:.7">(לא כולל זמן ביצוע הסטים — אינו מופיע במסמך)</span>';
   updateProgress();
 }
@@ -1059,13 +1126,13 @@ $("#btn-finish").addEventListener("click", function(){
   var w = current, p = progress(w);
   state[w].last = new Date().toISOString();
   saveState();
-  toast("אימון " + w + " נשמר · " + p.done + "/" + p.total + " הושלמו");
+  toast(PLAN[w].label + " נשמר · " + p.done + "/" + p.total + " הושלמו");
   setTimeout(goHome, 800);
 });
 $("#btn-reset").addEventListener("click", function(){
   var w = current;
   askConfirm(
-    'לאפס את כל הסימונים של <b>' + PLAN[w].label + '</b>? הסטים המסומנים והחימום יימחקו. התוכנית עצמה לא משתנה.',
+    'לאפס את כל הסימונים של <b>' + esc(PLAN[w].label) + '</b>? הסטים המסומנים' + (PLAN[w].warmup ? ' והחימום' : '') + ' יימחקו. התוכנית עצמה לא משתנה.',
     "כן, אפס",
     function(){
       state[w] = blankSide();
