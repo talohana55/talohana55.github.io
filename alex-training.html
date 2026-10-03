@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0F14">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Alex Training">
+<meta name="robots" content="noindex, nofollow">
+<title>Alex Training</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F14'/%3E%3Cpath d='M16 26h6v12h-6zM42 26h6v12h-6zM24 29h16v6H24z' fill='%232DE1C2'/%3E%3C/svg%3E">
+<style>
+/* ============================= design tokens ============================= */
+:root{
+  --bg:#0B0F14;
+  --bg-grad-1:#0E1520;
+  --bg-grad-2:#0B0F14;
+  --surface:#111A26;
+  --surface-2:#16212F;
+  --surface-3:#1C2937;
+  --line:#22303F;
+  --line-soft:#1A2634;
+  --text:#EAF1F8;
+  --muted:#94A7BC;
+  --muted-2:#6F8299;
+  --accent:#2DE1C2;
+  --accent-ink:#052B25;
+  --accent-2:#4C8DFF;
+  --warn:#FFB65C;
+  --danger:#FF6B6B;
+  --r-lg:20px; --r-md:14px; --r-sm:10px;
+  --sp:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+  --tap:48px;
+  --dur:.22s;
+}
+@media (prefers-reduced-motion: reduce){
+  :root{--dur:0.001s}
+  *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;scroll-behavior:auto !important}
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(1200px 620px at 50% -10%, var(--bg-grad-1) 0%, var(--bg-grad-2) 62%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Noto Sans Hebrew","Arial Hebrew",Rubik,Heebo,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  overflow-x:hidden;
+  min-height:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+bdi,.ltr{unicode-bidi:isolate}
+.ltr{direction:ltr}
+
+/* ============================= app shell ============================= */
+.app{
+  max-width:520px;margin-inline:auto;
+  padding-left:max(var(--sp),var(--safe-l));
+  padding-right:max(var(--sp),var(--safe-r));
+  padding-top:calc(var(--safe-t) + 14px);
+  padding-bottom:calc(var(--safe-b) + 28px);
+}
+body.timer-open .app{padding-bottom:calc(var(--safe-b) + 250px)}
+.screen{display:none}
+.screen.is-active{display:block;animation:fade var(--dur) ease-out both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ============================= home ============================= */
+.hero{padding:8px 2px 4px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.8rem;font-weight:700;letter-spacing:.04em;
+  color:var(--accent);background:rgba(45,225,194,.10);
+  border:1px solid rgba(45,225,194,.24);
+  padding:6px 12px;border-radius:999px;margin:0 0 14px;
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+.sub{margin:0 0 20px;color:var(--muted);font-size:1rem}
+.rule-card{
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:16px;margin:0 0 22px;box-shadow:var(--shadow);
+}
+.rule-card h2{margin:0 0 6px;font-size:.82rem;letter-spacing:.08em;color:var(--muted-2);font-weight:700}
+.rule-card p{margin:0;font-size:1.05rem;font-weight:600;line-height:1.5}
+.rule-card .rpe{color:var(--accent)}
+
+.pick{display:grid;gap:14px;margin-bottom:22px}
+.pick-btn{
+  position:relative;display:block;width:100%;text-align:start;
+  background:linear-gradient(135deg,var(--surface-2) 0%,var(--surface) 100%);
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:18px 18px 16px;min-height:var(--tap);
+  transition:transform var(--dur) ease, border-color var(--dur) ease, background var(--dur) ease;
+  overflow:hidden;
+}
+.pick-btn::before{
+  content:"";position:absolute;inset-inline-start:0;inset-block:0;width:5px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+}
+.pick-btn:active{transform:scale(.985);border-color:rgba(45,225,194,.5)}
+.pick-btn .row1{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pick-btn .tag{
+  font-size:2rem;font-weight:800;line-height:1;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.pick-btn .name{font-size:1.25rem;font-weight:700}
+.pick-btn .meta{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  font-size:.82rem;color:var(--muted);background:var(--surface-3);
+  border:1px solid var(--line-soft);border-radius:999px;padding:5px 11px;white-space:nowrap;
+}
+.chip.on{color:var(--accent);border-color:rgba(45,225,194,.35);background:rgba(45,225,194,.09)}
+.pick-btn .barwrap{margin-top:12px}
+
+.notes{margin:6px 0 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
+.notes summary{
+  cursor:pointer;list-style:none;padding:14px 16px;min-height:var(--tap);
+  display:flex;align-items:center;gap:10px;font-weight:600;font-size:.95rem;color:var(--muted);
+}
+.notes summary::-webkit-details-marker{display:none}
+.notes summary::after{content:"▾";margin-inline-start:auto;color:var(--muted-2);transition:transform var(--dur) ease}
+.notes[open] summary::after{transform:rotate(180deg)}
+.notes .body{padding:0 16px 16px;font-size:.9rem;color:var(--muted);line-height:1.7}
+.notes .body ul{margin:8px 0 0;padding-inline-start:18px}
+.notes .body li{margin-bottom:8px}
+.notes .body strong{color:var(--text);font-weight:600}
+.foot-note{margin:16px 2px 0;color:var(--muted-2);font-size:.8rem;line-height:1.6}
+
+/* ============================= workout header ============================= */
+.wk-head{
+  position:sticky;top:0;z-index:30;
+  margin-left:calc(-1 * max(var(--sp),var(--safe-l)));
+  margin-right:calc(-1 * max(var(--sp),var(--safe-r)));
+  margin-top:calc(-1 * (var(--safe-t) + 14px));
+  padding:calc(var(--safe-t) + 10px) max(var(--sp),var(--safe-r)) 12px max(var(--sp),var(--safe-l));
+  background:rgba(11,15,20,.86);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.wk-head .top{display:flex;align-items:center;gap:12px}
+.icon-btn{
+  width:var(--tap);height:var(--tap);flex:none;display:grid;place-items:center;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);
+  transition:background var(--dur) ease;
+}
+.icon-btn:active{background:var(--surface-3)}
+.icon-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wk-title{flex:1;min-width:0}
+.wk-title h2{margin:0;font-size:1.2rem;font-weight:800;line-height:1.25}
+.wk-title .s{margin:0;font-size:.8rem;color:var(--muted-2)}
+.wk-pct{font-size:1.15rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;flex:none}
+.barwrap{margin-top:10px}
+.bar{height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden;border:1px solid var(--line-soft)}
+.bar > i{
+  display:block;height:100%;width:0%;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent-2),var(--accent));
+  transition:width var(--dur) ease;
+}
+
+/* ============================= cards ============================= */
+.list{display:grid;gap:14px;margin-top:18px}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:16px;position:relative;overflow:hidden;
+  transition:border-color var(--dur) ease, background var(--dur) ease;
+}
+.card::before{
+  content:"";position:absolute;inset-inline-start:0;inset-block:0;width:4px;
+  background:var(--line);transition:background var(--dur) ease;
+}
+.card.done{border-color:rgba(45,225,194,.42);background:linear-gradient(180deg,rgba(45,225,194,.07),rgba(45,225,194,.02))}
+.card.done::before{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+
+.card.warm{background:linear-gradient(180deg,rgba(76,141,255,.10),var(--surface));border-color:rgba(76,141,255,.30)}
+.card.warm::before{background:var(--accent-2)}
+.card.warm.done{background:linear-gradient(180deg,rgba(45,225,194,.09),rgba(45,225,194,.02));border-color:rgba(45,225,194,.42)}
+
+.c-head{display:flex;align-items:flex-start;gap:12px}
+.num{
+  width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:var(--surface-3);border:1px solid var(--line);
+  font-weight:800;font-size:1rem;color:var(--muted);font-variant-numeric:tabular-nums;
+  transition:all var(--dur) ease;
+}
+.card.done .num{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.card.warm .num{background:rgba(76,141,255,.16);border-color:rgba(76,141,255,.4);color:#A9C7FF;font-size:1.1rem}
+.card.warm.done .num{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.c-title{flex:1;min-width:0}
+.ex-name{
+  margin:0;font-size:1.16rem;font-weight:700;line-height:1.3;
+  overflow-wrap:anywhere;word-break:break-word;
+}
+.ex-he{margin:2px 0 0;font-size:.86rem;color:var(--muted-2)}
+.exercise-cue{margin:12px 0 0;color:var(--muted);font-size:.92rem;line-height:1.6}
+.exercise-details{margin-top:10px;border-top:1px solid var(--line-soft)}
+.exercise-details summary{min-height:48px;display:flex;align-items:center;cursor:pointer;color:var(--accent);font-size:.9rem}
+.exercise-details summary::before{content:"+";margin-inline-end:8px}
+.exercise-details[open] summary::before{content:"−"}
+.exercise-details p{margin:0 0 12px;line-height:1.7;unicode-bidi:plaintext}
+.workout-section{display:grid;gap:14px;min-width:0}
+.section-heading{margin:12px 2px 0;font-size:1.05rem;color:var(--accent);overflow-wrap:anywhere}
+.section-heading small{display:block;margin-top:3px;color:var(--muted-2);font-size:.8rem;font-weight:400}
+.workout-intro{margin:0 2px;color:var(--muted);line-height:1.7}
+.wk-title .s{overflow-wrap:anywhere}
+.done-mark{
+  flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent);color:var(--accent-ink);opacity:0;transform:scale(.6);
+  transition:opacity var(--dur) ease, transform var(--dur) ease;margin-top:6px;
+}
+.card.done .done-mark{opacity:1;transform:none}
+.done-mark svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+
+.specs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.spec{
+  background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r-sm);
+  padding:8px 11px;min-width:0;
+}
+.spec .k{display:block;font-size:.68rem;letter-spacing:.07em;color:var(--muted-2);font-weight:700}
+.spec .v{display:block;font-size:.98rem;font-weight:700;margin-top:1px}
+.spec.reps .v{color:var(--accent)}
+.spec.rest .v{color:var(--accent-2)}
+
+.uncertain{
+  margin:12px 0 0;display:flex;gap:8px;align-items:flex-start;
+  background:rgba(255,182,92,.09);border:1px solid rgba(255,182,92,.30);
+  border-radius:var(--r-sm);padding:10px 12px;font-size:.83rem;color:#FFD9A6;line-height:1.6;
+}
+.uncertain svg{width:16px;height:16px;flex:none;margin-top:3px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.sets-row{margin:14px 0 0}
+.sets-row .lbl{font-size:.7rem;letter-spacing:.07em;color:var(--muted-2);font-weight:700;margin-bottom:8px;display:block}
+.sets{display:flex;gap:10px;flex-wrap:wrap}
+.set{position:relative}
+.set input{position:absolute;z-index:1;opacity:0;width:100%;height:100%;inset:0;margin:0;cursor:pointer}
+.set label{
+  display:grid;place-items:center;width:56px;height:var(--tap);
+  border-radius:var(--r-md);background:var(--surface-2);border:1.5px solid var(--line);
+  font-weight:800;font-size:.92rem;color:var(--muted);cursor:pointer;user-select:none;
+  transition:all var(--dur) ease;
+}
+.set input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:translateY(-1px)}
+.set input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+.set input:active + label{transform:scale(.95)}
+.set.optional label{border-style:dashed}
+
+.actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{
+  min-height:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:var(--r-md);padding:0 16px;font-weight:700;font-size:.95rem;
+  border:1px solid var(--line);background:var(--surface-2);
+  transition:transform var(--dur) ease, background var(--dur) ease, border-color var(--dur) ease;
+  text-decoration:none;flex:1 1 auto;
+}
+.btn:active{transform:scale(.97)}
+.btn svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.blue{background:rgba(76,141,255,.14);border-color:rgba(76,141,255,.42);color:#BBD3FF}
+.btn.ghost{background:transparent}
+.btn.danger{background:rgba(255,107,107,.10);border-color:rgba(255,107,107,.34);color:#FFB4B4}
+.btn.wide{flex:1 1 100%}
+
+.thumb{
+  position:relative;display:block;width:100%;margin-top:14px;border-radius:var(--r-md);
+  overflow:hidden;border:1px solid var(--line);background:var(--surface-3);
+  aspect-ratio:16/9;padding:0;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;background:var(--surface-3)}
+.thumb .play{
+  position:absolute;inset:0;display:grid;place-items:center;
+  background:linear-gradient(180deg,rgba(4,8,12,.05),rgba(4,8,12,.55));
+}
+.thumb .play span{
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(45,225,194,.94);color:var(--accent-ink);
+  box-shadow:0 8px 24px rgba(0,0,0,.5);transition:transform var(--dur) ease;
+}
+.thumb:active .play span{transform:scale(.92)}
+.thumb .play svg{width:24px;height:24px;fill:currentColor;stroke:none;margin-inline-start:3px}
+.thumb .cap{
+  position:absolute;inset-inline:0;inset-block-end:0;padding:8px 12px;
+  font-size:.8rem;font-weight:700;color:#EAF1F8;text-shadow:0 1px 6px rgba(0,0,0,.9);
+  text-align:start;
+}
+.thumb.noimg img{display:none}
+.thumb.noimg{background:linear-gradient(135deg,var(--surface-3),var(--surface-2))}
+
+/* ============================= workout footer ============================= */
+.wk-foot{margin-top:22px;display:grid;gap:10px}
+.summary-line{
+  text-align:center;color:var(--muted);font-size:.88rem;margin:4px 0 6px;
+}
+.summary-line b{color:var(--accent)}
+
+/* ============================= rest timer ============================= */
+.timer{
+  position:fixed;inset-inline:0;inset-block-end:0;z-index:60;
+  transform:translateY(120%);transition:transform var(--dur) cubic-bezier(.22,.9,.3,1);
+  padding:0 max(12px,var(--safe-r)) calc(var(--safe-b) + 12px) max(12px,var(--safe-l));
+  box-sizing:border-box;
+  pointer-events:none;
+}
+.timer.open{transform:none;pointer-events:auto}
+.timer-inner{
+  max-width:520px;margin-inline:auto;
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:0 -12px 40px rgba(0,0,0,.6);padding:14px 14px 12px;
+}
+.timer .t-top{display:flex;align-items:center;gap:12px}
+.timer .t-for{flex:1;min-width:0;font-size:.8rem;color:var(--muted-2);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer .t-close{width:44px;height:44px;flex:none;border-radius:10px;background:var(--surface-3);border:1px solid var(--line);display:grid;place-items:center}
+.timer .t-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+.t-clock{
+  text-align:center;font-size:3.4rem;font-weight:800;line-height:1.05;margin:4px 0 2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;direction:ltr;
+  color:var(--text);transition:color var(--dur) ease;
+}
+.timer.ringing .t-clock{color:var(--accent)}
+.timer.ringing .timer-inner{border-color:var(--accent);animation:ring .9s ease-in-out 3}
+@keyframes ring{0%,100%{box-shadow:0 -12px 40px rgba(0,0,0,.6)}50%{box-shadow:0 0 0 3px rgba(45,225,194,.45),0 -12px 40px rgba(0,0,0,.6)}}
+.t-msg{text-align:center;font-size:.85rem;color:var(--accent);font-weight:700;min-height:1.2em;margin-bottom:6px}
+.t-bar{height:5px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin:6px 0 12px}
+.t-bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));width:100%}
+.t-controls{display:flex;gap:8px}
+.t-controls .btn{flex:1;padding:0 10px;font-size:.9rem}
+.t-presets{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;justify-content:center}
+.t-presets button{
+  background:var(--surface-3);border:1px solid var(--line-soft);border-radius:999px;
+  padding:8px 16px;font-size:.85rem;font-weight:700;color:var(--muted);min-height:44px;
+}
+.t-presets button.sel{background:rgba(45,225,194,.13);border-color:rgba(45,225,194,.4);color:var(--accent)}
+
+/* ============================= modals ============================= */
+.overlay{
+  position:fixed;inset:0;z-index:100;display:none;
+  background:rgba(4,7,11,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  padding:calc(var(--safe-t) + 14px) max(14px,var(--safe-r)) calc(var(--safe-b) + 14px) max(14px,var(--safe-l));
+  overflow-y:auto;box-sizing:border-box;
+}
+.overlay.open{display:flex;align-items:center;justify-content:center;animation:fade var(--dur) ease-out both}
+.sheet{
+  width:100%;max-width:520px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;
+}
+.sheet-head{display:flex;align-items:center;gap:10px;padding:14px 14px 10px}
+.sheet-head h3{margin:0;font-size:1.02rem;font-weight:700;flex:1;min-width:0;line-height:1.35;overflow-wrap:anywhere}
+.sheet-body{padding:0 14px 14px}
+.video-frame{
+  position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:var(--r-md);
+  overflow:hidden;border:1px solid var(--line);
+}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.blocked{
+  position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:18px;
+  background:linear-gradient(135deg,var(--surface-3),var(--surface-2));
+}
+.blocked.show{display:grid}
+.blocked p{margin:0 0 4px;font-size:.92rem;color:var(--muted);line-height:1.6}
+.blocked strong{display:block;color:var(--text);font-size:1rem;margin-bottom:6px}
+.confirm-txt{padding:0 14px 4px;color:var(--muted);font-size:.95rem;line-height:1.65}
+.confirm-txt b{color:var(--text)}
+.sheet-actions{display:flex;gap:10px;padding:14px}
+.sheet-actions .btn{flex:1}
+
+.toast{
+  position:fixed;inset-block-end:calc(var(--safe-b) + 20px);inset-inline:0;z-index:200;
+  display:flex;justify-content:center;pointer-events:none;padding-inline:16px;
+}
+.toast > div{
+  background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.92rem;
+  padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);
+  opacity:0;transform:translateY(12px);transition:opacity var(--dur) ease,transform var(--dur) ease;
+  max-width:100%;text-align:center;
+}
+.toast.show > div{opacity:1;transform:none}
+
+.noscript-note{
+  margin:0 0 18px;padding:16px;border-radius:var(--r-lg);
+  background:rgba(255,182,92,.10);border:1px solid rgba(255,182,92,.36);color:#FFD9A6;
+}
+.noscript-note h2{margin:0 0 8px;font-size:1.05rem;color:#FFE6C2}
+.noscript-note p{margin:0 0 8px;font-size:.94rem;line-height:1.7}
+.noscript-note ol{margin:8px 0 0;padding-inline-start:20px;font-size:.92rem;line-height:1.8}
+.noscript-note :last-child{margin-bottom:0}
+@media (max-width:359px){
+  .set label{width:48px}
+  .t-clock{font-size:2.9rem}
+}
+/* Alex data fields reuse the existing cards, tokens and spacing. */
+.card,.chip,.btn,.section-heading,.rule-card{overflow-wrap:anywhere}
+.chip{white-space:normal}
+.pick-btn .barwrap,.pick-btn .bar{display:block}
+.exercise-details ul{padding-inline-start:22px}
+.exercise-details li{margin:8px 0}
+.library-highlight{outline:2px solid var(--accent);outline-offset:3px}
+.card{scroll-margin-top:140px}
+.timer:not(.open){visibility:hidden}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <noscript>
+    <section class="noscript-note">
+      <h2>JavaScript כבוי — האפליקציה לא תעבוד כאן</h2>
+      <p>הדף הזה נפתח כרגע במציג שלא מריץ סקריפטים, ולכן הכפתורים לא מגיבים. זה קורה בדרך כלל בתצוגה המקדימה של אפליקציית Files ב־iPhone, או בדפדפן הפנימי של WhatsApp / Gmail / Telegram.</p>
+      <ol>
+        <li>iPhone: שתף את הקובץ ובחר <b>Safari</b>, או פתח אותו מתוך Safari ולא מתצוגת התיק.</li>
+        <li>Android: פתח את הקובץ ישירות ב־<b>Chrome</b>.</li>
+        <li>הכי אמין: פתח את הקישור לגרסה המאוחסנת בשרת.</li>
+      </ol>
+    </section>
+  </noscript>
+
+  <!-- ==================== HOME ==================== -->
+  <main id="screen-home" class="screen is-active" aria-labelledby="home-h1">
+    <header class="hero">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>התוכנית של Alex</p>
+      <h1 id="home-h1"><bdi class="ltr">Alex Training</bdi></h1>
+      <p class="sub">בחרי אימון, סמני סטים והפעילי טיימר מנוחה.</p>
+    </header>
+
+
+
+    <nav class="pick" id="workout-picker" aria-label="בחירת אימון"></nav>
+    <button class="btn blue wide" type="button" id="btn-library">ספריית תרגילים · Exercise Library</button>
+
+
+
+    <p class="foot-note">
+      לאחר טעינת הדף ניתן לסמן התקדמות גם ללא אינטרנט. קישורי ההדגמה דורשים חיבור לרשת.
+      ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
+    </p>
+    <p class="foot-note" id="last-line"></p>
+    <p class="foot-note">גרסה: Alex · 2026.10.03.1</p>
+    <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
+  </main>
+
+  <!-- ==================== WORKOUT ==================== -->
+  <main id="screen-workout" class="screen" aria-labelledby="wk-h">
+    <div class="wk-head">
+      <div class="top">
+        <button class="icon-btn" type="button" id="btn-back" aria-label="חזרה למסך הבית">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <div class="wk-title">
+          <h2 id="wk-h"></h2>
+          <p class="s" id="wk-sub"></p>
+        </div>
+        <div class="wk-pct" id="wk-pct" role="status" aria-live="polite">0%</div>
+      </div>
+      <div class="barwrap"><div class="bar"><i id="wk-bar"></i></div></div>
+    </div>
+
+    <div class="list" id="wk-list"></div>
+
+    <p class="summary-line" id="wk-summary"></p>
+
+    <div class="wk-foot">
+      <button class="btn primary wide" type="button" id="btn-finish">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        סיום אימון
+      </button>
+      <button class="btn danger wide" type="button" id="btn-reset">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+        איפוס אימון
+      </button>
+    </div>
+  </main>
+
+  <main id="screen-library" class="screen" aria-labelledby="library-h">
+    <div class="wk-head"><div class="top">
+      <button class="icon-btn" type="button" id="library-back" aria-label="חזרה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="wk-title"><h2 id="library-h" tabindex="-1">ספריית תרגילים</h2><p class="s"><bdi>Exercise Library</bdi></p></div>
+    </div></div>
+    <div class="list" id="library-list"></div>
+  </main>
+
+</div>
+
+<!-- ==================== REST TIMER ==================== -->
+<aside class="timer" id="timer" role="region" aria-label="טיימר מנוחה">
+  <div class="timer-inner">
+    <div class="t-top">
+      <div class="t-for" id="t-for">מנוחה</div>
+      <button class="t-close" type="button" id="t-close" aria-label="סגירת טיימר המנוחה">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="t-clock" id="t-clock" role="timer" aria-live="off">00:00</div>
+    <div class="t-msg" id="t-msg"></div>
+    <div class="t-bar"><i id="t-bar"></i></div>
+    <div class="t-controls">
+      <button class="btn primary" type="button" id="t-toggle">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 5v14"/></svg>
+        <span id="t-toggle-label">השהה</span>
+      </button>
+      <button class="btn" type="button" id="t-plus" aria-label="הוספת 15 שניות"><span><bdi class="ltr">+15</bdi> שנ׳</span></button>
+      <button class="btn ghost" type="button" id="t-reset">איפוס</button>
+    </div>
+    <div class="t-presets" id="t-presets"></div>
+  </div>
+</aside>
+
+<!-- ==================== VIDEO MODAL ==================== -->
+<div class="overlay" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="video-title">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="video-title">הדגמה</h3>
+      <button class="icon-btn" type="button" id="video-close" aria-label="סגירת חלון ההדגמה">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <div class="video-frame" id="video-frame">
+        <div class="blocked" id="video-blocked">
+          <div>
+            <strong>הסרטון לא נטען כאן</strong>
+            <p>יכול להיות שאין חיבור לרשת, או ש־YouTube חוסם הטמעה לסרטון הזה.</p>
+            <p>אפשר לפתוח אותו ישירות באפליקציית YouTube.</p>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn blue wide" id="video-external" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+          פתיחה ב־YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONFIRM MODAL ==================== -->
+<div class="overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="confirm-title">איפוס אימון</h3></div>
+    <p class="confirm-txt" id="confirm-text"></p>
+    <div class="sheet-actions">
+      <button class="btn ghost" type="button" id="confirm-no">ביטול</button>
+      <button class="btn danger" type="button" id="confirm-yes">אפס</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" aria-live="polite"><div id="toast-text"></div></div>
+
+<script>
+(function(){
+"use strict";
+
+var alexTrainingProgram = {
+  workouts: [
+    {
+      id: "workout-a",
+      metadata: {
+        name: "Workout A",
+        description: "אימון ישבן בשיטת 4 התחנות בשילוב תרגילי משיכה לפלג גוף עליון.",
+        estimatedDuration: "60 min",
+        goal: "עבודה בכוח מרבי על הישבן ויציבות חד-רגלית, ללא עומס על הירך הקדמית."
+      },
+      sections: [
+        {
+          title: "Warm-up",
+          exercises: [
+            {
+              id: "a-w1",
+              name: "אירובי קל",
+              englishName: "Elliptical / Treadmill",
+              duration: "5 min",
+              muscleGroup: "Warm-up",
+              notes: "חימום והזרמת דם כללית."
+            },
+            {
+              id: "a-w2",
+              name: "הליכת סרטן עם גומייה",
+              englishName: "Crab Walk with Mini-band",
+              sets: 2,
+              reps: "15/side",
+              equipment: "Mini-band",
+              muscleGroup: "Glutes",
+              unilateral: true,
+              notes: "הפעלת הישבן הצידי להכנת השריר למשקלים.",
+              coachingCues: ["פתיחת צעד רחבה", "לשמור מתח תמידי בגומייה מעל הברכיים"]
+            },
+            {
+              id: "a-w3",
+              name: "גשר ישבן עם גומייה",
+              englishName: "Band Glute Bridge",
+              sets: 1,
+              reps: "15",
+              equipment: "Mini-band",
+              muscleGroup: "Glutes",
+              notes: "להעיר את הקשר העצבי-שרירי בישבן הגדול."
+            }
+          ]
+        },
+        {
+          title: "Glutes",
+          exercises: [
+            {
+              id: "a-g1",
+              name: "היפ תראסט",
+              englishName: "Barbell Hip Thrust",
+              sets: 3,
+              reps: "12",
+              rest: "90 sec",
+              equipment: "Barbell / Machine",
+              muscleGroup: "Glutes (Station 1)",
+              notes: "כוח ופיתוח הישבן הגדול.",
+              coachingCues: ["שוקיים אנכיות (90 מעלות) בשיא", "מבט לפנים וסנטר אסוף", "כיווץ מלא לשנייה למעלה", "לא להקשית גב תחתון"],
+              videoUrl: "https://www.youtube.com/results?search_query=Hip+Thrust+form+glutes"
+            },
+            {
+              id: "a-g2",
+              name: "הרחקת ירך בכבל בעמידה",
+              englishName: "Standing Cable Hip Abduction",
+              sets: 2,
+              reps: "15/side",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Glutes (Station 2)",
+              unilateral: true,
+              notes: "עבודה על הישבן הצידי (Gluteus Medius).",
+              coachingCues: ["לבצע 2 פימפומים (Pulses) בכל חזרה", "כף הרגל נעה ישירות הצידה", "גו זקוף ויציב"],
+              alternativeExercise: "lib-g2"
+            },
+            {
+              id: "a-g3",
+              name: "פשיטת גב לישבן",
+              englishName: "45° Glute Back Extension",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Roman Chair",
+              muscleGroup: "Glutes (Station 3)",
+              notes: "תנועת ציר למיקוד בישבן התחתון.",
+              coachingCues: ["גב עליון מעוגל קלות", "סנטר בפנים", "הרמת הגוף מתבצעת רק מתוך כיווץ הישבן"],
+              videoUrl: "https://www.youtube.com/results?search_query=glute+focused+back+extension"
+            },
+            {
+              id: "a-g4",
+              name: "דדליפט רומני חד-רגלי נתמך קיר",
+              englishName: "Wall-Supported Single Leg RDL",
+              sets: 3,
+              reps: "12/side",
+              rest: "60 sec",
+              equipment: "Dumbbell",
+              muscleGroup: "Glutes (Station 4)",
+              unilateral: true,
+              notes: "בידוד הישבן תוך נטרול מאבק על שיווי משקל.",
+              coachingCues: ["רגל אחורית כפופה נשענת על הקיר לתמיכה", "לשלוח ישבן לאחור עד מתיחה מקסימלית"]
+            }
+          ]
+        },
+        {
+          title: "Upper Body",
+          exercises: [
+            {
+              id: "a-u1",
+              name: "פולי עליון",
+              englishName: "Lat Pulldown",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Back (Pull)",
+              notes: "חיזוק רחב גבי.",
+              coachingCues: ["משיכה מבוקרת של המרפקים מטה לצלעות", "בית חזה פתוח"]
+            },
+            {
+              id: "a-u2",
+              name: "הרחקת כתפיים",
+              englishName: "DB Lateral Raise",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Dumbbells",
+              muscleGroup: "Shoulders",
+              notes: "חיזוק כתף אמצעית.",
+              coachingCues: ["לא להרים מעל גובה הכתף", "ירידה מבוקרת"]
+            }
+          ]
+        },
+        {
+          title: "Core",
+          exercises: [
+            {
+              id: "a-c1",
+              name: "הרמת רגליים מקופלות באוויר",
+              englishName: "Bent Leg Raises",
+              sets: 3,
+              reps: "15",
+              rest: "60 sec",
+              equipment: "Mat",
+              muscleGroup: "Core",
+              notes: "חיזוק ליבה מבלי להפעיל לחץ מוגזם על רצפת האגן.",
+              coachingCues: ["לשמור גב תחתון צמוד למזרן לאורך כל התנועה"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "workout-b",
+      metadata: {
+        name: "Workout B",
+        description: "אימון ישבן 4 תחנות בשילוב תרגילי דחיפה לפלג גוף עליון.",
+        estimatedDuration: "60-70 min",
+        goal: "שמירה על מתח שרירי בישבן מזוויות שונות והכנת הגוף לדיקור למחרת."
+      },
+      sections: [
+        {
+          title: "Glutes",
+          exercises: [
+            {
+              id: "b-g1",
+              name: "גשר ישבן עם משקל",
+              englishName: "Weighted Glute Bridge",
+              sets: 4,
+              reps: "15",
+              rest: "90 sec",
+              equipment: "Barbell / Dumbbell",
+              muscleGroup: "Glutes (Station 1)",
+              notes: "מיקוד בכיווץ סופי של הישבן, תנועה קצרה מהיפ תראסט.",
+              coachingCues: ["שכמות נחות על הרצפה ולא על ספסל", "כיווץ חזק בשיא התנועה"],
+              videoUrl: "https://www.youtube.com/results?search_query=Glute+Bridge+tutorial+for+glutes"
+            },
+            {
+              id: "b-g2",
+              name: "הרחקת ירך בישיבה",
+              englishName: "Seated Hip Abduction",
+              sets: 3,
+              reps: "20",
+              rest: "60 sec",
+              equipment: "Machine",
+              muscleGroup: "Glutes (Station 2)",
+              notes: "עבודה על הישבן הצידי ממנח מתיחה.",
+              coachingCues: ["רכינה קלה קדימה למתיחת השריר מזווית שונה"],
+              videoUrl: "https://www.youtube.com/results?search_query=Seated+Hip+Abduction+machine"
+            },
+            {
+              id: "b-g3",
+              name: "משיכת כבל מבין הרגליים",
+              englishName: "Cable Pull-Through",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Glutes (Station 3)",
+              notes: "תנועת ציר (Hinge) כגירוי משלים, ללא כפיפת ברכיים עמוקה.",
+              coachingCues: ["עמידה בגב לפולי", "לשלוח אגן לאחור", "דחיפה חזרה אך ורק דרך כיווץ הישבן"],
+              videoUrl: "https://www.youtube.com/results?search_query=Cable+Pull+Through+glutes"
+            },
+            {
+              id: "b-g4",
+              name: "דדליפט רומני חד-רגלי קונטרלטרלי",
+              englishName: "Contralateral Single Leg RDL",
+              sets: 3,
+              reps: "10/side",
+              rest: "90 sec",
+              equipment: "Dumbbell",
+              muscleGroup: "Glutes (Station 4)",
+              unilateral: true,
+              notes: "בידוד השרשרת האחורית ואילוץ הישבן האמצעי לפעול כמייצב.",
+              coachingCues: ["משקולת ביד הנגדית לרגל שעובדת", "יד חופשית יכולה לאחוז בעמוד/קיר", "אגן נשאר סגור ומקביל לרצפה"]
+            }
+          ]
+        },
+        {
+          title: "Upper Body",
+          exercises: [
+            {
+              id: "b-u1",
+              name: "לחיצת חזה בשיפוע חיובי",
+              englishName: "Incline DB Press",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Dumbbells",
+              muscleGroup: "Chest / Shoulders (Push)",
+              notes: "פתיחת אזור החזה וחיזוק הכתף הקדמית.",
+              videoUrl: "https://www.youtube.com/results?search_query=Incline+Dumbbell+Press"
+            },
+            {
+              id: "b-u2",
+              name: "לחיצת כתפיים בישיבה",
+              englishName: "Seated DB Press",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Dumbbells",
+              muscleGroup: "Shoulders (Push)",
+              notes: "השלמת עבודה על הכתפיים (שולב בגלל החוסר ביום ראשון).",
+              videoUrl: "https://www.youtube.com/results?search_query=Seated+Dumbbell+Shoulder+Press"
+            },
+            {
+              id: "b-u3",
+              name: "פשיטת מרפקים בכבל",
+              englishName: "Triceps Pushdown",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Triceps",
+              notes: "בידוד וחיזוק שריר היד האחורית.",
+              coachingCues: ["מרפקים צמודים למותניים לאורך כל התנועה"],
+              videoUrl: "https://www.youtube.com/results?search_query=Cable+Triceps+Pushdown"
+            }
+          ]
+        },
+        {
+          title: "Core & Recovery",
+          exercises: [
+            {
+              id: "b-c1",
+              name: "חרק מת",
+              englishName: "Dead Bug",
+              sets: 3,
+              reps: "10/side",
+              rest: "60 sec",
+              equipment: "Mat",
+              muscleGroup: "Core",
+              unilateral: true,
+              notes: "עבודת ליבה עמוקה ששומרת על לחץ תוך-בטני תקין לחלוטין (מותאם לשלב הנוכחי וכהכנה לדיקור).",
+              coachingCues: ["יד ורגל נגדית יורדות לרצפה בשליטה איטית", "ללא כפיפות בטן"],
+              videoUrl: "https://www.youtube.com/results?search_query=Dead+Bug+exercise"
+            },
+            {
+              id: "b-r1",
+              name: "מתיחת יונה ותנוחת הילד",
+              englishName: "Pigeon Pose & Child's Pose",
+              duration: "2 min",
+              equipment: "Mat",
+              muscleGroup: "Recovery",
+              notes: "שחרור עמוק של האגן ומערכת העצבים לקראת הדיקור בחמישי."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "workout-c",
+      metadata: {
+        name: "Workout C",
+        description: "אימון ישבן 4 תחנות מסכם שבוע + השלמות פלג גוף עליון.",
+        estimatedDuration: "60 min",
+        goal: "תיקון חוסר איזון בין צדדים ואיזון שרירי בפלג גוף עליון."
+      },
+      sections: [
+        {
+          title: "Glutes",
+          exercises: [
+            {
+              id: "c-g1",
+              name: "היפ תראסט רגל אחת",
+              englishName: "Single-Leg Hip Thrust",
+              sets: 3,
+              reps: "12/side",
+              rest: "60 sec",
+              equipment: "Bench, Dumbbell / Bodyweight",
+              muscleGroup: "Glutes (Station 1)",
+              unilateral: true,
+              notes: "עבודה מבודדת שמתקנת חוסר איזון בין צד ימין לשמאל."
+            },
+            {
+              id: "c-g2",
+              name: "פשיטת ירך לאחור בכבל",
+              englishName: "Cable Kickbacks",
+              sets: 3,
+              reps: "15/side",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Glutes (Station 2)",
+              unilateral: true,
+              notes: "שומר על מתח קבוע ומבודד לחלוטין את הישבן ממנח עמידה.",
+              coachingCues: ["עמידה בנטייה קלה קדימה", "נעילת אגן יציבה", "בלי לסובב את האגן הצידה או להקשית מותנית"]
+            },
+            {
+              id: "c-g3",
+              name: "דדליפט רומני",
+              englishName: "Bilateral RDL",
+              sets: 3,
+              reps: "12",
+              rest: "90 sec",
+              equipment: "Barbell / Dumbbells",
+              muscleGroup: "Glutes (Station 3)",
+              notes: "תנועת הבסיס להעמסת השרשרת האחורית עם שתי רגליים על הקרקע."
+            },
+            {
+              id: "c-g4",
+              name: "ספליט סקוואט בולגרי",
+              englishName: "Bulgarian Split Squat",
+              sets: 3,
+              reps: "10/side",
+              rest: "90 sec",
+              equipment: "Dumbbells",
+              muscleGroup: "Glutes (Station 4)",
+              unilateral: true,
+              notes: "עבודה חד-רגלית עמוקה.",
+              coachingCues: ["רכינה משמעותית של הגו קדימה", "דחיפת המשקל אך ורק דרך העקב של הרגל הקדמית לביטול הירך הקדמית"],
+              alternativeExercise: "lib-g3"
+            }
+          ]
+        },
+        {
+          title: "Upper Body",
+          exercises: [
+            {
+              id: "c-u1",
+              name: "חתירה בישיבה",
+              englishName: "Seated Cable Row",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Back (Pull)",
+              notes: "משיכה אופקית המאזנת את הלחיצות של יום רביעי.",
+              coachingCues: ["קירוב יזום של השכמות בסיום התנועה", "ללא הרמת כתפיים לאוזניים"],
+              alternativeExercise: "lib-u1"
+            },
+            {
+              id: "c-u2",
+              name: "משיכת חבל לפנים",
+              englishName: "Face Pulls",
+              sets: 3,
+              reps: "15",
+              rest: "60 sec",
+              equipment: "Cable",
+              muscleGroup: "Shoulders / Back",
+              notes: "תרגיל מתקן (Corrective) ליציבה ובריאות הכתף.",
+              coachingCues: ["משיכת החבל לכיוון המצח/אף", "סיבוב חיצוני של הכתפיים בסוף התנועה"]
+            },
+            {
+              id: "c-u3",
+              name: "כפיפת מרפקים",
+              englishName: "DB Bicep Curls",
+              sets: 3,
+              reps: "12",
+              rest: "60 sec",
+              equipment: "Dumbbells",
+              muscleGroup: "Biceps",
+              notes: "השלמת עבודת ידיים ליד הקדמית."
+            }
+          ]
+        },
+        {
+          title: "Core",
+          exercises: [
+            {
+              id: "c-c1",
+              name: "פלאנק צדדי",
+              englishName: "Side Plank",
+              sets: 2,
+              duration: "30 sec/side",
+              rest: "45 sec",
+              equipment: "Mat",
+              muscleGroup: "Core",
+              unilateral: true,
+              notes: "עבודה סטטית על הרחב-בטני והמייצבים לחתום את השבוע ללא כפיפות בטן.",
+              alternativeExercise: "lib-c1"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  exerciseLibrary: {
+    glutes: [
+      {
+        id: "lib-g1",
+        name: "סטפ-אפ לישבן",
+        englishName: "Glute Step-Ups",
+        muscleGroup: "Glutes (Station 4)",
+        unilateral: true,
+        notes: "חלופה לתחנה 4.",
+        coachingCues: ["רכינה קלה קדימה", "דחיפה רק דרך העקב הקדמי ללא שימוש ברגל הדוחפת מהרצפה"]
+      },
+      {
+        id: "lib-g2",
+        name: "הנפות רגל בכבל",
+        englishName: "Cable Leg Raises",
+        muscleGroup: "Glutes (Station 2)",
+        unilateral: true,
+        notes: "תרגיל שבוצע במקור באימון A.",
+        alternativeTo: "a-g2"
+      },
+      {
+        id: "lib-g3",
+        name: "לאנג' אחורי",
+        englishName: "Reverse Lunge",
+        muscleGroup: "Glutes (Station 4)",
+        unilateral: true,
+        notes: "חלופה מצוינת לבולגרי בתחנה 4.",
+        coachingCues: ["לשמור על שוק קדמית אנכית לרצפה", "גו נטוי לפנים"],
+        alternativeTo: "c-g4"
+      }
+    ],
+    upperBody: [
+      {
+        id: "lib-u1",
+        name: "חתירה במשקולת יד",
+        englishName: "Single Arm DB Row",
+        muscleGroup: "Back (Pull)",
+        unilateral: true,
+        notes: "חלופה חד-רגלית לחתירה בפולי.",
+        alternativeTo: "c-u1"
+      }
+    ],
+    core: [
+      {
+        id: "lib-c1",
+        name: "ציפור-כלב",
+        englishName: "Bird-Dog",
+        muscleGroup: "Core",
+        unilateral: true,
+        notes: "עבודת ליבה יציבתית עמוקה ששומרת על רצפת אגן בטוחה.",
+        alternativeTo: "c-c1"
+      }
+    ],
+    recovery: [
+      {
+        id: "lib-r1",
+        name: "פילאטיס מכשירים",
+        englishName: "Pilates Reformer",
+        muscleGroup: "Recovery / Mobility",
+        notes: "התאוששות אקטיבית המיועדת לימי שני ולפעמים שישי.",
+        coachingCues: ["מיקוד בהארכת שרירים", "חיזוק שרירים מייצבים עמוקים", "נשימה סרעפתית"]
+      }
+    ]
+  }
+};
+
+/* Presentation only: never mutate alexTrainingProgram. Stable source IDs key progress. */
+var scheduledDays = {"workout-a":"יום ראשון", "workout-b":"יום רביעי", "workout-c":"יום שבת"};
+var PLAN = {}, libraryById = {}, sourceById = {};
+function adaptExercise(source){
+  var durationOnly = typeof source.sets !== 'number';
+  var dose = source.reps || source.duration || '';
+  var seconds = /^(\d+) sec$/.exec(source.rest || '');
+  var video = source.videoUrl || null;
+  var youtube = video && /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})(?:[?&]|$)/.exec(video);
+  return {
+    n:source.id, name:source.englishName || source.name, he:source.name,
+    sets:durationOnly ? dose : source.sets + '×' + dose,
+    min:durationOnly ? 1 : source.sets, max:durationOnly ? 1 : source.sets,
+    durationOnly:durationOnly, doseLabel:durationOnly ? 'משך' : (source.duration ? 'סטים × זמן' : 'סטים × חזרות'),
+    rest:source.rest, rs:seconds ? Number(seconds[1]) : undefined, re:seconds ? Number(seconds[1]) : undefined,
+    vid:youtube ? youtube[1] : null, url:video, host:video && video.indexOf('youtube.com') >= 0 ? 'YouTube' : 'קישור ההדגמה',
+    source:source
+  };
+}
+alexTrainingProgram.workouts.forEach(function(workout){
+  var metadata = workout.metadata;
+  var day = metadata.scheduledDay || scheduledDays[workout.id] || '';
+  var plan = {label:metadata.name, subtitle:day, description:metadata.description,
+    goal:metadata.goal, durationLabel:metadata.estimatedDuration, ex:[], sections:[]};
+  workout.sections.forEach(function(section,index){
+    var group = {id:'group-'+index, label:section.title, ids:[]};
+    section.exercises.forEach(function(exercise){
+      plan.ex.push(adaptExercise(exercise));
+      group.ids.push(exercise.id);
+      sourceById[exercise.id] = {workout:workout.id, exercise:exercise};
+    });
+    plan.sections.push(group);
+  });
+  PLAN[workout.id] = plan;
+});
+Object.keys(alexTrainingProgram.exerciseLibrary).forEach(function(group){
+  alexTrainingProgram.exerciseLibrary[group].forEach(function(exercise){ libraryById[exercise.id] = exercise; });
+});
+var WORKOUTS = Object.keys(PLAN);
+
+function renderPicker(){
+  $('#workout-picker').innerHTML = WORKOUTS.map(function(id){
+    var plan = PLAN[id];
+    return '<button class="pick-btn" type="button" data-goto="'+esc(id)+'">'
+      + '<span class="row1"><span class="name"><bdi>'+esc(plan.label)+'</bdi></span></span>'
+      + '<span class="ex-he">'+esc(plan.subtitle)+'</span><span class="meta" id="meta-'+esc(id)+'"></span>'
+      + '<span class="barwrap"><span class="bar"><i id="home-bar-'+esc(id)+'"></i></span></span></button>';
+  }).join('');
+}
+function exerciseDetails(x){
+  var source = x.source, html = '';
+  ['station','equipment','muscleGroup','scheduledDay'].forEach(function(key){
+    var labels = {station:'תחנה',equipment:'ציוד',muscleGroup:'קבוצת שרירים',scheduledDay:'יום'};
+    if(source[key] != null) html += '<p class="ex-he">'+labels[key]+': <bdi>'+esc(source[key])+'</bdi></p>';
+  });
+  if(source.unilateral) html += '<p class="ex-he">חד־צדדי</p>';
+  if(source.notes) html += '<p class="exercise-cue" dir="auto">'+esc(source.notes)+'</p>';
+  if(source.coachingCues && source.coachingCues.length){
+    html += '<details class="exercise-details"><summary>דגשים לביצוע</summary><ul>'
+      + source.coachingCues.map(function(cue){ return '<li dir="auto">'+esc(cue)+'</li>'; }).join('')+'</ul></details>';
+  }
+  if(source.alternativeExercise){
+    var alternative = libraryById[source.alternativeExercise];
+    if(alternative) html += '<div class="actions"><button class="btn blue wide" type="button" data-alternative="'+esc(alternative.id)+'">חלופה: <bdi>'+esc(alternative.name)+'</bdi></button></div>';
+  }
+  if(source.alternativeTo && sourceById[source.alternativeTo]){
+    html += '<p class="ex-he">חלופה עבור: <bdi>'+esc(sourceById[source.alternativeTo].exercise.name)+'</bdi></p>';
+  }
+  return html;
+}
+function renderLibrary(){
+  var labels = {glutes:'ישבן',upperBody:'פלג גוף עליון',core:'ליבה',recovery:'התאוששות ותנועתיות'};
+  $('#library-list').innerHTML = Object.keys(alexTrainingProgram.exerciseLibrary).map(function(group,index){
+    return '<section class="workout-section" aria-labelledby="library-group-'+index+'"><h2 class="section-heading" id="library-group-'+index+'"><bdi>'
+      + esc(labels[group] || group)+'</bdi></h2>'
+      + alexTrainingProgram.exerciseLibrary[group].map(function(exercise){ return cardHTML(null,adaptExercise(exercise)); }).join('')+'</section>';
+  }).join('');
+}
+var libraryReturn = null;
+function openLibrary(id){
+  libraryReturn = {workout:current, scroll:window.scrollY, focus:document.activeElement};
+  closeTimer();
+  show('screen-library');
+  $$('#library-list .card').forEach(function(card){ card.classList.remove('library-highlight'); });
+  var target = id ? $('#card-null-'+id) : $('#library-h');
+  if(target){
+    target.setAttribute('tabindex','-1');
+    if(id) target.classList.add('library-highlight');
+    target.focus({preventScroll:true});
+    if(id) target.scrollIntoView({block:'center'});
+  }
+}
+function backFromLibrary(){
+  if(libraryReturn && libraryReturn.workout){
+    show('screen-workout');
+    window.scrollTo(0,libraryReturn.scroll);
+    if(libraryReturn.focus) libraryReturn.focus.focus({preventScroll:true});
+  } else { goHome(); }
+  libraryReturn = null;
+}
+/* Called after the existing shell has installed its navigation and media handlers. */
+function bindLibrary(){
+  $('#btn-library').addEventListener('click',function(){ openLibrary(); });
+  $('#library-back').addEventListener('click',backFromLibrary);
+  $('#wk-list').addEventListener('click',function(event){
+    var button = event.target.closest('[data-alternative]');
+    if(button) openLibrary(button.getAttribute('data-alternative'));
+  });
+  $('#library-list').addEventListener('click',function(event){
+    var video = event.target.closest('[data-video]');
+    if(video) openVideo(video.getAttribute('data-video'),video.getAttribute('data-title'));
+  });
+}
+
+
+/* ======================= storage (fail-safe) ======================= */
+var KEY = "alexTraining.v1";
+var memStore = null;
+var storeOK = (function(){
+  try { var k="__t"+Date.now(); localStorage.setItem(k,"1"); localStorage.removeItem(k); return true; }
+  catch(e){ return false; }
+})();
+function blankSide(){ return { warmup:false, sets:{}, last:null }; }
+function blankState(){
+  var s = {};
+  WORKOUTS.forEach(function(w){ s[w] = blankSide(); });
+  return s;
+}
+function loadState(){
+  if(!storeOK) return memStore || (memStore = blankState());
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(!raw) return blankState();
+    var p = JSON.parse(raw);
+    if(!p || typeof p!=="object") return blankState();
+    var s = blankState();
+    WORKOUTS.forEach(function(w){
+      if(p[w] && typeof p[w]==="object"){
+        s[w].warmup = !!p[w].warmup;
+        s[w].last   = typeof p[w].last==="string" ? p[w].last : null;
+        if(p[w].sets && typeof p[w].sets==="object"){
+          PLAN[w].ex.forEach(function(x){
+            var a = p[w].sets[x.n];
+            if(Object.prototype.toString.call(a)==="[object Array]"){
+              s[w].sets[x.n] = a.slice(0,x.max).map(Boolean);
+            }
+          });
+        }
+      }
+    });
+    return s;
+  }catch(e){ return blankState(); }
+}
+function saveState(){
+  if(!storeOK){ memStore = state; return; }
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }
+  catch(e){ storeOK = false; memStore = state; }
+}
+var state = loadState();
+saveState();
+function setsOf(w,x){
+  var a = state[w].sets[x.n];
+  if(Object.prototype.toString.call(a)!=="[object Array]" || a.length!==x.max){
+    a = []; for(var i=0;i<x.max;i++) a.push(false);
+    state[w].sets[x.n] = a;
+  }
+  return a;
+}
+
+/* ======================= helpers ======================= */
+var $  = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+function mmss(sec){
+  sec = Math.max(0, Math.round(sec));
+  var m = Math.floor(sec/60), s = sec%60;
+  return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+}
+function isDone(w,x){
+  var a = setsOf(w,x), c=0;
+  for(var i=0;i<a.length;i++) if(a[i]) c++;
+  return c >= x.min;
+}
+function progress(w){
+  var total = PLAN[w].ex.length + (PLAN[w].warmup ? 1 : 0);
+  var done = PLAN[w].warmup && state[w].warmup ? 1 : 0;
+  PLAN[w].ex.forEach(function(x){ if(isDone(w,x)) done++; });
+  return { done:done, total:total, pct: Math.round(done/total*100) };
+}
+function toast(msg){
+  var t = $("#toast"); $("#toast-text").textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+}
+function fmtDate(iso){
+  try{
+    var d = new Date(iso);
+    if(isNaN(d.getTime())) return null;
+    var p = function(n){ return (n<10?"0":"")+n; };
+    return p(d.getDate())+"."+p(d.getMonth()+1)+"."+d.getFullYear()+" · "+p(d.getHours())+":"+p(d.getMinutes());
+  }catch(e){ return null; }
+}
+var ICON = {
+  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>',
+  play :'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  ext  :'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>',
+  info :'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
+};
+
+/* ======================= home screen ======================= */
+function renderHome(){
+  WORKOUTS.forEach(function(w){
+    var p = progress(w), n = PLAN[w].ex.length;
+    var meta = $("#meta-"+w);
+    var bits = '<span class="chip">' + n + ' תרגילים' + (PLAN[w].warmup ? ' + חימום' : '') + '</span>' +
+               '<span class="chip"><bdi>' + esc(PLAN[w].durationLabel || '') + '</bdi></span>';
+    if(p.done > 0 && p.done < p.total) bits += '<span class="chip on">בתהליך · ' + p.pct + '%</span>';
+    else if(p.done === p.total)        bits += '<span class="chip on">הושלם ✓</span>';
+    meta.innerHTML = bits;
+    $("#home-bar-"+w).style.width = p.pct + "%";
+    $$('[data-goto="'+w+'"]').forEach(function(b){
+      b.setAttribute("aria-label", PLAN[w].label + " — " + n + " תרגילים, הושלמו " + p.done + " מתוך " + p.total);
+    });
+  });
+  var parts = [];
+  WORKOUTS.forEach(function(w){
+    var last = state[w].last ? fmtDate(state[w].last) : null;
+    if(last) parts.push(PLAN[w].label + " — אימון אחרון: " + last);
+  });
+  if(!storeOK) parts.push("שמירה מקומית חסומה בדפדפן — ההתקדמות תישמר עד סגירת הדף.");
+  $("#last-line").textContent = parts.join(" · ");
+}
+/* ======================= workout screen ======================= */
+var current = null;
+
+function cardHTML(w,x,position){
+  var tracking = !!w;
+  var arr = tracking ? setsOf(w,x) : [], done = tracking && isDone(w,x);
+  var boxes = "";
+  for(var i=0;tracking && i<x.max;i++){
+    var id = "set-"+w+"-"+x.n+"-"+i;
+    var opt = (i >= x.min) ? " optional" : "";
+    boxes += '<span class="set'+opt+'">'
+           +   '<input type="checkbox" id="'+id+'" data-w="'+w+'" data-n="'+x.n+'" data-i="'+i+'"'
+           +     (arr[i] ? ' checked' : '')
+           +     ' aria-label="'+esc(x.name)+(x.durationOnly ? ' — בוצע' : ' — סט '+(i+1)+' מתוך '+x.max)+'">'
+           +   '<label for="'+id+'">'+(x.durationOnly ? 'בוצע' : (i+1))+'</label>'
+           + '</span>';
+  }
+
+  var media = "";
+  if(x.vid){
+    media = '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" '
+          + 'aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
+          +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" loading="lazy" decoding="async" '
+          +        'onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
+          +   '<span class="play"><span>'+ICON.play+'</span></span>'
+          +   '<span class="cap">צפייה בהדגמה</span>'
+          + '</button>';
+  } else if(x.url) {
+    media = '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" '
+          + 'aria-label="פתיחת ההדגמה של '+esc(x.name)+' באתר '+esc(x.host)+'">'
+          + ICON.ext + 'וידאו · ' + esc(x.host) + '</a></div>';
+  }
+
+  var uncertain = "";
+  if(tracking && x.min !== x.max){
+    uncertain = '<p class="uncertain">'+ICON.info+'<span>במסמך רשום <bdi class="ltr">'+esc(x.sets)+'</bdi> — טווח של '
+              + x.min+'–'+x.max+' סטים. מוצגות '+x.max+' תיבות; התרגיל נחשב שהושלם אחרי '+x.min+' סטים.</span></p>';
+  }
+
+  return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
+    + '<div class="c-head">'
+    +   (tracking ? '<div class="num" aria-hidden="true">'+position+'</div>' : '')
+    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
+    +     (x.he ? '<p class="ex-he"><bdi>'+esc(x.he)+'</bdi></p>' : '') + '</div>'
+    +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
+    + '</div>'
+    + (x.sets ? '<div class="specs"><div class="spec reps"><span class="k">'+esc(x.doseLabel)+'</span><span class="v"><bdi class="ltr">'+esc(x.sets)+'</bdi></span></div>'
+      + '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi class="ltr">'+esc(x.rest || 'לא צוין')+'</bdi></span></div></div>' : '')
+    + uncertain
+    + exerciseDetails(x)
+    + (tracking ? '<div class="sets-row"><span class="lbl">'+(x.durationOnly ? 'סימון ביצוע' : 'סימון סטים')+'</span><div class="sets">'+boxes+'</div></div>' : '')
+    + media
+    + (tracking && typeof x.rs === 'number' ? '<div class="actions">'
+    +   '<button class="btn wide" type="button" data-timer="'+x.n+'">'+ICON.clock+'טיימר מנוחה · <bdi>'+esc(x.rest)+'</bdi></button>'
+    + '</div>' : '')
+    + '</article>';
+}
+
+function renderWorkout(w){
+  current = w;
+  var P = PLAN[w];
+  $("#wk-h").textContent = P.label;
+  $("#wk-h").setAttribute("dir", "auto");
+  $("#wk-sub").textContent = P.subtitle || (P.ex.length + " תרגילים");
+  $("#wk-sub").setAttribute("dir", "auto");
+  var html = '<div class="rule-card"><p>'+esc(P.description)+'</p><p class="ex-he">'+esc(P.goal)+'</p></div>';
+  if(P.sections){
+    if(P.equipment) html += '<p class="workout-intro">'+esc(P.note)+'<br>ציוד: '+esc(P.equipment)+'</p>';
+    var position = 0;
+    P.sections.forEach(function(section){
+      var id = 'section-'+w+'-'+section.id;
+      html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi>'+esc(section.label)+'</bdi>'+(section.he ? '<small>'+esc(section.he)+'</small>' : '')+'</h2>';
+      var exercises = section.ids ? section.ids.map(function(n){ return P.ex.filter(function(x){ return x.n === n; })[0]; }) : P.ex.filter(function(x){ return x.section === section.id; });
+      exercises.forEach(function(x){ position++; html += cardHTML(w,x,position); });
+      html += '</section>';
+    });
+  } else {
+    P.ex.forEach(function(x){ html += cardHTML(w,x); });
+  }
+  $("#wk-list").innerHTML = html;
+  $("#wk-summary").textContent = P.durationLabel;
+  updateProgress();
+}
+
+function updateProgress(){
+  if(!current) return;
+  var p = progress(current);
+  $("#wk-bar").style.width = p.pct + "%";
+  $("#wk-pct").textContent = p.pct + "%";
+  $("#wk-pct").setAttribute("aria-label","התקדמות האימון: "+p.pct+" אחוז, "+p.done+" מתוך "+p.total);
+}
+
+function refreshCard(w,x){
+  var card = $("#card-"+w+"-"+x.n);
+  if(card) card.classList.toggle("done", isDone(w,x));
+}
+
+/* ======================= navigation ======================= */
+function show(id){
+  $$(".screen").forEach(function(s){ s.classList.toggle("is-active", s.id===id); });
+  window.scrollTo(0,0);
+}
+function goHome(){
+  closeTimer();
+  current = null;
+  renderHome();
+  show("screen-home");
+  var t = $("#home-h1"); if(t){ t.setAttribute("tabindex","-1"); t.focus({preventScroll:true}); }
+}
+renderPicker();
+$$('[data-goto]').forEach(function(b){
+  b.addEventListener("click", function(){
+    renderWorkout(b.getAttribute("data-goto"));
+    show("screen-workout");
+    var h = $("#wk-h"); h.setAttribute("tabindex","-1"); h.focus({preventScroll:true});
+  });
+});
+$("#btn-back").addEventListener("click", goHome);
+$("#btn-update").addEventListener("click", function(){
+  /* Reload the same origin/path so local progress stays in this app. */
+  window.location.replace(window.location.pathname + '?refresh=' + Date.now());
+});
+
+/* ======================= set / warmup toggles ======================= */
+$("#wk-list").addEventListener("change", function(e){
+  var t = e.target;
+  if(t.matches("input[data-warm]")){
+    state[current].warmup = t.checked;
+    $("#card-"+current+"-warm").classList.toggle("done", t.checked);
+    saveState(); updateProgress(); return;
+  }
+  if(t.matches("input[data-n]")){
+    var w = t.getAttribute("data-w"), n = t.getAttribute("data-n"), i = parseInt(t.getAttribute("data-i"),10);
+    var x = PLAN[w].ex.filter(function(o){ return o.n===n; })[0];
+    if(!x) return;
+    setsOf(w,x)[i] = t.checked;
+    saveState(); refreshCard(w,x); updateProgress();
+  }
+});
+
+/* ======================= clicks inside workout list ======================= */
+$("#wk-list").addEventListener("click", function(e){
+  var tb = e.target.closest ? e.target.closest("[data-timer]") : null;
+  if(tb){
+    var n = tb.getAttribute("data-timer");
+    var x = PLAN[current].ex.filter(function(o){ return o.n===n; })[0];
+    if(x) openTimer(x);
+    return;
+  }
+  var vb = e.target.closest ? e.target.closest("[data-video]") : null;
+  if(vb){ openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title")); }
+});
+
+/* ======================= rest timer ======================= */
+var T = { total:0, left:0, running:false, id:null, ex:null, endAt:0 };
+var elTimer=$("#timer"), elClock=$("#t-clock"), elBar=$("#t-bar"), elMsg=$("#t-msg"),
+    elToggle=$("#t-toggle"), elToggleL=$("#t-toggle-label"), elFor=$("#t-for"), elPresets=$("#t-presets");
+
+var lastRunning = null;
+function paintTimer(){
+  elClock.textContent = mmss(T.left);
+  elBar.style.width = (T.total>0 ? Math.max(0, T.left/T.total*100) : 0) + "%";
+  if(lastRunning !== T.running){
+    lastRunning = T.running;
+    elToggle.innerHTML = (T.running
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 5v14"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>')
+      + '<span id="t-toggle-label">' + (T.running ? "השהה" : "המשך") + '</span>';
+    elToggle.setAttribute("aria-label", T.running ? "השהיית הטיימר" : "המשך הטיימר");
+    elToggleL = $("#t-toggle-label");
+  }
+}
+function tick(){
+  var left = Math.max(0, (T.endAt - Date.now())/1000);
+  T.left = left;
+  paintTimer();
+  if(left <= 0) finishTimer();
+}
+function startLoop(){
+  stopLoop();
+  T.endAt = Date.now() + T.left*1000;
+  T.id = setInterval(tick, 250);
+}
+function stopLoop(){ if(T.id){ clearInterval(T.id); T.id = null; } }
+function finishTimer(){
+  stopLoop();
+  T.running = false; T.left = 0;
+  paintTimer();
+  elMsg.textContent = "המנוחה הסתיימה — קדימה לסט הבא";
+  elTimer.classList.add("ringing");
+  try{ if(navigator.vibrate) navigator.vibrate([180,90,180,90,260]); }catch(e){}
+  setTimeout(function(){ elTimer.classList.remove("ringing"); }, 3200);
+}
+function setPresets(x){
+  var vals = [];
+  if(x){ vals.push(x.rs); if(x.re !== x.rs) vals.push(x.re); }
+  [30,60,90,120].forEach(function(v){ if(vals.indexOf(v)<0) vals.push(v); });
+  elPresets.innerHTML = vals.map(function(v){
+    return '<button type="button" data-sec="'+v+'" aria-label="קביעת מנוחה ל-'+v+' שניות">'+v+' שנ׳</button>';
+  }).join("");
+  markPreset();
+}
+function markPreset(){
+  $$("#t-presets button").forEach(function(b){
+    b.classList.toggle("sel", parseInt(b.getAttribute("data-sec"),10) === T.total);
+  });
+}
+function openTimer(x){
+  T.ex = x;
+  T.total = x.rs; T.left = x.rs; T.running = true;
+  elFor.textContent = "מנוחה · " + x.name + " · " + x.rest;
+  elMsg.textContent = (x.rs !== x.re) ? ("במסמך " + x.rest + " — מתחיל מהקצה הנמוך") : "";
+  elTimer.classList.remove("ringing");
+  elTimer.classList.add("open");
+  document.body.classList.add("timer-open");
+  setPresets(x);
+  paintTimer();
+  startLoop();
+}
+function closeTimer(){
+  stopLoop();
+  T.running = false;
+  elTimer.classList.remove("open","ringing");
+  document.body.classList.remove("timer-open");
+}
+$("#t-close").addEventListener("click", closeTimer);
+$("#t-toggle").addEventListener("click", function(){
+  if(T.left <= 0){ T.left = T.total; elMsg.textContent = ""; elTimer.classList.remove("ringing"); }
+  T.running = !T.running;
+  if(T.running) startLoop(); else stopLoop();
+  paintTimer();
+});
+$("#t-plus").addEventListener("click", function(){
+  T.left += 15;
+  if(T.left > T.total) T.total = T.left;
+  elMsg.textContent = ""; elTimer.classList.remove("ringing");
+  if(T.running) startLoop();
+  paintTimer(); markPreset();
+});
+$("#t-reset").addEventListener("click", function(){
+  T.left = T.total; T.running = true;
+  elMsg.textContent = ""; elTimer.classList.remove("ringing");
+  startLoop(); paintTimer();
+});
+elPresets.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-sec]") : null;
+  if(!b) return;
+  T.total = parseInt(b.getAttribute("data-sec"),10);
+  T.left = T.total; T.running = true;
+  elMsg.textContent = ""; elTimer.classList.remove("ringing");
+  startLoop(); paintTimer(); markPreset();
+});
+document.addEventListener("visibilitychange", function(){
+  if(!document.hidden && T.running) tick();
+});
+
+/* ======================= video modal ======================= */
+var vModal=$("#video-modal"), vFrame=$("#video-frame"), vBlocked=$("#video-blocked"),
+    vTitle=$("#video-title"), vExt=$("#video-external");
+var vTimer=null, lastFocus=null;
+
+function openVideo(id, name){
+  lastFocus = document.activeElement;
+  vTitle.textContent = name || "הדגמה";
+  vExt.href = "https://www.youtube.com/watch?v=" + id;
+  vBlocked.classList.remove("show");
+  var old = vFrame.querySelector("iframe");
+  if(old) old.parentNode.removeChild(old);
+
+  var f = document.createElement("iframe");
+  f.setAttribute("title", "הדגמת " + (name||"תרגיל"));
+  f.setAttribute("allow", "accelerometer; encrypted-media; gyroscope; picture-in-picture");
+  f.setAttribute("allowfullscreen", "");
+  f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  f.setAttribute("loading", "eager");
+  /* no autoplay: playsinline + rel=0 only */
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0&playsinline=1&modestbranding=1";
+  var loaded = false;
+  f.addEventListener("load", function(){ loaded = true; clearTimeout(vTimer); });
+  f.addEventListener("error", function(){ vBlocked.classList.add("show"); });
+  vFrame.insertBefore(f, vBlocked);
+
+  clearTimeout(vTimer);
+  vTimer = setTimeout(function(){ if(!loaded) vBlocked.classList.add("show"); }, 7000);
+
+  vModal.classList.add("open");
+  $("#video-close").focus({preventScroll:true});
+}
+function closeVideo(){
+  clearTimeout(vTimer);
+  var f = vFrame.querySelector("iframe");
+  if(f) f.parentNode.removeChild(f);      /* stops playback */
+  vModal.classList.remove("open");
+  if(lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true});
+}
+$("#video-close").addEventListener("click", closeVideo);
+vModal.addEventListener("click", function(e){ if(e.target === vModal) closeVideo(); });
+
+/* ======================= confirm modal ======================= */
+var cModal=$("#confirm-modal"), cText=$("#confirm-text"), cYes=$("#confirm-yes"), cNo=$("#confirm-no");
+var cAction=null, cLastFocus=null;
+function askConfirm(text, label, fn){
+  cLastFocus = document.activeElement;
+  cText.innerHTML = text; cYes.textContent = label; cAction = fn;
+  cModal.classList.add("open");
+  cNo.focus({preventScroll:true});
+}
+function closeConfirm(){
+  cModal.classList.remove("open"); cAction = null;
+  if(cLastFocus && cLastFocus.focus) cLastFocus.focus({preventScroll:true});
+}
+cNo.addEventListener("click", closeConfirm);
+cModal.addEventListener("click", function(e){ if(e.target === cModal) closeConfirm(); });
+cYes.addEventListener("click", function(){ var f = cAction; closeConfirm(); if(f) f(); });
+
+/* ======================= finish / reset ======================= */
+$("#btn-finish").addEventListener("click", function(){
+  var w = current, p = progress(w);
+  state[w].last = new Date().toISOString();
+  saveState();
+  toast(PLAN[w].label + " נשמר · " + p.done + "/" + p.total + " הושלמו");
+  setTimeout(goHome, 800);
+});
+$("#btn-reset").addEventListener("click", function(){
+  var w = current;
+  askConfirm(
+    'לאפס את כל הסימונים של <b>' + esc(PLAN[w].label) + '</b>? הסטים המסומנים' + (PLAN[w].warmup ? ' והחימום' : '') + ' יימחקו. התוכנית עצמה לא משתנה.',
+    "כן, אפס",
+    function(){
+      state[w] = blankSide();
+      state[w].last = null;
+      saveState();
+      renderWorkout(w);
+      closeTimer();
+      toast("האימון אופס");
+    }
+  );
+});
+
+/* ======================= keyboard ======================= */
+document.addEventListener("keydown", function(e){
+  if(e.key !== "Escape") return;
+  if(vModal.classList.contains("open")) { closeVideo(); return; }
+  if(cModal.classList.contains("open")) { closeConfirm(); return; }
+  if(elTimer.classList.contains("open")) { closeTimer(); return; }
+  if($("#screen-library").classList.contains("is-active")){ backFromLibrary(); return; }
+  if(current) goHome();
+});
+/* simple focus trap for open dialogs */
+document.addEventListener("focusin", function(e){
+  var open = vModal.classList.contains("open") ? vModal
+           : (cModal.classList.contains("open") ? cModal : null);
+  if(open && !open.contains(e.target)){
+    var f = open.querySelector("button, a[href]");
+    if(f) f.focus({preventScroll:true});
+  }
+});
+
+/* ======================= boot ======================= */
+renderLibrary();
+bindLibrary();
+renderHome();
+paintTimer();
+
+})();
+</script>
+</body>
+</html>
