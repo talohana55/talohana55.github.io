@@ -399,8 +399,56 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .noscript-note p{margin:0 0 8px;font-size:.94rem;line-height:1.7}
 .noscript-note ol{margin:8px 0 0;padding-inline-start:20px;font-size:.92rem;line-height:1.8}
 .noscript-note :last-child{margin-bottom:0}
+/* ============================= slim card (gym mode) ============================= */
+.card{padding:14px}
+.dose{margin:2px 0 0;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.info-btn{
+  width:44px;height:44px;flex:none;margin:-6px;display:grid;place-items:center;
+  background:transparent;border:0;border-radius:12px;color:var(--muted-2);
+}
+.info-btn:active{background:var(--surface-3)}
+.info-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card > .sets{margin-top:12px}
+.c-head .set label{width:var(--tap)}
+.c-head .set label svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tools{display:flex;gap:10px;margin-top:12px;align-items:stretch}
+.kg{
+  direction:ltr;flex:1;min-width:0;display:flex;align-items:stretch;height:var(--tap);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;
+}
+.kg-btn{width:48px;flex:none;border:0;background:transparent;font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent)}
+.kg-btn:active{background:var(--surface-3)}
+.kg-field{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;direction:ltr}
+.kg-field input{
+  width:5ch;min-width:0;background:transparent;border:0;padding:0;color:var(--text);
+  font:inherit;font-size:1.2rem;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;
+  -moz-appearance:textfield;appearance:textfield;
+}
+.kg-field input::-webkit-outer-spin-button,.kg-field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.kg-field input::placeholder{color:var(--muted-2)}
+.kg-field span{color:var(--muted-2);font-size:.8rem}
+.rest-btn{
+  flex:none;min-width:96px;height:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border-radius:var(--r-md);border:1px solid rgba(76,141,255,.42);background:rgba(76,141,255,.14);
+  color:#BBD3FF;font-weight:800;font-size:1rem;font-variant-numeric:tabular-nums;
+}
+.rest-btn:only-child{flex:1}
+.rest-btn:active{transform:scale(.97)}
+.rest-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.superset{
+  display:grid;gap:8px;padding:8px;border:1.5px dashed rgba(45,225,194,.38);
+  border-radius:calc(var(--r-lg) + 6px);background:rgba(45,225,194,.03);
+}
+.ss-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:2px 6px 0;font-size:.8rem;color:var(--muted)}
+.ss-tag{color:var(--accent);font-weight:800}
+.info-he{margin:0 0 10px;color:var(--muted)}
+.info-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.info-p{margin:0 0 10px;color:var(--muted);line-height:1.65;font-size:.94rem;unicode-bidi:plaintext}
+.sheet-body .thumb{margin-top:4px}
+
 @media (max-width:359px){
   .set label{width:48px}
+  .rest-btn{min-width:80px}
   .t-clock{font-size:2.9rem}
 }
 </style>
@@ -456,7 +504,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
     <details class="notes">
       <summary>הערות על קישורי הווידאו</summary>
       <div class="body">
-        <p>באימון B הוחלפו שני תרגילים שאי אפשר לבצע בחדר הכושר: <bdi class="ltr">Step-Up</bdi> ← <bdi class="ltr">Dumbbell Reverse Lunge</bdi>, ו־<bdi class="ltr">Half-Kneeling Cable Chop</bdi> ← <bdi class="ltr">Dead Bug</bdi>.</p>
+        <p>שינויים באימון B: <bdi class="ltr">Step-Up</bdi> ← <bdi class="ltr">Dumbbell Reverse Lunge</bdi>, <bdi class="ltr">Half-Kneeling Cable Chop</bdi> ← <bdi class="ltr">Dead Bug</bdi>, <bdi class="ltr">Bird Dog</bdi> ← <bdi class="ltr">Romanian Deadlift</bdi>. בשני האימונים נוספו סופר-סטים לתרגילי העזר.</p>
         <p>מלבד זה, באימוני A/B כל התרגילים, הסטים, החזרות וזמני המנוחה הועתקו מהמסמך כמות שהם. שונו רק קישורי הדגמה שהצביעו על <strong>דף תוצאות חיפוש</strong> ביוטיוב במקום על סרטון מסוים:</p>
         <ul id="notes-list"></ul>
         <p id="notes-mismatch"></p>
@@ -468,7 +516,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: 2026.10.17.1 · החלפת 2 תרגילים ב-B</p>
+    <p class="foot-note">גרסה: 2026.10.17.2 · סופר-סטים, משקלים, RDL</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -559,6 +607,19 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   </div>
 </div>
 
+<!-- ==================== INFO MODAL ==================== -->
+<div class="overlay" id="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-title">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="info-title"></h3>
+      <button class="icon-btn" type="button" id="info-close" aria-label="סגירה">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body" id="info-body"></div>
+  </div>
+</div>
+
 <!-- ==================== CONFIRM MODAL ==================== -->
 <div class="overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
   <div class="sheet">
@@ -584,7 +645,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 var PLAN = {
   A: {
     label: "אימון A",
-    warmup: { name: "חימום אופניים / אליפטיקל", spec: "5–7 דק׳", rest: "—" },
+    warmup: { name: "אופניים / אליפטיקל, ואז 1–2 סטים קלים ב-Leg Press", spec: "5–7 דק׳", rest: "—" },
     note: "יד קדמית + תאומים + מרחיקים",
     ex: [
       {n:1,  name:"Leg Press",                      sets:"3×6–10",           min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:null,          url:"https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/leg-press/vid-20084684", src:"doc", host:"Mayo Clinic"},
@@ -597,12 +658,12 @@ var PLAN = {
       {n:8,  name:"Standing Calf Raise",            sets:"3×10–15",          min:3, max:3, rest:"60 שנ׳",     rs:60,  re:60,  vid:"ndQc4mz4mBU", url:null, src:"fixed", title:"Standing Calf Raise - Proper Form & Technique [4K]"},
       {n:9,  name:"Hip Abductor Machine",           sets:"2×12–15",          min:2, max:2, rest:"45–60 שנ׳",  rs:45,  re:60,  vid:"tn-ABeb1QAM", url:null, src:"doc", title:"Seated Hip Abduction Machine Tutorial"},
       {n:10, name:"Pallof Press",                   sets:"2×10 לצד",         min:2, max:2, rest:"30–45 שנ׳",  rs:30,  re:45,  vid:"dBAmQ9bx3JA", url:null, src:"fixed", title:"Pallof Press Tutorial | Best Anti-Rotation Core Exercise"},
-      {n:11, name:"Side Plank",                     sets:"2×30–40 שנ׳ לצד",  min:2, max:2, rest:"30 שנ׳",     rs:30,  re:30,  vid:"iNbH7_edNI8", url:null, src:"fixed", title:"Side Plank Tutorial - Proper Form and Technique"}
+      {n:11, name:"Side Plank",                     sets:"2×30–40 שנ׳ לצד",  min:2, max:2, rest:"30 שנ׳",     rs:30,  re:30,  vid:"iNbH7_edNI8", url:null, src:"fixed", title:"Side Plank Tutorial - Proper Form and Technique", noKg:true}
     ]
   },
   B: {
     label: "אימון B",
-    warmup: { name: "חימום אופניים / חתירה", spec: "5–7 דק׳", rest: "—" },
+    warmup: { name: "אופניים / חתירה, ואז 1–2 סטים קלים ב-Hip Thrust", spec: "5–7 דק׳", rest: "—" },
     note: "יד אחורית + כתף אמצעית + מקרבים + רוטציה",
     ex: [
       {n:1,  name:"Hip Thrust",                sets:"3×12",            min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:"pF17m_CXfL0", url:null, src:"fixed", title:"Hip Thrust Tutorial - Proper Form and Technique"},
@@ -616,9 +677,10 @@ var PLAN = {
       {n:8,  name:"Dumbbell Lateral Raise",    sets:"2×12–15",         min:2, max:2, rest:"60 שנ׳",     rs:60, re:60,  vid:"nnH63icHYXY", url:null, src:"fixed", title:"Dumbbell Lateral Raise | Proper Form Tutorial for Bigger Shoulders"},
       {n:9,  name:"Hip Adductor Machine",      sets:"2×12–15",         min:2, max:2, rest:"45–60 שנ׳",  rs:45, re:60,  vid:"CjAVezAggkI", url:null, src:"doc", title:"How To Use The Seated Thigh Adduction (Hip Adduction) Machine"},
       /* n:14 replaces Half-Kneeling Cable Chop (n:10), which can't be done at the gym. */
-      {n:14, name:"Dead Bug",                  sets:"2×6–8 לצד",       min:2, max:2, rest:"45 שנ׳",     rs:45, re:45,  vid:"bxn9FBrt4-A", url:null, src:"swap", title:"How to do a Dead Bug | Proper Form & Technique | NASM"},
+      {n:14, name:"Dead Bug",                  sets:"2×6–8 לצד",       min:2, max:2, rest:"45 שנ׳",     rs:45, re:45,  vid:"bxn9FBrt4-A", url:null, src:"swap", title:"How to do a Dead Bug | Proper Form & Technique | NASM", noKg:true},
       {n:11, name:"Suitcase Carry",            sets:"3×20–30 מ׳ לצד",  min:3, max:3, rest:"45 שנ׳",     rs:45, re:45,  vid:"WhxtwWqb2BQ", url:null, src:"fixed", title:"Master the Suitcase Carry Exercise for Core Strength, Grip & Posture!"},
-      {n:12, name:"Bird Dog",                  sets:"2×6–8 לצד",       min:2, max:2, rest:"30 שנ׳",     rs:30, re:30,  vid:"ZdAHe9_HeEw", url:null, src:"fixed", title:"How to do a Bird Dog | Proper Form & Technique | NASM"}
+      /* n:15 replaces Bird Dog (n:12): adds the missing hip hinge; Dead Bug already covers core stability. */
+      {n:15, name:"Romanian Deadlift",         sets:"3×8–10",          min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:"hQgFixeXdZo", url:null, src:"swap", title:"Dumbbell Romanian (RDL) Deadlift |TECHNIQUE for Beginners", cue:"דאמבלים או מוט. ירכיים אחורה, גב ישר, המשקל צמוד לרגליים."}
     ]
   }
 };
@@ -650,22 +712,41 @@ PLAN.footAnkle = {
   ]
 };
 var WORKOUTS = Object.keys(PLAN);
-/* Presentation order only: original n values remain stable storage keys. */
+/* Presentation order only: original n values remain stable storage keys.
+   An {ss:[a,b], rs, re, rest} entry is a superset: a then b with no rest between,
+   and the given rest after b. Big compound lifts stay as straight sets. */
 PLAN.A.sections = [
   {id:"press", label:"לחיצת רגליים", ids:[1]},
-  {id:"bench", label:"ספסל ודאמבלים", ids:[2,3,4,5]},
-  {id:"machines", label:"מכשירי רגליים", ids:[6,8,9]},
-  {id:"cables", label:"כבלים", ids:[7,10]},
+  {id:"bench", label:"ספסל ודאמבלים", ids:[2,3,{ss:[4,5], rest:"75–90 שנ׳", rs:75, re:90}]},
+  {id:"machines", label:"מכשירי רגליים", ids:[{ss:[6,8], rest:"60–75 שנ׳", rs:60, re:75},9]},
+  {id:"cables", label:"כבל", ids:[{ss:[7,10], rest:"60 שנ׳", rs:60, re:60}]},
   {id:"mat", label:"מזרן", ids:[11]}
 ];
 PLAN.B.sections = [
-  {id:"hip", label:"עמדת Hip Thrust", ids:[1]},
-  {id:"bench", label:"דאמבלים וספסל", ids:[13,4,8]},
-  {id:"cables", label:"משיכות וכבלים", ids:[2,5,6,7]},
-  {id:"machine", label:"מכשיר מקרבים", ids:[9]},
-  {id:"carry", label:"דאמבל ומסלול הליכה", ids:[11]},
-  {id:"mat", label:"מזרן", ids:[12,14]}
+  {id:"hip", label:"Hip Thrust", ids:[1]},
+  {id:"bench", label:"דאמבלים / מוט", ids:[4,15,13]},
+  {id:"cables", label:"כבלים", ids:[2,5,{ss:[6,7], rest:"60 שנ׳", rs:60, re:60}]},
+  {id:"carry", label:"דאמבלים ומסלול", ids:[{ss:[8,11], rest:"60 שנ׳", rs:60, re:60}]},
+  {id:"finish", label:"מקרבים ומזרן", ids:[{ss:[9,14], rest:"45–60 שנ׳", rs:45, re:60}]}
 ];
+/* Hebrew names, shown only in the info sheet. */
+var HE = {
+  A:{1:"לחיצת רגליים",2:"לחיצת חזה עם דאמבלים",3:"סקוואט בולגרי",4:"חתירה בתמיכת חזה",5:"לחיצת כתפיים בישיבה",6:"כפיפת ברכיים במכונה",7:"כפיפת מרפקים בכבל",8:"עליית תאומים בעמידה",9:"מכונת הרחקת ירכיים",10:"פאלוף פרס",11:"פלאנק צידי"},
+  B:{1:"היפ תראסט",2:"פולי עליון",4:"לחיצת חזה בשיפוע",5:"חתירה בכבל בישיבה",6:"פייס פול",7:"פשיטת מרפקים בחבל",8:"הרחקת כתפיים לצדדים",9:"מכונת קירוב ירכיים",11:"הליכת מזוודה",13:"לאנג' אחורי עם דאמבלים",14:"חרק מת",15:"דדליפט רומני"}
+};
+function exOf(w,n){ return PLAN[w].ex.filter(function(x){ return x.n === n; })[0]; }
+["A","B"].forEach(function(w){
+  PLAN[w].ex.forEach(function(x){ if(HE[w][x.n]) x.he = HE[w][x.n]; });
+  PLAN[w].sections.forEach(function(s){
+    s.ids.forEach(function(item){
+      if(typeof item !== "object") return;
+      var a = exOf(w,item.ss[0]), b = exOf(w,item.ss[1]);
+      a.ss = 1; a.partner = b;
+      b.ss = 2; b.partner = a;
+      b.ssRest = {rest:item.rest, rs:item.rs, re:item.re};
+    });
+  });
+});
 var WARMUP_MIN_S = 300, WARMUP_MAX_S = 420; /* "5–7 דק׳" from the document */
 
 /* ======================= storage (fail-safe) ======================= */
@@ -722,9 +803,23 @@ function setsOf(w,x){
   return a;
 }
 
+/* Last weight per exercise. Kept apart from the workout state so "reset" never wipes it. */
+var WKEY = "workoutAB.weights.v1", weights = {};
+try{ if(storeOK) weights = JSON.parse(localStorage.getItem(WKEY)) || {}; }catch(e){ weights = {}; }
+function kgOf(w,x){ var v = weights[w+"-"+x.n]; return typeof v === "number" ? v : null; }
+function setKg(w,x,v){
+  if(v === null || isNaN(v)) delete weights[w+"-"+x.n];
+  else weights[w+"-"+x.n] = Math.max(0, Math.round(v*4)/4);
+  if(storeOK){ try{ localStorage.setItem(WKEY, JSON.stringify(weights)); }catch(e){} }
+}
+function hasKg(w,x){ return (w === "A" || w === "B") && !x.noKg; }
+var KG_STEP = 2.5;
+
 /* ======================= helpers ======================= */
 var $  = function(s,r){ return (r||document).querySelector(s); };
 var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+/* Keep numeric ranges like "90–120" or "3×8" in reading order inside RTL text. */
+function nums(s){ return esc(s).replace(/\d[\d.,×–\-]*/g, function(m){ return '<bdi dir="ltr">'+m+'</bdi>'; }); }
 function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
 function mmss(sec){
   sec = Math.max(0, Math.round(sec));
@@ -744,7 +839,11 @@ function progress(w){
 }
 function restRange(w){
   var lo = PLAN[w].warmup ? WARMUP_MIN_S : 0, hi = PLAN[w].warmup ? WARMUP_MAX_S : 0;
-  PLAN[w].ex.forEach(function(x){ lo += x.min * (x.rs || 0); hi += x.max * (x.re || 0); });
+  PLAN[w].ex.forEach(function(x){
+    if(x.ss === 1) return;                 /* straight into the partner exercise */
+    var r = x.ssRest || x;
+    lo += x.min * (r.rs || 0); hi += x.max * (r.re || 0);
+  });
   return { lo:Math.round(lo/60), hi:Math.round(hi/60) };
 }
 function toast(msg){
@@ -811,7 +910,8 @@ function renderNotes(){
 /* ======================= workout screen ======================= */
 var current = null;
 
-function cardHTML(w,x,position){
+/* Card = what you need mid-set: name, dose, set boxes, weight, rest. Everything else lives behind (i). */
+function cardHTML(w,x,label){
   var arr = setsOf(w,x), done = isDone(w,x);
   var boxes = "";
   for(var i=0;i<x.max;i++){
@@ -820,53 +920,59 @@ function cardHTML(w,x,position){
     boxes += '<span class="set'+opt+'">'
            +   '<input type="checkbox" id="'+id+'" data-w="'+w+'" data-n="'+x.n+'" data-i="'+i+'"'
            +     (arr[i] ? ' checked' : '')
-           +     ' aria-label="'+esc(x.name)+' — סט '+(i+1)+' מתוך '+x.max+'">'
+           +     ' aria-label="'+esc(x.name)+' — סט '+(i+1)+' מתוך '+x.max+(opt?' (אופציונלי)':'')+'">'
            +   '<label for="'+id+'">'+(i+1)+'</label>'
            + '</span>';
   }
 
-  var media = "";
-  if(x.vid){
-    media = '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" '
-          + 'aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
-          +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" loading="lazy" decoding="async" '
-          +        'onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
-          +   '<span class="play"><span>'+ICON.play+'</span></span>'
-          +   '<span class="cap">צפייה בהדגמה</span>'
-          + '</button>';
-  } else {
-    media = '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" '
-          + 'aria-label="פתיחת ההדגמה של '+esc(x.name)+' באתר '+esc(x.host)+'">'
-          + ICON.ext + 'הדגמה באתר ' + esc(x.host) + '</a></div>';
+  var tools = "";
+  if(hasKg(w,x)){
+    var kg = kgOf(w,x);
+    tools += '<div class="kg">'
+      + '<button type="button" class="kg-btn" data-kg="-1" data-n="'+x.n+'" aria-label="הורדת '+KG_STEP+' ק״ג">−</button>'
+      + '<label class="kg-field"><input type="number" inputmode="decimal" min="0" step="0.5" id="kg-'+w+'-'+x.n+'" data-kgin="'+x.n+'"'
+      +   ' value="'+(kg === null ? '' : kg)+'" placeholder="—" aria-label="משקל ב-'+esc(x.name)+', בקילוגרם"><span>ק״ג</span></label>'
+      + '<button type="button" class="kg-btn" data-kg="1" data-n="'+x.n+'" aria-label="הוספת '+KG_STEP+' ק״ג">+</button>'
+      + '</div>';
   }
-
-  var uncertain = "";
-  if(x.min !== x.max){
-    uncertain = '<p class="uncertain">'+ICON.info+'<span>במסמך רשום <bdi class="ltr">'+esc(x.sets)+'</bdi> — טווח של '
-              + x.min+'–'+x.max+' סטים. מוצגות '+x.max+' תיבות; התרגיל נחשב שהושלם אחרי '+x.min+' סטים.</span></p>';
+  var r = x.ssRest || (x.ss === 1 ? null : x);
+  if(r && typeof r.rs === "number"){
+    tools += '<button class="rest-btn" type="button" data-timer="'+x.n+'" aria-label="טיימר מנוחה, '+esc(r.rest)+'">'
+      + ICON.clock + '<bdi>'+esc(String(r.rs))+'</bdi></button>';
   }
 
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
     + '<div class="c-head">'
-    +   '<div class="num" aria-hidden="true">'+(position || x.n)+'</div>'
+    +   '<div class="num" aria-hidden="true">'+esc(String(label || x.n))+'</div>'
     +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
-    +     (x.he ? '<p class="ex-he"><bdi>'+esc(x.he)+'</bdi></p>' : '') + '</div>'
-    +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
+    +     '<p class="dose">'+nums(x.sets)+(x.ss ? '' : (x.rest ? ' · '+nums(x.rest) : ''))+'</p></div>'
+    +   '<button class="info-btn" type="button" data-info="'+x.n+'" aria-label="פרטים והדגמה: '+esc(x.name)+'">'+ICON.info+'</button>'
     + '</div>'
-    + '<div class="specs">'
-    +   '<div class="spec reps"><span class="k">'+esc(x.doseLabel || 'סטים × חזרות')+'</span><span class="v"><bdi>'+esc(x.sets)+'</bdi></span></div>'
-    +   '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi>'+esc(x.rest || 'לא צוין')+'</bdi></span></div>'
-    + '</div>'
-    + uncertain
-    + (x.cue ? '<p class="exercise-cue">'+esc(x.cue)+'</p>' : '')
-    + (x.instructions ? '<details class="exercise-details"><summary>דגשים לביצוע</summary><p>'+esc(x.instructions)+'</p>'
-      + (x.equipment ? '<p>ציוד: <bdi>'+esc(x.equipment)+'</bdi></p>' : '') + '</details>' : '')
-    + '<div class="sets-row"><span class="lbl">סימון סטים</span><div class="sets">'+boxes+'</div></div>'
-    + media
-    + (typeof x.rs === 'number' ? '<div class="actions">'
-    +   '<button class="btn wide" type="button" data-timer="'+x.n+'">'+ICON.clock+'טיימר מנוחה · <bdi>'+esc(x.rest)+'</bdi></button>'
-    + '</div>' : '')
+    + '<div class="sets">'+boxes+'</div>'
+    + (tools ? '<div class="tools">'+tools+'</div>' : '')
     + '</article>';
+}
+
+function infoHTML(w,x){
+  var r = x.ssRest || x, h = '';
+  if(x.he) h += '<p class="info-he">'+esc(x.he)+'</p>';
+  h += '<div class="info-chips"><span class="chip">'+nums(x.sets)+'</span>';
+  if(r.rest) h += '<span class="chip">מנוחה '+nums(r.rest)+'</span>';
+  if(x.ss) h += '<span class="chip on">סופר-סט עם <bdi class="ltr">'+esc(x.partner.name)+'</bdi></span>';
+  h += '</div>';
+  if(x.min !== x.max) h += '<p class="info-p">סט '+x.max+' אופציונלי.</p>';
+  if(x.cue) h += '<p class="info-p">'+esc(x.cue)+'</p>';
+  if(x.instructions) h += '<p class="info-p">'+esc(x.instructions)+'</p>';
+  if(x.equipment) h += '<p class="info-p">ציוד: <bdi>'+esc(x.equipment)+'</bdi></p>';
+  if(x.vid){
+    h += '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
+      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" decoding="async" onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
+      +   '<span class="play"><span>'+ICON.play+'</span></span></button>';
+  } else if(x.url){
+    h += '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'
+      + ICON.ext + 'הדגמה באתר ' + esc(x.host || '') + '</a></div>';
+  }
+  return h;
 }
 
 function warmupHTML(w){
@@ -874,20 +980,11 @@ function warmupHTML(w){
   return '<article class="card warm'+(on?" done":"")+'" id="card-'+w+'-warm">'
     + '<div class="c-head">'
     +   '<div class="num" aria-hidden="true">🔥</div>'
-    +   '<div class="c-title">'
-    +     '<h3 class="ex-name">חימום</h3>'
-    +     '<p class="ex-he">'+esc(wu.name)+'</p>'
-    +   '</div>'
-    +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
-    + '</div>'
-    + '<div class="specs">'
-    +   '<div class="spec reps"><span class="k">משך</span><span class="v"><bdi>'+esc(wu.spec)+'</bdi></span></div>'
-    +   '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi>'+esc(wu.rest)+'</bdi></span></div>'
-    + '</div>'
-    + '<div class="sets-row"><span class="lbl">סימון</span><div class="sets">'
+    +   '<div class="c-title"><h3 class="ex-name">חימום · <bdi>'+esc(wu.spec)+'</bdi></h3>'
+    +     '<p class="dose">'+esc(wu.name)+'</p></div>'
     +   '<span class="set"><input type="checkbox" id="warm-'+w+'" data-warm="'+w+'"'+(on?" checked":"")+' aria-label="סימון החימום כבוצע">'
-    +   '<label for="warm-'+w+'" style="width:auto;padding:0 18px">בוצע</label></span>'
-    + '</div></div>'
+    +   '<label for="warm-'+w+'">'+ICON.check+'</label></span>'
+    + '</div>'
     + '</article>';
 }
 
@@ -896,7 +993,7 @@ function renderWorkout(w){
   var P = PLAN[w], r = restRange(w);
   $("#wk-h").textContent = P.label;
   $("#wk-h").setAttribute("dir", "auto");
-  $("#wk-sub").textContent = P.subtitle || (P.ex.length + " תרגילים + חימום · " + P.note);
+  $("#wk-sub").textContent = P.subtitle || (P.ex.length + " תרגילים");
   $("#wk-sub").setAttribute("dir", P.subtitle ? "ltr" : "rtl");
   var html = P.warmup ? warmupHTML(w) : '';
   if(P.sections){
@@ -905,16 +1002,23 @@ function renderWorkout(w){
     P.sections.forEach(function(section){
       var id = 'section-'+w+'-'+section.id;
       html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi>'+esc(section.label)+'</bdi>'+(section.he ? '<small>'+esc(section.he)+'</small>' : '')+'</h2>';
-      var exercises = section.ids ? section.ids.map(function(n){ return P.ex.filter(function(x){ return x.n === n; })[0]; }) : P.ex.filter(function(x){ return x.section === section.id; });
-      exercises.forEach(function(x){ position++; html += cardHTML(w,x,position); });
+      var items = section.ids || P.ex.filter(function(x){ return x.section === section.id; }).map(function(x){ return x.n; });
+      items.forEach(function(item){
+        position++;
+        if(typeof item === "number"){ html += cardHTML(w, exOf(w,item), position); return; }
+        html += '<div class="superset" role="group" aria-label="סופר-סט">'
+          + '<div class="ss-head"><span class="ss-tag">סופר-סט</span><span>מנוחה '+nums(item.rest)+' אחרי שניהם</span></div>'
+          + cardHTML(w, exOf(w,item.ss[0]), position+"א")
+          + cardHTML(w, exOf(w,item.ss[1]), position+"ב")
+          + '</div>';
+      });
       html += '</section>';
     });
   } else {
     P.ex.forEach(function(x){ html += cardHTML(w,x); });
   }
   $("#wk-list").innerHTML = html;
-  $("#wk-summary").innerHTML = P.summary ? esc(P.summary) : 'חימום + זמני המנוחה שבמסמך: <b>≈ ' + r.lo + '–' + r.hi + ' דק׳</b>' +
-    ' <span style="opacity:.7">(לא כולל זמן ביצוע הסטים — אינו מופיע במסמך)</span>';
+  $("#wk-summary").innerHTML = P.summary ? esc(P.summary) : 'חימום + מנוחות: <b>≈ ' + r.lo + '–' + r.hi + ' דק׳</b>';
   updateProgress();
 }
 
@@ -964,6 +1068,13 @@ $("#wk-list").addEventListener("change", function(e){
     $("#card-"+current+"-warm").classList.toggle("done", t.checked);
     saveState(); updateProgress(); return;
   }
+  if(t.matches("input[data-kgin]")){
+    var kx = exOf(current, parseInt(t.getAttribute("data-kgin"),10));
+    var v = t.value.trim() === "" ? null : parseFloat(t.value.replace(",", "."));
+    setKg(current, kx, v);
+    t.value = kgOf(current, kx) === null ? "" : kgOf(current, kx);
+    return;
+  }
   if(t.matches("input[data-n]")){
     var w = t.getAttribute("data-w"), n = parseInt(t.getAttribute("data-n"),10), i = parseInt(t.getAttribute("data-i"),10);
     var x = PLAN[w].ex.filter(function(o){ return o.n===n; })[0];
@@ -978,10 +1089,24 @@ $("#wk-list").addEventListener("click", function(e){
   var tb = e.target.closest ? e.target.closest("[data-timer]") : null;
   if(tb){
     var n = parseInt(tb.getAttribute("data-timer"),10);
-    var x = PLAN[current].ex.filter(function(o){ return o.n===n; })[0];
+    var x = exOf(current, n);
+    if(x && x.ssRest){
+      x = {name: x.partner.name + " + " + x.name, rest:x.ssRest.rest, rs:x.ssRest.rs, re:x.ssRest.re};
+    }
     if(x) openTimer(x);
     return;
   }
+  var kb = e.target.closest ? e.target.closest("[data-kg]") : null;
+  if(kb){
+    var kx = exOf(current, parseInt(kb.getAttribute("data-n"),10)), cur = kgOf(current, kx);
+    var dir = parseInt(kb.getAttribute("data-kg"),10);
+    setKg(current, kx, cur === null ? (dir > 0 ? KG_STEP : null) : cur + dir*KG_STEP);
+    var inp = $("#kg-"+current+"-"+kx.n), now = kgOf(current, kx);
+    if(inp) inp.value = now === null ? "" : now;
+    return;
+  }
+  var ib = e.target.closest ? e.target.closest("[data-info]") : null;
+  if(ib){ openInfo(exOf(current, parseInt(ib.getAttribute("data-info"),10))); return; }
   var vb = e.target.closest ? e.target.closest("[data-video]") : null;
   if(vb){ openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title")); }
 });
@@ -1131,6 +1256,32 @@ function closeVideo(){
 $("#video-close").addEventListener("click", closeVideo);
 vModal.addEventListener("click", function(e){ if(e.target === vModal) closeVideo(); });
 
+/* ======================= info modal ======================= */
+var iModal=$("#info-modal"), iLastFocus=null;
+function openInfo(x){
+  if(!x) return;
+  iLastFocus = document.activeElement;
+  $("#info-title").innerHTML = '<bdi class="ltr">'+esc(x.name)+'</bdi>';
+  $("#info-body").innerHTML = infoHTML(current, x);
+  iModal.classList.add("open");
+  $("#info-close").focus({preventScroll:true});
+}
+function closeInfo(){
+  iModal.classList.remove("open");
+  if(iLastFocus && iLastFocus.focus) iLastFocus.focus({preventScroll:true});
+}
+$("#info-close").addEventListener("click", closeInfo);
+iModal.addEventListener("click", function(e){
+  if(e.target === iModal){ closeInfo(); return; }
+  var vb = e.target.closest ? e.target.closest("[data-video]") : null;
+  if(vb){
+    var keep = iLastFocus;
+    iModal.classList.remove("open");
+    openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title"));
+    lastFocus = keep;  /* closing the video returns to the card, not the sheet */
+  }
+});
+
 /* ======================= confirm modal ======================= */
 var cModal=$("#confirm-modal"), cText=$("#confirm-text"), cYes=$("#confirm-yes"), cNo=$("#confirm-no");
 var cAction=null, cLastFocus=null;
@@ -1176,6 +1327,7 @@ $("#btn-reset").addEventListener("click", function(){
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
   if(vModal.classList.contains("open")) { closeVideo(); return; }
+  if(iModal.classList.contains("open")) { closeInfo(); return; }
   if(cModal.classList.contains("open")) { closeConfirm(); return; }
   if(elTimer.classList.contains("open")) { closeTimer(); return; }
   if(current) goHome();
@@ -1183,6 +1335,7 @@ document.addEventListener("keydown", function(e){
 /* simple focus trap for open dialogs */
 document.addEventListener("focusin", function(e){
   var open = vModal.classList.contains("open") ? vModal
+           : iModal.classList.contains("open") ? iModal
            : (cModal.classList.contains("open") ? cModal : null);
   if(open && !open.contains(e.target)){
     var f = open.querySelector("button, a[href]");
