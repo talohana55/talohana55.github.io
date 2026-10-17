@@ -399,8 +399,54 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .noscript-note p{margin:0 0 8px;font-size:.94rem;line-height:1.7}
 .noscript-note ol{margin:8px 0 0;padding-inline-start:20px;font-size:.92rem;line-height:1.8}
 .noscript-note :last-child{margin-bottom:0}
+/* ============================= slim card (gym mode) ============================= */
+.card{padding:14px}
+.dose{margin:2px 0 0;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.info-btn{
+  width:44px;height:44px;flex:none;margin:-6px;display:grid;place-items:center;
+  background:transparent;border:0;border-radius:12px;color:var(--muted-2);
+}
+.info-btn:active{background:var(--surface-3)}
+.info-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card > .sets{margin-top:12px}
+.c-head{align-items:center}
+.c-head .set label{width:var(--tap)}
+.c-head .set label svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tools{display:flex;gap:10px;margin-top:12px;align-items:stretch}
+.kg{
+  direction:ltr;flex:1;min-width:0;display:flex;align-items:stretch;height:var(--tap);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;
+}
+.kg-btn{width:48px;flex:none;border:0;background:transparent;font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent)}
+.kg-btn:active{background:var(--surface-3)}
+.kg-field{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;direction:ltr}
+.kg-field input{
+  width:5ch;min-width:0;background:transparent;border:0;padding:0;color:var(--text);
+  font:inherit;font-size:1.2rem;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;
+  -moz-appearance:textfield;appearance:textfield;
+}
+.kg-field input::-webkit-outer-spin-button,.kg-field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.kg-field input::placeholder{color:var(--muted-2)}
+.kg-field span{color:var(--muted-2);font-size:.8rem}
+.rest-btn{
+  flex:none;min-width:96px;height:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border-radius:var(--r-md);border:1px solid rgba(76,141,255,.42);background:rgba(76,141,255,.14);
+  color:#BBD3FF;font-weight:800;font-size:1rem;font-variant-numeric:tabular-nums;
+}
+.rest-btn:only-child{flex:1}
+.rest-btn:active{transform:scale(.97)}
+.rest-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.info-he{margin:0 0 10px;color:var(--muted)}
+.info-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.info-p{margin:0 0 10px;color:var(--muted);line-height:1.65;font-size:.94rem;unicode-bidi:plaintext}
+.info-cues{margin:0 0 10px;padding-inline-start:20px;color:var(--muted);line-height:1.6;font-size:.94rem}
+.info-cues li{margin:4px 0}
+.sheet-body .thumb{margin-top:4px}
+.sheet-body .actions{margin-top:4px}
+
 @media (max-width:359px){
   .set label{width:48px}
+  .rest-btn{min-width:80px}
   .t-clock{font-size:2.9rem}
 }
 /* Alex data fields reuse the existing cards, tokens and spacing. */
@@ -450,7 +496,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: Alex · 2026.10.03.1</p>
+    <p class="foot-note">גרסה: Alex · 2026.10.17.1 · כרטיסים מינימליים, משקלים</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -546,6 +592,19 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
         </a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ==================== INFO MODAL ==================== -->
+<div class="overlay" id="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-title">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="info-title"></h3>
+      <button class="icon-btn" type="button" id="info-close" aria-label="סגירה">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body" id="info-body"></div>
   </div>
 </div>
 
@@ -1076,7 +1135,11 @@ alexTrainingProgram.workouts.forEach(function(workout){
   workout.sections.forEach(function(section,index){
     var group = {id:'group-'+index, label:section.title, ids:[]};
     section.exercises.forEach(function(exercise){
-      plan.ex.push(adaptExercise(exercise));
+      var x = adaptExercise(exercise);
+      /* Warm-up items and timed-only items (stretch) render as one compact row with a single check. */
+      x.warm = section.title === 'Warm-up';
+      x.row = x.warm || x.durationOnly;
+      plan.ex.push(x);
       group.ids.push(exercise.id);
       sourceById[exercise.id] = {workout:workout.id, exercise:exercise};
     });
@@ -1088,6 +1151,7 @@ Object.keys(alexTrainingProgram.exerciseLibrary).forEach(function(group){
   alexTrainingProgram.exerciseLibrary[group].forEach(function(exercise){ libraryById[exercise.id] = exercise; });
 });
 var WORKOUTS = Object.keys(PLAN);
+function exOf(w,n){ return PLAN[w].ex.filter(function(x){ return x.n === n; })[0]; }
 
 function renderPicker(){
   $('#workout-picker').innerHTML = WORKOUTS.map(function(id){
@@ -1098,33 +1162,47 @@ function renderPicker(){
       + '<span class="barwrap"><span class="bar"><i id="home-bar-'+esc(id)+'"></i></span></span></button>';
   }).join('');
 }
-function exerciseDetails(x){
-  var source = x.source, html = '';
-  ['station','equipment','muscleGroup','scheduledDay'].forEach(function(key){
-    var labels = {station:'תחנה',equipment:'ציוד',muscleGroup:'קבוצת שרירים',scheduledDay:'יום'};
-    if(source[key] != null) html += '<p class="ex-he">'+labels[key]+': <bdi>'+esc(source[key])+'</bdi></p>';
-  });
-  if(source.unilateral) html += '<p class="ex-he">חד־צדדי</p>';
-  if(source.notes) html += '<p class="exercise-cue" dir="auto">'+esc(source.notes)+'</p>';
+/* Everything that isn't needed mid-set: shown in the (i) sheet. */
+function infoHTML(x){
+  var source = x.source, h = '';
+  if(x.he) h += '<p class="info-he">'+esc(x.he)+'</p>';
+  h += '<div class="info-chips">';
+  if(x.sets) h += '<span class="chip">'+nums(x.sets)+'</span>';
+  if(x.rest) h += '<span class="chip">מנוחה '+nums(x.rest)+'</span>';
+  if(source.unilateral) h += '<span class="chip">חד־צדדי</span>';
+  h += '</div>';
+  if(source.notes) h += '<p class="info-p" dir="auto">'+esc(source.notes)+'</p>';
   if(source.coachingCues && source.coachingCues.length){
-    html += '<details class="exercise-details"><summary>דגשים לביצוע</summary><ul>'
-      + source.coachingCues.map(function(cue){ return '<li dir="auto">'+esc(cue)+'</li>'; }).join('')+'</ul></details>';
+    h += '<ul class="info-cues">'+source.coachingCues.map(function(cue){ return '<li dir="auto">'+esc(cue)+'</li>'; }).join('')+'</ul>';
+  }
+  ['equipment','muscleGroup','station','scheduledDay'].forEach(function(key){
+    var labels = {station:'תחנה',equipment:'ציוד',muscleGroup:'קבוצת שרירים',scheduledDay:'יום'};
+    if(source[key] != null) h += '<p class="info-p">'+labels[key]+': <bdi>'+esc(source[key])+'</bdi></p>';
+  });
+  if(source.alternativeTo && sourceById[source.alternativeTo]){
+    h += '<p class="info-p">חלופה עבור: <bdi>'+esc(sourceById[source.alternativeTo].exercise.name)+'</bdi></p>';
+  }
+  if(x.vid){
+    h += '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
+      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" decoding="async" onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
+      +   '<span class="play"><span>'+ICON.play+'</span></span></button>';
+  } else if(x.url){
+    h += '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'
+      + ICON.ext + 'וידאו · ' + esc(x.host || '') + '</a></div>';
   }
   if(source.alternativeExercise){
     var alternative = libraryById[source.alternativeExercise];
-    if(alternative) html += '<div class="actions"><button class="btn blue wide" type="button" data-alternative="'+esc(alternative.id)+'">חלופה: <bdi>'+esc(alternative.name)+'</bdi></button></div>';
+    if(alternative) h += '<div class="actions"><button class="btn wide" type="button" data-alternative="'+esc(alternative.id)+'">חלופה: <bdi>'+esc(alternative.name)+'</bdi></button></div>';
   }
-  if(source.alternativeTo && sourceById[source.alternativeTo]){
-    html += '<p class="ex-he">חלופה עבור: <bdi>'+esc(sourceById[source.alternativeTo].exercise.name)+'</bdi></p>';
-  }
-  return html;
+  return h;
 }
+var libraryInfo = {};
 function renderLibrary(){
   var labels = {glutes:'ישבן',upperBody:'פלג גוף עליון',core:'ליבה',recovery:'התאוששות ותנועתיות'};
   $('#library-list').innerHTML = Object.keys(alexTrainingProgram.exerciseLibrary).map(function(group,index){
     return '<section class="workout-section" aria-labelledby="library-group-'+index+'"><h2 class="section-heading" id="library-group-'+index+'"><bdi>'
       + esc(labels[group] || group)+'</bdi></h2>'
-      + alexTrainingProgram.exerciseLibrary[group].map(function(exercise){ return cardHTML(null,adaptExercise(exercise)); }).join('')+'</section>';
+      + alexTrainingProgram.exerciseLibrary[group].map(function(exercise){ var x = adaptExercise(exercise); libraryInfo[x.n] = x; return cardHTML(null,x); }).join('')+'</section>';
   }).join('');
 }
 var libraryReturn = null;
@@ -1153,13 +1231,9 @@ function backFromLibrary(){
 function bindLibrary(){
   $('#btn-library').addEventListener('click',function(){ openLibrary(); });
   $('#library-back').addEventListener('click',backFromLibrary);
-  $('#wk-list').addEventListener('click',function(event){
-    var button = event.target.closest('[data-alternative]');
-    if(button) openLibrary(button.getAttribute('data-alternative'));
-  });
   $('#library-list').addEventListener('click',function(event){
-    var video = event.target.closest('[data-video]');
-    if(video) openVideo(video.getAttribute('data-video'),video.getAttribute('data-title'));
+    var info = event.target.closest('[data-info]');
+    if(info) openInfo(libraryInfo[info.getAttribute('data-info')]);
   });
 }
 
@@ -1218,10 +1292,39 @@ function setsOf(w,x){
   return a;
 }
 
+/* Last weight per exercise (keyed by the stable source id). Kept apart from the
+   workout state so "reset" never wipes it. */
+var WKEY = "alexTraining.weights.v1", weights = {};
+try{ if(storeOK) weights = JSON.parse(localStorage.getItem(WKEY)) || {}; }catch(e){ weights = {}; }
+function kgOf(x){ var v = weights[x.n]; return typeof v === "number" ? v : null; }
+function setKg(x,v){
+  if(v === null || isNaN(v)) delete weights[x.n];
+  else weights[x.n] = Math.max(0, Math.round(v*4)/4);
+  if(storeOK){ try{ localStorage.setItem(WKEY, JSON.stringify(weights)); }catch(e){} }
+}
+/* No weight for warm-up, stretch, timed holds, or mat / band only work. */
+function hasKg(x){
+  var src = x.source || {};
+  if(x.row || src.duration) return false;
+  if(/warm-up|recovery|mobility/i.test(src.muscleGroup || "")) return false;
+  return !/^(mat|mini-band|band|bodyweight)$/i.test(src.equipment || "");
+}
+var KG_STEP = 2.5;
+
 /* ======================= helpers ======================= */
 var $  = function(s,r){ return (r||document).querySelector(s); };
 var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
 function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+/* Keep numeric runs like "3×15/side" or "90 sec" in reading order inside RTL text. */
+function nums(s){
+  s = String(s);
+  var re = /\d(?:[^֐-׿·]*[^\s֐-׿·])?/g, out = '', last = 0, m;
+  while((m = re.exec(s))){
+    out += esc(s.slice(last, m.index)) + '<bdi dir="ltr">' + esc(m[0]) + '</bdi>';
+    last = re.lastIndex;
+  }
+  return out + esc(s.slice(last));
+}
 function mmss(sec){
   sec = Math.max(0, Math.round(sec));
   var m = Math.floor(sec/60), s = sec%60;
@@ -1286,58 +1389,72 @@ function renderHome(){
 /* ======================= workout screen ======================= */
 var current = null;
 
+/* Card = what's needed mid-set: name, dose, set boxes, weight, rest. Everything else lives behind (i). */
+function infoBtn(x){
+  return '<button class="info-btn" type="button" data-info="'+esc(x.n)+'" aria-label="פרטים והדגמה: '+esc(x.name)+'">'+ICON.info+'</button>';
+}
+function doseLine(x){
+  return '<p class="dose">'+nums(x.sets)+(x.rest ? ' · '+nums(x.rest) : '')+'</p>';
+}
 function cardHTML(w,x,position){
   var tracking = !!w;
-  var arr = tracking ? setsOf(w,x) : [], done = tracking && isDone(w,x);
+  if(!tracking){
+    return '<article class="card" id="card-null-'+esc(x.n)+'" data-card="'+esc(x.n)+'">'
+      + '<div class="c-head"><div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
+      + '<p class="dose"><bdi>'+esc(x.he)+'</bdi></p></div>'+infoBtn(x)+'</div></article>';
+  }
+  var arr = setsOf(w,x), done = isDone(w,x);
+  if(x.row) return rowHTML(w,x,position,done);
+
   var boxes = "";
-  for(var i=0;tracking && i<x.max;i++){
+  for(var i=0;i<x.max;i++){
     var id = "set-"+w+"-"+x.n+"-"+i;
     var opt = (i >= x.min) ? " optional" : "";
     boxes += '<span class="set'+opt+'">'
            +   '<input type="checkbox" id="'+id+'" data-w="'+w+'" data-n="'+x.n+'" data-i="'+i+'"'
            +     (arr[i] ? ' checked' : '')
-           +     ' aria-label="'+esc(x.name)+(x.durationOnly ? ' — בוצע' : ' — סט '+(i+1)+' מתוך '+x.max)+'">'
-           +   '<label for="'+id+'">'+(x.durationOnly ? 'בוצע' : (i+1))+'</label>'
+           +     ' aria-label="'+esc(x.name)+' — סט '+(i+1)+' מתוך '+x.max+'">'
+           +   '<label for="'+id+'">'+(i+1)+'</label>'
            + '</span>';
   }
 
-  var media = "";
-  if(x.vid){
-    media = '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" '
-          + 'aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
-          +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" loading="lazy" decoding="async" '
-          +        'onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
-          +   '<span class="play"><span>'+ICON.play+'</span></span>'
-          +   '<span class="cap">צפייה בהדגמה</span>'
-          + '</button>';
-  } else if(x.url) {
-    media = '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" '
-          + 'aria-label="פתיחת ההדגמה של '+esc(x.name)+' באתר '+esc(x.host)+'">'
-          + ICON.ext + 'וידאו · ' + esc(x.host) + '</a></div>';
+  var tools = "";
+  if(hasKg(x)){
+    var kg = kgOf(x);
+    tools += '<div class="kg">'
+      + '<button type="button" class="kg-btn" data-kg="-1" data-n="'+esc(x.n)+'" aria-label="הורדת '+KG_STEP+' ק״ג">−</button>'
+      + '<label class="kg-field"><input type="text" inputmode="decimal" autocomplete="off" id="kg-'+esc(x.n)+'" data-kgin="'+esc(x.n)+'"'
+      +   ' value="'+(kg === null ? '' : kg)+'" placeholder="—" aria-label="משקל ב-'+esc(x.name)+', בקילוגרם"><span>ק״ג</span></label>'
+      + '<button type="button" class="kg-btn" data-kg="1" data-n="'+esc(x.n)+'" aria-label="הוספת '+KG_STEP+' ק״ג">+</button>'
+      + '</div>';
   }
-
-  var uncertain = "";
-  if(tracking && x.min !== x.max){
-    uncertain = '<p class="uncertain">'+ICON.info+'<span>במסמך רשום <bdi class="ltr">'+esc(x.sets)+'</bdi> — טווח של '
-              + x.min+'–'+x.max+' סטים. מוצגות '+x.max+' תיבות; התרגיל נחשב שהושלם אחרי '+x.min+' סטים.</span></p>';
+  if(typeof x.rs === "number"){
+    tools += '<button class="rest-btn" type="button" data-timer="'+esc(x.n)+'" aria-label="טיימר מנוחה, '+esc(x.rest)+'">'
+      + ICON.clock + '<bdi>'+esc(String(x.rs))+'</bdi></button>';
   }
 
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
     + '<div class="c-head">'
-    +   (tracking ? '<div class="num" aria-hidden="true">'+position+'</div>' : '')
-    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
-    +     (x.he ? '<p class="ex-he"><bdi>'+esc(x.he)+'</bdi></p>' : '') + '</div>'
-    +   '<div class="done-mark" aria-hidden="true">'+ICON.check+'</div>'
+    +   '<div class="num" aria-hidden="true">'+position+'</div>'
+    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'+doseLine(x)+'</div>'
+    +   infoBtn(x)
     + '</div>'
-    + (x.sets ? '<div class="specs"><div class="spec reps"><span class="k">'+esc(x.doseLabel)+'</span><span class="v"><bdi class="ltr">'+esc(x.sets)+'</bdi></span></div>'
-      + '<div class="spec rest"><span class="k">מנוחה</span><span class="v"><bdi class="ltr">'+esc(x.rest || 'לא צוין')+'</bdi></span></div></div>' : '')
-    + uncertain
-    + exerciseDetails(x)
-    + (tracking ? '<div class="sets-row"><span class="lbl">'+(x.durationOnly ? 'סימון ביצוע' : 'סימון סטים')+'</span><div class="sets">'+boxes+'</div></div>' : '')
-    + media
-    + (tracking && typeof x.rs === 'number' ? '<div class="actions">'
-    +   '<button class="btn wide" type="button" data-timer="'+x.n+'">'+ICON.clock+'טיימר מנוחה · <bdi>'+esc(x.rest)+'</bdi></button>'
-    + '</div>' : '')
+    + '<div class="sets">'+boxes+'</div>'
+    + (tools ? '<div class="tools">'+tools+'</div>' : '')
+    + '</article>';
+}
+
+/* Warm-up / stretch: one row, one check that marks every set of the item. */
+function rowHTML(w,x,position,done){
+  var id = "all-"+w+"-"+x.n;
+  return '<article class="card'+(x.warm?" warm":"")+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
+    + '<div class="c-head">'
+    +   '<div class="num" aria-hidden="true">'+(x.warm ? '🔥' : position)+'</div>'
+    +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'+doseLine(x)+'</div>'
+    +   infoBtn(x)
+    +   '<span class="set"><input type="checkbox" id="'+id+'" data-all="'+x.n+'"'+(done?" checked":"")+' aria-label="'+esc(x.name)+' — בוצע">'
+    +   '<label for="'+id+'">'+ICON.check+'</label></span>'
+    + '</div>'
     + '</article>';
 }
 
@@ -1356,7 +1473,7 @@ function renderWorkout(w){
       var id = 'section-'+w+'-'+section.id;
       html += '<section class="workout-section" aria-labelledby="'+id+'"><h2 class="section-heading" id="'+id+'"><bdi>'+esc(section.label)+'</bdi>'+(section.he ? '<small>'+esc(section.he)+'</small>' : '')+'</h2>';
       var exercises = section.ids ? section.ids.map(function(n){ return P.ex.filter(function(x){ return x.n === n; })[0]; }) : P.ex.filter(function(x){ return x.section === section.id; });
-      exercises.forEach(function(x){ position++; html += cardHTML(w,x,position); });
+      exercises.forEach(function(x){ if(!x.warm) position++; html += cardHTML(w,x,position); });
       html += '</section>';
     });
   } else {
@@ -1414,6 +1531,20 @@ $("#wk-list").addEventListener("change", function(e){
     $("#card-"+current+"-warm").classList.toggle("done", t.checked);
     saveState(); updateProgress(); return;
   }
+  if(t.matches("input[data-all]")){
+    var ax = exOf(current, t.getAttribute("data-all"));
+    if(!ax) return;
+    var arr = setsOf(current, ax);
+    for(var k=0;k<arr.length;k++) arr[k] = t.checked;
+    saveState(); refreshCard(current, ax); updateProgress(); return;
+  }
+  if(t.matches("input[data-kgin]")){
+    var kx = exOf(current, t.getAttribute("data-kgin"));
+    var v = t.value.trim() === "" ? null : parseFloat(t.value.replace(",", "."));
+    setKg(kx, v);
+    t.value = kgOf(kx) === null ? "" : kgOf(kx);
+    return;
+  }
   if(t.matches("input[data-n]")){
     var w = t.getAttribute("data-w"), n = t.getAttribute("data-n"), i = parseInt(t.getAttribute("data-i"),10);
     var x = PLAN[w].ex.filter(function(o){ return o.n===n; })[0];
@@ -1432,8 +1563,17 @@ $("#wk-list").addEventListener("click", function(e){
     if(x) openTimer(x);
     return;
   }
-  var vb = e.target.closest ? e.target.closest("[data-video]") : null;
-  if(vb){ openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title")); }
+  var kb = e.target.closest ? e.target.closest("[data-kg]") : null;
+  if(kb){
+    var kx = exOf(current, kb.getAttribute("data-n")), cur = kgOf(kx);
+    var dir = parseInt(kb.getAttribute("data-kg"),10);
+    setKg(kx, cur === null ? (dir > 0 ? KG_STEP : null) : cur + dir*KG_STEP);
+    var inp = $("#kg-"+kx.n), now = kgOf(kx);
+    if(inp) inp.value = now === null ? "" : now;
+    return;
+  }
+  var ib = e.target.closest ? e.target.closest("[data-info]") : null;
+  if(ib){ openInfo(exOf(current, ib.getAttribute("data-info"))); }
 });
 
 /* ======================= rest timer ======================= */
@@ -1581,6 +1721,34 @@ function closeVideo(){
 $("#video-close").addEventListener("click", closeVideo);
 vModal.addEventListener("click", function(e){ if(e.target === vModal) closeVideo(); });
 
+/* ======================= info modal ======================= */
+var iModal=$("#info-modal"), iLastFocus=null;
+function openInfo(x){
+  if(!x) return;
+  iLastFocus = document.activeElement;
+  $("#info-title").innerHTML = '<bdi class="ltr">'+esc(x.name)+'</bdi>';
+  $("#info-body").innerHTML = infoHTML(x);
+  iModal.classList.add("open");
+  $("#info-close").focus({preventScroll:true});
+}
+function closeInfo(){
+  iModal.classList.remove("open");
+  if(iLastFocus && iLastFocus.focus) iLastFocus.focus({preventScroll:true});
+}
+$("#info-close").addEventListener("click", closeInfo);
+iModal.addEventListener("click", function(e){
+  if(e.target === iModal){ closeInfo(); return; }
+  var ab = e.target.closest ? e.target.closest("[data-alternative]") : null;
+  if(ab){ closeInfo(); openLibrary(ab.getAttribute("data-alternative")); return; }
+  var vb = e.target.closest ? e.target.closest("[data-video]") : null;
+  if(vb){
+    var keep = iLastFocus;
+    iModal.classList.remove("open");
+    openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title"));
+    lastFocus = keep;  /* closing the video returns to the card, not the sheet */
+  }
+});
+
 /* ======================= confirm modal ======================= */
 var cModal=$("#confirm-modal"), cText=$("#confirm-text"), cYes=$("#confirm-yes"), cNo=$("#confirm-no");
 var cAction=null, cLastFocus=null;
@@ -1626,6 +1794,7 @@ $("#btn-reset").addEventListener("click", function(){
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
   if(vModal.classList.contains("open")) { closeVideo(); return; }
+  if(iModal.classList.contains("open")) { closeInfo(); return; }
   if(cModal.classList.contains("open")) { closeConfirm(); return; }
   if(elTimer.classList.contains("open")) { closeTimer(); return; }
   if($("#screen-library").classList.contains("is-active")){ backFromLibrary(); return; }
@@ -1634,6 +1803,7 @@ document.addEventListener("keydown", function(e){
 /* simple focus trap for open dialogs */
 document.addEventListener("focusin", function(e){
   var open = vModal.classList.contains("open") ? vModal
+           : iModal.classList.contains("open") ? iModal
            : (cModal.classList.contains("open") ? cModal : null);
   if(open && !open.contains(e.target)){
     var f = open.querySelector("button, a[href]");
