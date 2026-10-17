@@ -521,9 +521,10 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
     <p class="foot-note">
       התוכנית עצמה עובדת גם ללא אינטרנט. תמונות ההדגמה והנגן דורשים חיבור לרשת.
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
+      סימוני הסטים מתאפסים אוטומטית בכל יום ראשון. המשקלים נשמרים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: 2026.10.17.3 · תמונת הדגמה בכל תרגיל</p>
+    <p class="foot-note">גרסה: 2026.10.17.4 · איפוס שבועי אוטומטי</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -797,6 +798,7 @@ function loadState(){
         }
       }
     });
+    if(typeof p.week === "string") s.week = p.week;
     return s;
   }catch(e){ return blankState(); }
 }
@@ -806,6 +808,36 @@ function saveState(){
   catch(e){ storeOK = false; memStore = state; }
 }
 var state = loadState();
+
+/* Weekly auto-reset: set and warm-up marks clear when a new week starts
+   (Sunday 00:00, local time). "Last workout" dates and weights are kept. */
+function weekStart(d){
+  var s = new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay());
+  var p = function(n){ return (n<10?"0":"")+n; };
+  return s.getFullYear()+"-"+p(s.getMonth()+1)+"-"+p(s.getDate());
+}
+function hasMarks(side){
+  if(side.warmup) return true;
+  return Object.keys(side.sets).some(function(k){ return side.sets[k].some(Boolean); });
+}
+function rollWeek(){
+  var now = new Date(), cur = weekStart(now);
+  if(state.week === cur) return false;
+  var cleared = false;
+  WORKOUTS.forEach(function(w){
+    /* No stored week yet (first run of this version): fall back to the
+       workout's last-finished date, and keep marks we can't date. */
+    var stale = state.week ? true : (state[w].last ? weekStart(new Date(state[w].last)) !== cur : false);
+    if(stale && hasMarks(state[w])){
+      state[w].warmup = false; state[w].sets = {};
+      cleared = true;
+    }
+  });
+  state.week = cur;
+  saveState();
+  return cleared;
+}
+var weekRolled = rollWeek();
 saveState(); /* Persist the migrated copy; leave v1 untouched for rollback. */
 function setsOf(w,x){
   var a = state[w].sets[x.n];
@@ -1228,7 +1260,13 @@ elPresets.addEventListener("click", function(e){
   startLoop(); paintTimer(); markPreset();
 });
 document.addEventListener("visibilitychange", function(){
-  if(!document.hidden && T.running) tick();
+  if(document.hidden) return;
+  if(T.running) tick();
+  /* The app may sit open in a background tab across Saturday night. */
+  if(rollWeek()){
+    if(current) renderWorkout(current); else renderHome();
+    toast("שבוע חדש — הסימונים אופסו");
+  }
 });
 
 /* ======================= video modal ======================= */
@@ -1363,6 +1401,7 @@ document.addEventListener("focusin", function(e){
 /* ======================= boot ======================= */
 renderNotes();
 renderHome();
+if(weekRolled) toast("שבוע חדש — הסימונים אופסו");
 paintTimer();
 
 })();
