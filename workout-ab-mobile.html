@@ -456,7 +456,8 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
     <details class="notes">
       <summary>הערות על קישורי הווידאו</summary>
       <div class="body">
-        <p>באימוני A/B, כל התרגילים, הסטים, החזרות וזמני המנוחה הועתקו מהמסמך כמות שהם. שונו רק קישורי הדגמה שהצביעו על <strong>דף תוצאות חיפוש</strong> ביוטיוב במקום על סרטון מסוים:</p>
+        <p>באימון B הוחלפו שני תרגילים שאי אפשר לבצע בחדר הכושר: <bdi class="ltr">Step-Up</bdi> ← <bdi class="ltr">Dumbbell Reverse Lunge</bdi>, ו־<bdi class="ltr">Half-Kneeling Cable Chop</bdi> ← <bdi class="ltr">Dead Bug</bdi>.</p>
+        <p>מלבד זה, באימוני A/B כל התרגילים, הסטים, החזרות וזמני המנוחה הועתקו מהמסמך כמות שהם. שונו רק קישורי הדגמה שהצביעו על <strong>דף תוצאות חיפוש</strong> ביוטיוב במקום על סרטון מסוים:</p>
         <ul id="notes-list"></ul>
         <p id="notes-mismatch"></p>
       </div>
@@ -467,7 +468,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: 2026.10.03.2 · סדר לפי תחנות</p>
+    <p class="foot-note">גרסה: 2026.10.17.1 · החלפת 2 תרגילים ב-B</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -606,14 +607,16 @@ var PLAN = {
     ex: [
       {n:1,  name:"Hip Thrust",                sets:"3×12",            min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:"pF17m_CXfL0", url:null, src:"fixed", title:"Hip Thrust Tutorial - Proper Form and Technique"},
       {n:2,  name:"Lat Pulldown",              sets:"3×6–10",          min:3, max:3, rest:"90 שנ׳",     rs:90, re:90,  vid:"j9jtjL8FhPI", url:null, src:"fixed", title:"How To Do A Lat Pulldown CORRECTLY"},
-      {n:3,  name:"Step-Up",                   sets:"3×8 לכל רגל",     min:3, max:3, rest:"90 שנ׳",     rs:90, re:90,  vid:"tqECKZxlCKE", url:null, src:"fixed", title:"Dumbbell Step-Ups: Master Proper Form [Coach Series]"},
+      /* n:13 replaces Step-Up (n:3), which can't be done at the gym; a new n keeps old set marks from carrying over. */
+      {n:13, name:"Dumbbell Reverse Lunge",    sets:"3×8 לכל רגל",     min:3, max:3, rest:"90 שנ׳",     rs:90, re:90,  vid:"GcYirgCLhnI", url:null, src:"swap", title:"The Only Reverse Lunge Tutorial You’ll Ever Need (Perfect Form!)"},
       {n:4,  name:"Incline Dumbbell Press",    sets:"3×8–12",          min:3, max:3, rest:"75–90 שנ׳",  rs:75, re:90,  vid:"sK4Rvug6ufo", url:null, src:"fixed", title:"Incline Dumbbell Bench Press Tutorial - Proper Form and Technique"},
       {n:5,  name:"Seated Cable Row",          sets:"3×8–12",          min:3, max:3, rest:"75–90 שנ׳",  rs:75, re:90,  vid:"EU7bOadUsNI", url:null, src:"fixed", title:"Seated Cable Row - Proper Form & Technique [4K]"},
       {n:6,  name:"Face Pull",                 sets:"2–3×12–15",       min:2, max:3, rest:"60 שנ׳",     rs:60, re:60,  vid:"0Po47vvj9g4", url:null, src:"fixed", title:"How To Do Cable Face Pulls"},
       {n:7,  name:"Rope Triceps Pushdown",     sets:"2×10–15",         min:2, max:2, rest:"60 שנ׳",     rs:60, re:60,  vid:"qHDrQglWgS4", url:null, src:"fixed", title:"How to Perform Cable Rope Pushdown | Triceps Exercise Tutorial"},
       {n:8,  name:"Dumbbell Lateral Raise",    sets:"2×12–15",         min:2, max:2, rest:"60 שנ׳",     rs:60, re:60,  vid:"nnH63icHYXY", url:null, src:"fixed", title:"Dumbbell Lateral Raise | Proper Form Tutorial for Bigger Shoulders"},
       {n:9,  name:"Hip Adductor Machine",      sets:"2×12–15",         min:2, max:2, rest:"45–60 שנ׳",  rs:45, re:60,  vid:"CjAVezAggkI", url:null, src:"doc", title:"How To Use The Seated Thigh Adduction (Hip Adduction) Machine"},
-      {n:10, name:"Half-Kneeling Cable Chop",  sets:"2×8–10 לצד",      min:2, max:2, rest:"45–60 שנ׳",  rs:45, re:60,  vid:"0MirCHsRFY8", url:null, src:"doc", title:"Half Kneeling Cable Chop/Lift"},
+      /* n:14 replaces Half-Kneeling Cable Chop (n:10), which can't be done at the gym. */
+      {n:14, name:"Dead Bug",                  sets:"2×6–8 לצד",       min:2, max:2, rest:"45 שנ׳",     rs:45, re:45,  vid:"bxn9FBrt4-A", url:null, src:"swap", title:"How to do a Dead Bug | Proper Form & Technique | NASM"},
       {n:11, name:"Suitcase Carry",            sets:"3×20–30 מ׳ לצד",  min:3, max:3, rest:"45 שנ׳",     rs:45, re:45,  vid:"WhxtwWqb2BQ", url:null, src:"fixed", title:"Master the Suitcase Carry Exercise for Core Strength, Grip & Posture!"},
       {n:12, name:"Bird Dog",                  sets:"2×6–8 לצד",       min:2, max:2, rest:"30 שנ׳",     rs:30, re:30,  vid:"ZdAHe9_HeEw", url:null, src:"fixed", title:"How to do a Bird Dog | Proper Form & Technique | NASM"}
     ]
@@ -657,11 +660,11 @@ PLAN.A.sections = [
 ];
 PLAN.B.sections = [
   {id:"hip", label:"עמדת Hip Thrust", ids:[1]},
-  {id:"bench", label:"דאמבלים, ספסל וסטפ יציב", ids:[3,4,8]},
-  {id:"cables", label:"משיכות וכבלים", ids:[2,5,6,7,10]},
+  {id:"bench", label:"דאמבלים וספסל", ids:[13,4,8]},
+  {id:"cables", label:"משיכות וכבלים", ids:[2,5,6,7]},
   {id:"machine", label:"מכשיר מקרבים", ids:[9]},
   {id:"carry", label:"דאמבל ומסלול הליכה", ids:[11]},
-  {id:"mat", label:"מזרן", ids:[12]}
+  {id:"mat", label:"מזרן", ids:[12,14]}
 ];
 var WARMUP_MIN_S = 300, WARMUP_MAX_S = 420; /* "5–7 דק׳" from the document */
 
