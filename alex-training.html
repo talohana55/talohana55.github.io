@@ -3,31 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B0F14">
+<meta name="theme-color" content="#140B12">
 <meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Alex Training">
 <meta name="robots" content="noindex, nofollow">
 <title>Alex Training</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F14'/%3E%3Cpath d='M16 26h6v12h-6zM42 26h6v12h-6zM24 29h16v6H24z' fill='%232DE1C2'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23140B12'/%3E%3Cpath d='M16 26h6v12h-6zM42 26h6v12h-6zM24 29h16v6H24z' fill='%23FF6FAE'/%3E%3C/svg%3E">
 <style>
 /* ============================= design tokens ============================= */
 :root{
-  --bg:#0B0F14;
-  --bg-grad-1:#0E1520;
-  --bg-grad-2:#0B0F14;
-  --surface:#111A26;
-  --surface-2:#16212F;
-  --surface-3:#1C2937;
-  --line:#22303F;
-  --line-soft:#1A2634;
-  --text:#EAF1F8;
-  --muted:#94A7BC;
-  --muted-2:#6F8299;
-  --accent:#2DE1C2;
-  --accent-ink:#052B25;
-  --accent-2:#4C8DFF;
+  --bg:#140B12;
+  --bg-grad-1:#26121F;
+  --bg-grad-2:#140B12;
+  --surface:#1C111A;
+  --surface-2:#241621;
+  --surface-3:#2D1D29;
+  --line:#3B2636;
+  --line-soft:#2E1D2A;
+  --text:#FBEFF5;
+  --muted:#C9AEBF;
+  --muted-2:#957A8C;
+  --accent:#FF6FAE;
+  --accent-ink:#3A0A22;
+  --accent-2:#C08BFF;
   --warn:#FFB65C;
   --danger:#FF6B6B;
   --r-lg:20px; --r-md:14px; --r-sm:10px;
@@ -85,8 +85,8 @@ body.timer-open .app{padding-bottom:calc(var(--safe-b) + 250px)}
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   font-size:.8rem;font-weight:700;letter-spacing:.04em;
-  color:var(--accent);background:rgba(45,225,194,.10);
-  border:1px solid rgba(45,225,194,.24);
+  color:var(--accent);background:rgba(255,111,174,.10);
+  border:1px solid rgba(255,111,174,.24);
   padding:6px 12px;border-radius:999px;margin:0 0 14px;
 }
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
@@ -114,7 +114,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   content:"";position:absolute;inset-inline-start:0;inset-block:0;width:5px;
   background:linear-gradient(180deg,var(--accent),var(--accent-2));
 }
-.pick-btn:active{transform:scale(.985);border-color:rgba(45,225,194,.5)}
+.pick-btn:active{transform:scale(.985);border-color:rgba(255,111,174,.5)}
 .pick-btn .row1{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .pick-btn .tag{
   font-size:2rem;font-weight:800;line-height:1;color:var(--accent);
@@ -126,7 +126,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   font-size:.82rem;color:var(--muted);background:var(--surface-3);
   border:1px solid var(--line-soft);border-radius:999px;padding:5px 11px;white-space:nowrap;
 }
-.chip.on{color:var(--accent);border-color:rgba(45,225,194,.35);background:rgba(45,225,194,.09)}
+.chip.on{color:var(--accent);border-color:rgba(255,111,174,.35);background:rgba(255,111,174,.09)}
 .pick-btn .barwrap{margin-top:12px}
 
 .notes{margin:6px 0 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
@@ -150,7 +150,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   margin-right:calc(-1 * max(var(--sp),var(--safe-r)));
   margin-top:calc(-1 * (var(--safe-t) + 14px));
   padding:calc(var(--safe-t) + 10px) max(var(--sp),var(--safe-r)) 12px max(var(--sp),var(--safe-l));
-  background:rgba(11,15,20,.86);
+  background:rgba(20,11,18,.86);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line-soft);
 }
@@ -185,12 +185,12 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   content:"";position:absolute;inset-inline-start:0;inset-block:0;width:4px;
   background:var(--line);transition:background var(--dur) ease;
 }
-.card.done{border-color:rgba(45,225,194,.42);background:linear-gradient(180deg,rgba(45,225,194,.07),rgba(45,225,194,.02))}
+.card.done{border-color:rgba(255,111,174,.42);background:linear-gradient(180deg,rgba(255,111,174,.07),rgba(255,111,174,.02))}
 .card.done::before{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
 
-.card.warm{background:linear-gradient(180deg,rgba(76,141,255,.10),var(--surface));border-color:rgba(76,141,255,.30)}
+.card.warm{background:linear-gradient(180deg,rgba(192,139,255,.10),var(--surface));border-color:rgba(192,139,255,.30)}
 .card.warm::before{background:var(--accent-2)}
-.card.warm.done{background:linear-gradient(180deg,rgba(45,225,194,.09),rgba(45,225,194,.02));border-color:rgba(45,225,194,.42)}
+.card.warm.done{background:linear-gradient(180deg,rgba(255,111,174,.09),rgba(255,111,174,.02));border-color:rgba(255,111,174,.42)}
 
 .c-head{display:flex;align-items:flex-start;gap:12px}
 .num{
@@ -200,7 +200,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   transition:all var(--dur) ease;
 }
 .card.done .num{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.card.warm .num{background:rgba(76,141,255,.16);border-color:rgba(76,141,255,.4);color:#A9C7FF;font-size:1.1rem}
+.card.warm .num{background:rgba(192,139,255,.16);border-color:rgba(192,139,255,.4);color:#DCC3FF;font-size:1.1rem}
 .card.warm.done .num{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .c-title{flex:1;min-width:0}
 .ex-name{
@@ -271,7 +271,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .btn:active{transform:scale(.97)}
 .btn svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.blue{background:rgba(76,141,255,.14);border-color:rgba(76,141,255,.42);color:#BBD3FF}
+.btn.blue{background:rgba(192,139,255,.14);border-color:rgba(192,139,255,.42);color:#E6D2FF}
 .btn.ghost{background:transparent}
 .btn.danger{background:rgba(255,107,107,.10);border-color:rgba(255,107,107,.34);color:#FFB4B4}
 .btn.wide{flex:1 1 100%}
@@ -288,14 +288,14 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 }
 .thumb .play span{
   width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
-  background:rgba(45,225,194,.94);color:var(--accent-ink);
+  background:rgba(255,111,174,.94);color:var(--accent-ink);
   box-shadow:0 8px 24px rgba(0,0,0,.5);transition:transform var(--dur) ease;
 }
 .thumb:active .play span{transform:scale(.92)}
 .thumb .play svg{width:24px;height:24px;fill:currentColor;stroke:none;margin-inline-start:3px}
 .thumb .cap{
   position:absolute;inset-inline:0;inset-block-end:0;padding:8px 12px;
-  font-size:.8rem;font-weight:700;color:#EAF1F8;text-shadow:0 1px 6px rgba(0,0,0,.9);
+  font-size:.8rem;font-weight:700;color:#FBEFF5;text-shadow:0 1px 6px rgba(0,0,0,.9);
   text-align:start;
 }
 .thumb.noimg img{display:none}
@@ -334,7 +334,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 }
 .timer.ringing .t-clock{color:var(--accent)}
 .timer.ringing .timer-inner{border-color:var(--accent);animation:ring .9s ease-in-out 3}
-@keyframes ring{0%,100%{box-shadow:0 -12px 40px rgba(0,0,0,.6)}50%{box-shadow:0 0 0 3px rgba(45,225,194,.45),0 -12px 40px rgba(0,0,0,.6)}}
+@keyframes ring{0%,100%{box-shadow:0 -12px 40px rgba(0,0,0,.6)}50%{box-shadow:0 0 0 3px rgba(255,111,174,.45),0 -12px 40px rgba(0,0,0,.6)}}
 .t-msg{text-align:center;font-size:.85rem;color:var(--accent);font-weight:700;min-height:1.2em;margin-bottom:6px}
 .t-bar{height:5px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin:6px 0 12px}
 .t-bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));width:100%}
@@ -345,12 +345,12 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
   background:var(--surface-3);border:1px solid var(--line-soft);border-radius:999px;
   padding:8px 16px;font-size:.85rem;font-weight:700;color:var(--muted);min-height:44px;
 }
-.t-presets button.sel{background:rgba(45,225,194,.13);border-color:rgba(45,225,194,.4);color:var(--accent)}
+.t-presets button.sel{background:rgba(255,111,174,.13);border-color:rgba(255,111,174,.4);color:var(--accent)}
 
 /* ============================= modals ============================= */
 .overlay{
   position:fixed;inset:0;z-index:100;display:none;
-  background:rgba(4,7,11,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  background:rgba(12,5,10,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   padding:calc(var(--safe-t) + 14px) max(14px,var(--safe-r)) calc(var(--safe-b) + 14px) max(14px,var(--safe-l));
   overflow-y:auto;box-sizing:border-box;
 }
@@ -430,8 +430,8 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .kg-field span{color:var(--muted-2);font-size:.8rem}
 .rest-btn{
   flex:none;min-width:96px;height:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  border-radius:var(--r-md);border:1px solid rgba(76,141,255,.42);background:rgba(76,141,255,.14);
-  color:#BBD3FF;font-weight:800;font-size:1rem;font-variant-numeric:tabular-nums;
+  border-radius:var(--r-md);border:1px solid rgba(192,139,255,.42);background:rgba(192,139,255,.14);
+  color:#E6D2FF;font-weight:800;font-size:1rem;font-variant-numeric:tabular-nums;
 }
 .rest-btn:only-child{flex:1}
 .rest-btn:active{transform:scale(.97)}
@@ -504,7 +504,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       סימוני הסטים מתאפסים אוטומטית בכל יום ראשון. המשקלים נשמרים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: Alex · 2026.10.17.3 · איפוס שבועי אוטומטי</p>
+    <p class="foot-note">גרסה: Alex · 2026.10.17.4 · ערכת צבעים ורודה</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
