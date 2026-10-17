@@ -441,7 +441,14 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .info-p{margin:0 0 10px;color:var(--muted);line-height:1.65;font-size:.94rem;unicode-bidi:plaintext}
 .info-cues{margin:0 0 10px;padding-inline-start:20px;color:var(--muted);line-height:1.6;font-size:.94rem}
 .info-cues li{margin:4px 0}
-.sheet-body .thumb{margin-top:4px}
+.card > .thumb:first-child{
+  margin:-14px -14px 12px;width:calc(100% + 28px);max-width:none;
+  border:0;border-bottom:1px solid var(--line);border-radius:0;
+}
+.card > .thumb .play{background:linear-gradient(180deg,rgba(4,8,12,0),rgba(4,8,12,.35))}
+.card > .thumb .play span{width:46px;height:46px;opacity:.9}
+.card > .thumb .play svg{width:20px;height:20px}
+.card.done > .thumb img{opacity:.55}
 .sheet-body .actions{margin-top:4px}
 
 @media (max-width:359px){
@@ -496,7 +503,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: Alex · 2026.10.17.1 · כרטיסים מינימליים, משקלים</p>
+    <p class="foot-note">גרסה: Alex · 2026.10.17.2 · תמונת הדגמה בכל תרגיל, משקלים</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -1111,6 +1118,20 @@ var alexTrainingProgram = {
 /* Presentation only: never mutate alexTrainingProgram. Stable source IDs key progress. */
 var scheduledDays = {"workout-a":"יום ראשון", "workout-b":"יום רביעי", "workout-c":"יום שבת"};
 var PLAN = {}, libraryById = {}, sourceById = {};
+/* Demo video + preview frame per exercise (the source only has YouTube search links).
+   Frame is hqdefault unless that is a title card or a face; then hq1/hq2/hq3 (≈ 25/50/75%
+   into the video). Picked by eye. Warm-up and stretch rows have no preview. */
+var DEMO = {
+  "a-g1":["pF17m_CXfL0","hq2"], "a-g2":["vSqhrbzZb7A","hq2"], "a-g3":["J3ommMKLzw8","hq2"],
+  "a-g4":["SAN2l4OT_9E","hqdefault"], "a-u1":["JGeRYIZdojU","hq2"], "a-u2":["XPPfnSEATJA","hqdefault"],
+  "a-c1":["WaqN0ikjAzc","hqdefault"],
+  "b-g1":["DQv1IMQDbE4","hq1"], "b-g2":["afpCTlFdyl8","hqdefault"], "b-g3":["pv8e6OSyETE","hq2"],
+  "b-g4":["QEhDXVJRmCM","hq2"], "b-u1":["6tW4LUaOxlE","hq3"], "b-u2":["TsduLWuhlFM","hq1"],
+  "b-u3":["LXkCrxn3caQ","hq2"], "b-c1":["bxn9FBrt4-A","hqdefault"],
+  "c-g1":["L4nTaesNm0E","hq3"], "c-g2":["dU1R-AHW4IM","hq3"], "c-g3":["hQgFixeXdZo","hqdefault"],
+  "c-g4":["yuLxFEqQ-K8","hqdefault"], "c-u1":["lJoozxC0Rns","hq2"], "c-u2":["eTCBSFlCJ_s","hqdefault"],
+  "c-u3":["6DeLZ6cbgWQ","hq3"], "c-c1":["44ND4bOB-T0","hqdefault"]
+};
 function adaptExercise(source){
   var durationOnly = typeof source.sets !== 'number';
   var dose = source.reps || source.duration || '';
@@ -1139,6 +1160,7 @@ alexTrainingProgram.workouts.forEach(function(workout){
       /* Warm-up items and timed-only items (stretch) render as one compact row with a single check. */
       x.warm = section.title === 'Warm-up';
       x.row = x.warm || x.durationOnly;
+      if(DEMO[x.n]){ x.vid = DEMO[x.n][0]; x.thumb = DEMO[x.n][1]; }
       plan.ex.push(x);
       group.ids.push(exercise.id);
       sourceById[exercise.id] = {workout:workout.id, exercise:exercise};
@@ -1182,11 +1204,7 @@ function infoHTML(x){
   if(source.alternativeTo && sourceById[source.alternativeTo]){
     h += '<p class="info-p">חלופה עבור: <bdi>'+esc(sourceById[source.alternativeTo].exercise.name)+'</bdi></p>';
   }
-  if(x.vid){
-    h += '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
-      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" decoding="async" onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
-      +   '<span class="play"><span>'+ICON.play+'</span></span></button>';
-  } else if(x.url){
+  if(!x.vid && x.url){
     h += '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'
       + ICON.ext + 'וידאו · ' + esc(x.host || '') + '</a></div>';
   }
@@ -1433,7 +1451,15 @@ function cardHTML(w,x,position){
       + ICON.clock + '<bdi>'+esc(String(x.rs))+'</bdi></button>';
   }
 
+  var preview = x.vid
+    ? '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="הדגמה: '+esc(x.name)+'">'
+      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/'+(x.thumb || 'hqdefault')+'.jpg" alt="" loading="lazy" decoding="async" '
+      +        'onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
+      +   '<span class="play"><span>'+ICON.play+'</span></span></button>'
+    : '';
+
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
+    + preview
     + '<div class="c-head">'
     +   '<div class="num" aria-hidden="true">'+position+'</div>'
     +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'+doseLine(x)+'</div>'
@@ -1573,7 +1599,9 @@ $("#wk-list").addEventListener("click", function(e){
     return;
   }
   var ib = e.target.closest ? e.target.closest("[data-info]") : null;
-  if(ib){ openInfo(exOf(current, ib.getAttribute("data-info"))); }
+  if(ib){ openInfo(exOf(current, ib.getAttribute("data-info"))); return; }
+  var vb = e.target.closest ? e.target.closest("[data-video]") : null;
+  if(vb){ openVideo(vb.getAttribute("data-video"), vb.getAttribute("data-title")); }
 });
 
 /* ======================= rest timer ======================= */
