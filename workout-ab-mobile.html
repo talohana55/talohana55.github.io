@@ -444,7 +444,14 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
 .info-he{margin:0 0 10px;color:var(--muted)}
 .info-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .info-p{margin:0 0 10px;color:var(--muted);line-height:1.65;font-size:.94rem;unicode-bidi:plaintext}
-.sheet-body .thumb{margin-top:4px}
+.card > .thumb:first-child{
+  margin:-14px -14px 12px;width:calc(100% + 28px);max-width:none;
+  border:0;border-bottom:1px solid var(--line);border-radius:0;
+}
+.card > .thumb .play{background:linear-gradient(180deg,rgba(4,8,12,0),rgba(4,8,12,.35))}
+.card > .thumb .play span{width:46px;height:46px;opacity:.9}
+.card > .thumb .play svg{width:20px;height:20px}
+.card.done > .thumb img{opacity:.55}
 
 @media (max-width:359px){
   .set label{width:48px}
@@ -516,7 +523,7 @@ h1{font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.15;margin:0 0 8px;font-weigh
       ההתקדמות נשמרת מקומית במכשיר בלבד — ללא מעקב וללא שליחת נתונים.
     </p>
     <p class="foot-note" id="last-line"></p>
-    <p class="foot-note">גרסה: 2026.10.17.2 · סופר-סטים, משקלים, RDL</p>
+    <p class="foot-note">גרסה: 2026.10.17.3 · תמונת הדגמה בכל תרגיל</p>
     <button class="btn ghost wide" type="button" id="btn-update">רענון לגרסה העדכנית</button>
   </main>
 
@@ -648,7 +655,7 @@ var PLAN = {
     warmup: { name: "אופניים / אליפטיקל, ואז 1–2 סטים קלים ב-Leg Press", spec: "5–7 דק׳", rest: "—" },
     note: "יד קדמית + תאומים + מרחיקים",
     ex: [
-      {n:1,  name:"Leg Press",                      sets:"3×6–10",           min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:null,          url:"https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/leg-press/vid-20084684", src:"doc", host:"Mayo Clinic"},
+      {n:1,  name:"Leg Press",                      sets:"3×6–10",           min:3, max:3, rest:"90–120 שנ׳", rs:90, re:120, vid:"cDGOn-yfKJA", url:null, src:"doc", title:"How to do a Leg Press | Proper Form & Technique | NASM"},
       {n:2,  name:"Dumbbell Bench Press",           sets:"3×6–10",           min:3, max:3, rest:"90 שנ׳",     rs:90,  re:90,  vid:"xhEhjF5ozuY", url:null, src:"fixed", title:"Dumbbell Bench Press Tutorial - Proper Form and Technique"},
       {n:3,  name:"Bulgarian Split Squat",          sets:"3×8 לכל רגל",      min:3, max:3, rest:"90 שנ׳",     rs:90,  re:90,  vid:"2C-uNgKwPLE", url:null, src:"fixed", title:"How To: Bulgarian Split Squat"},
       {n:4,  name:"Chest-Supported Row",            sets:"3×8–12",           min:3, max:3, rest:"75–90 שנ׳",  rs:75,  re:90,  vid:"_b6ch2nIchk", url:null, src:"fixed", title:"How To Do The Chest Supported Dumbbell Row Correctly"},
@@ -734,6 +741,12 @@ var HE = {
   A:{1:"לחיצת רגליים",2:"לחיצת חזה עם דאמבלים",3:"סקוואט בולגרי",4:"חתירה בתמיכת חזה",5:"לחיצת כתפיים בישיבה",6:"כפיפת ברכיים במכונה",7:"כפיפת מרפקים בכבל",8:"עליית תאומים בעמידה",9:"מכונת הרחקת ירכיים",10:"פאלוף פרס",11:"פלאנק צידי"},
   B:{1:"היפ תראסט",2:"פולי עליון",4:"לחיצת חזה בשיפוע",5:"חתירה בכבל בישיבה",6:"פייס פול",7:"פשיטת מרפקים בחבל",8:"הרחקת כתפיים לצדדים",9:"מכונת קירוב ירכיים",11:"הליכת מזוודה",13:"לאנג' אחורי עם דאמבלים",14:"חרק מת",15:"דדליפט רומני"}
 };
+/* Preview frame per exercise: YouTube's hqdefault unless it is a title card or a face;
+   then a frame from inside the video (hq1/hq2/hq3 ≈ 25/50/75%). Picked by eye. */
+var THUMB = { A:{4:"hq2",10:"hq2"}, B:{1:"hq2",2:"hq1",6:"hq1"}, footAnkle:{6:"hq2",8:"hq2"} };
+Object.keys(THUMB).forEach(function(w){
+  PLAN[w].ex.forEach(function(x){ x.thumb = THUMB[w][x.n] || "hqdefault"; });
+});
 function exOf(w,n){ return PLAN[w].ex.filter(function(x){ return x.n === n; })[0]; }
 ["A","B"].forEach(function(w){
   PLAN[w].ex.forEach(function(x){ if(HE[w][x.n]) x.he = HE[w][x.n]; });
@@ -904,7 +917,7 @@ function renderNotes(){
   $("#notes-mismatch").innerHTML =
     'בנוסף: במסמך, הקישור של <strong><bdi class="ltr">Seated Dumbbell Shoulder Press</bdi></strong> (A5) הצביע על חיפוש ' +
     '<bdi class="ltr">single arm landmine press</bdi> — תרגיל אחר. הוחלף בהדגמה של התרגיל שכתוב במסמך. ' +
-    'הקישור של <strong><bdi class="ltr">Leg Press</bdi></strong> (A1) נשאר כפי שהוא — הוא מוביל לסרטון ב־Mayo Clinic ולכן נפתח בדפדפן ולא בנגן הפנימי.';
+    'הקישור של <strong><bdi class="ltr">Leg Press</bdi></strong> (A1), שהוביל ל־Mayo Clinic, הוחלף בסרטון של NASM כדי שיופיע תמונה ויפתח בנגן הפנימי.';
 }
 
 /* ======================= workout screen ======================= */
@@ -941,7 +954,15 @@ function cardHTML(w,x,label){
       + ICON.clock + '<bdi>'+esc(String(r.rs))+'</bdi></button>';
   }
 
+  var preview = x.vid
+    ? '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="הדגמה: '+esc(x.name)+'">'
+      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/'+(x.thumb || 'hqdefault')+'.jpg" alt="" loading="lazy" decoding="async" '
+      +        'onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
+      +   '<span class="play"><span>'+ICON.play+'</span></span></button>'
+    : '';
+
   return '<article class="card'+(done?" done":"")+'" id="card-'+w+'-'+x.n+'" data-card="'+x.n+'">'
+    + preview
     + '<div class="c-head">'
     +   '<div class="num" aria-hidden="true">'+esc(String(label || x.n))+'</div>'
     +   '<div class="c-title"><h3 class="ex-name"><bdi class="ltr">'+esc(x.name)+'</bdi></h3>'
@@ -964,11 +985,7 @@ function infoHTML(w,x){
   if(x.cue) h += '<p class="info-p">'+esc(x.cue)+'</p>';
   if(x.instructions) h += '<p class="info-p">'+esc(x.instructions)+'</p>';
   if(x.equipment) h += '<p class="info-p">ציוד: <bdi>'+esc(x.equipment)+'</bdi></p>';
-  if(x.vid){
-    h += '<button class="thumb" type="button" data-video="'+esc(x.vid)+'" data-title="'+esc(x.name)+'" aria-label="צפייה בהדגמה של '+esc(x.name)+'">'
-      +   '<img src="https://i.ytimg.com/vi/'+esc(x.vid)+'/hqdefault.jpg" alt="" decoding="async" onerror="this.closest(\'.thumb\').classList.add(\'noimg\')">'
-      +   '<span class="play"><span>'+ICON.play+'</span></span></button>';
-  } else if(x.url){
+  if(!x.vid && x.url){
     h += '<div class="actions"><a class="btn blue wide" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'
       + ICON.ext + 'הדגמה באתר ' + esc(x.host || '') + '</a></div>';
   }
